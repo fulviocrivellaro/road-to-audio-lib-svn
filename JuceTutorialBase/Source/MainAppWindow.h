@@ -34,6 +34,8 @@
  */
 //#include <juce/juce.h>
 #include <../JuceLibraryCode/JuceHeader.h>
+#include "../Builds/VisualStudio2010/PSTSEntryPoint.h"
+#include "../Builds/VisualStudio2010/JuceGUIHandler.h"
 
 #define VALIDCHARS "ABCDEFGHIJKLMNOPQRTSUVWXYZabcdefghijklmnopqrstuvwxyz_0123456789"
 #define PROJECT_NAME_IDENTIFIER (String(PROJECT_NAME).replaceCharacter (' ', '_')		\
