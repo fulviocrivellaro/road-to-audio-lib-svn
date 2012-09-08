@@ -29,7 +29,7 @@
  */
 
 #include "MainAppWindow.h"
-#include "MainComponent.h"
+#include "MainGUI.h"
 
 //==============================================================================
 MainAppWindow::MainAppWindow()
@@ -49,12 +49,14 @@ DocumentWindow (
 	setTitleBarHeight (22);      // Set the height of the titlebar on our window.
 	
 	// create the main component, which is described in MainComponent.h
-    MainComponent* contentComponent = new MainComponent ();
+    MainGUI* contentComponent = new MainGUI ();
 	
     // This sets the main content component for the window to be whatever MainComponent
     // is. The nature of DocumentWindow means that the contentComponent will fill the main
 	// area of the window, and will be deleted automatically when the window is deleted.
     setContentOwned (contentComponent, false);
+
+	PSTSEntryPoint(&JuceGUIHandler(contentComponent)).run();
 }
 
 MainAppWindow::~MainAppWindow()

@@ -295,6 +295,15 @@
     <Filter Include="Juce Library Code">
       <UniqueIdentifier>{8B4D1BAA-6DB4-CAEC-A0FA-271F354D5C61}</UniqueIdentifier>
     </Filter>
+    <Filter Include="JuceTutorial\Source\JuceGUIClasses">
+      <UniqueIdentifier>{8c939f91-afe3-479a-8deb-65606fed0aad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="JuceTutorial\Source\GUIInterfaces">
+      <UniqueIdentifier>{c9e3cb78-1f2a-4c77-8713-6d3fda3a3733}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="JuceTutorial\Source\Core">
+      <UniqueIdentifier>{8d4aafb6-a469-4444-8963-3090e9dba0e7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\JuceLibraryCode\modules\juce_audio_basics\buffers\juce_AudioDataConverters.cpp">
@@ -1361,6 +1370,15 @@
     </ClCompile>
     <ClCompile Include="..\..\Source\MainAppWindow.cpp">
       <Filter>JuceTutorial\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\MainGUI.cpp">
+      <Filter>JuceTutorial\Source\JuceGUIClasses</Filter>
+    </ClCompile>
+    <ClCompile Include="JuceGUIHandler.cpp">
+      <Filter>JuceTutorial\Source\JuceGUIClasses</Filter>
+    </ClCompile>
+    <ClCompile Include="PSTSEntryPoint.cpp">
+      <Filter>JuceTutorial\Source\Core</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -2603,8 +2621,20 @@
     <ClInclude Include="..\..\Source\MainAppWindow.h">
       <Filter>JuceTutorial\Source</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\MainComponent.h">
-      <Filter>JuceTutorial\Source</Filter>
+    <ClInclude Include="..\..\Source\MainGUI.h">
+      <Filter>JuceTutorial\Source\JuceGUIClasses</Filter>
+    </ClInclude>
+    <ClInclude Include="GUIHandler.h">
+      <Filter>JuceTutorial\Source\GUIInterfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="GUIReceiver.h">
+      <Filter>JuceTutorial\Source\GUIInterfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="JuceGUIHandler.h">
+      <Filter>JuceTutorial\Source\JuceGUIClasses</Filter>
+    </ClInclude>
+    <ClInclude Include="PSTSEntryPoint.h">
+      <Filter>JuceTutorial\Source\Core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
