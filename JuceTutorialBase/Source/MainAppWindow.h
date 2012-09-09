@@ -36,6 +36,7 @@
 #include <../JuceLibraryCode/JuceHeader.h>
 #include "../Builds/VisualStudio2010/PSTSEntryPoint.h"
 #include "../Builds/VisualStudio2010/JuceGUIHandler.h"
+#include "MainGUI.h"
 
 #define VALIDCHARS "ABCDEFGHIJKLMNOPQRTSUVWXYZabcdefghijklmnopqrstuvwxyz_0123456789"
 #define PROJECT_NAME_IDENTIFIER (String(PROJECT_NAME).replaceCharacter (' ', '_')		\
@@ -63,7 +64,10 @@ class MainAppWindow  : public DocumentWindow
 		// want to put it here. You may even wish to step further outside of things and keep
 		// some higher management system within the JUCEApplication class that drives the
 		// whole shebang, but that's probably not necessary, and can be tricky to maintain!
+
+	private:
+		JuceGUIHandler *guiHandler;
+		PSTSEntryPoint *entryPoint;
+
 	};
-
-
 #endif 

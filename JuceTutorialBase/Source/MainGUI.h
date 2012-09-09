@@ -3,7 +3,7 @@
 
   This is an automatically generated file created by the Jucer!
 
-  Creation date:  8 Sep 2012 6:31:57pm
+  Creation date:  9 Sep 2012 7:23:05pm
 
   Be careful when adding custom code to these files, as only the code within
   the "//[xyz]" and "//[/xyz]" sections will be retained when the file is loaded
@@ -19,11 +19,13 @@
   ==============================================================================
 */
 
-#ifndef __JUCER_HEADER_MAINGUI_MAINGUI_C121884B__
-#define __JUCER_HEADER_MAINGUI_MAINGUI_C121884B__
+#ifndef __JUCER_HEADER_MAINGUI_MAINGUI_5FC5C78__
+#define __JUCER_HEADER_MAINGUI_MAINGUI_5FC5C78__
 
 //[Headers]     -- You can add your own extra header files here --
 #include <../JuceLibraryCode/JuceHeader.h>
+#include <vector>
+#include "../Builds/VisualStudio2010/GUIReceiver.h"
 //[/Headers]
 
 
@@ -47,7 +49,7 @@ public:
 
     //==============================================================================
     //[UserMethods]     -- You can add your own custom methods in this section.
-	
+
 	// set the panpot value
 	void setPitchShiftValue(int value);
 	void setTimeStretchValue(int value);
@@ -60,8 +62,12 @@ public:
 
 	// set the progress bar
 	void setProgress(int current, int duration);
-    
-	//[/UserMethods]
+
+	// add/remove receivers
+	void setReceiver(GUIReceiver *newReceiver);
+	void removeReceiver();
+
+    //[/UserMethods]
 
     void paint (Graphics& g);
     void resized();
@@ -78,6 +84,9 @@ public:
 
 private:
     //[UserVariables]   -- You can add your own custom variables in this section.
+
+	GUIReceiver *receiver;
+
     //[/UserVariables]
 
     //==============================================================================
@@ -102,4 +111,4 @@ private:
 };
 
 
-#endif   // __JUCER_HEADER_MAINGUI_MAINGUI_C121884B__
+#endif   // __JUCER_HEADER_MAINGUI_MAINGUI_5FC5C78__

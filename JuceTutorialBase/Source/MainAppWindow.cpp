@@ -29,7 +29,6 @@
  */
 
 #include "MainAppWindow.h"
-#include "MainGUI.h"
 
 //==============================================================================
 MainAppWindow::MainAppWindow()
@@ -37,12 +36,12 @@ MainAppWindow::MainAppWindow()
 // Initialise the base 'DocumentWindow'...
 DocumentWindow (
 				"JuceTutorialApp",				// Set the text to use for the title
-				Colours::azure,					// Set the colour of the window
+				Colours::lightgrey,					// Set the colour of the window
 				DocumentWindow::allButtons,		// Set which buttons are displayed
 				true							// This window should be added to the desktop
 				)
 {
-    setResizable (true, false); // resizability is a property of ResizableWindow, which is
+    setResizable (false, false); // resizability is a property of ResizableWindow, which is
 	// a parent class of DocumentWindow (which is our base class),
 	// so we have access to this setting here.
 	
@@ -54,9 +53,12 @@ DocumentWindow (
     // This sets the main content component for the window to be whatever MainComponent
     // is. The nature of DocumentWindow means that the contentComponent will fill the main
 	// area of the window, and will be deleted automatically when the window is deleted.
-    setContentOwned (contentComponent, false);
+	setContentOwned (contentComponent, false);
 
-	PSTSEntryPoint(&JuceGUIHandler(contentComponent)).run();
+	guiHandler = new JuceGUIHandler(contentComponent);
+	entryPoint = new PSTSEntryPoint(guiHandler);
+	contentComponent->setReceiver(entryPoint);
+	entryPoint->run();
 }
 
 MainAppWindow::~MainAppWindow()
@@ -65,6 +67,8 @@ MainAppWindow::~MainAppWindow()
 	// base class, and that will, in turn (assuming the MainComponent has been coded
 	// properly), clean up the other components contained inside it. Therefore, we have
 	// nothing much to do here!
+	delete guiHandler;
+	delete entryPoint;
 }
 
 void MainAppWindow::closeButtonPressed()
