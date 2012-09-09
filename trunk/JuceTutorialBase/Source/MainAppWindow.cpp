@@ -57,7 +57,7 @@ DocumentWindow (
 
 	guiHandler = new JuceGUIHandler(contentComponent);
 	entryPoint = new PSTSEntryPoint(guiHandler);
-	contentComponent->setReceiver(entryPoint);
+	contentComponent->addReceiver(entryPoint);
 	entryPoint->run();
 }
 

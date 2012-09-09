@@ -24,7 +24,7 @@
 
 //[Headers]     -- You can add your own extra header files here --
 #include <../JuceLibraryCode/JuceHeader.h>
-#include <vector>
+#include <set>
 #include "../Builds/VisualStudio2010/GUIReceiver.h"
 //[/Headers]
 
@@ -64,8 +64,8 @@ public:
 	void setProgress(int current, int duration);
 
 	// add/remove receivers
-	void setReceiver(GUIReceiver *newReceiver);
-	void removeReceiver();
+	void addReceiver(GUIReceiver *newReceiver);
+	void removeReceiver(GUIReceiver *toBeRemovedReceiver);
 
     //[/UserMethods]
 
@@ -85,7 +85,8 @@ public:
 private:
     //[UserVariables]   -- You can add your own custom variables in this section.
 
-	GUIReceiver *receiver;
+	//GUIReceiver *receiver;
+	std::set<GUIReceiver*> receivers;
 
     //[/UserVariables]
 
