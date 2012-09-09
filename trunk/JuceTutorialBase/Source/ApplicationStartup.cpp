@@ -99,7 +99,7 @@ class AppClass : public JUCEApplication
 			// behaviour comes from that, so all we need is to bring it to life...
 			theMainWindow = new MainAppWindow();
 			// ... and plonk it onto the display...
-			theMainWindow->centreWithSize (300, 300);   // [*] (see below for a tip on this)
+			theMainWindow->centreWithSize (300, 422);   // [*] (see below for a tip on this)
 			// ... (of course making sure that it is visible!)
 			theMainWindow->setVisible (true);
 			

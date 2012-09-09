@@ -3,7 +3,7 @@
 
   This is an automatically generated file created by the Jucer!
 
-  Creation date:  8 Sep 2012 6:31:57pm
+  Creation date:  9 Sep 2012 7:23:05pm
 
   Be careful when adding custom code to these files, as only the code within
   the "//[xyz]" and "//[/xyz]" sections will be retained when the file is loaded
@@ -102,7 +102,7 @@ MainGUI::MainGUI ()
     btnPlay->setColour (TextButton::buttonOnColourId, Colour (0xff137507));
 
     addAndMakeVisible (sliderPosition = new Slider (L"Position slider"));
-    sliderPosition->setRange (0, 10, 0);
+    sliderPosition->setRange (0, 100, 0);
     sliderPosition->setSliderStyle (Slider::LinearHorizontal);
     sliderPosition->setTextBoxStyle (Slider::NoTextBox, true, 40, 20);
     sliderPosition->addListener (this);
@@ -126,14 +126,17 @@ MainGUI::MainGUI ()
     cachedImage_sound_wave_jpg = ImageCache::getFromMemory (sound_wave_jpg, sound_wave_jpgSize);
 
     //[UserPreSize]
+	receiver = NULL;
+	btnPlay->setClickingTogglesState(true);
+	sliderTimeStretch->setValue(100, false);
+	sliderTimeStretch->setTextValueSuffix("%");
+	setBounds(100, 100, 300, 400);
     //[/UserPreSize]
 
     setSize (300, 400);
 
 
     //[Constructor] You can add your own custom stuff here..
-	btnPlay->setClickingTogglesState(true);
-	sliderTimeStretch->setValue(100, false);
     //[/Constructor]
 }
 
@@ -201,16 +204,30 @@ void MainGUI::sliderValueChanged (Slider* sliderThatWasMoved)
     if (sliderThatWasMoved == sliderPitchShift)
     {
         //[UserSliderCode_sliderPitchShift] -- add your slider handling code here..
+		if (receiver)
+		{
+			receiver->onPitchShiftValueChanged(sliderPitchShift->getValue());
+		}
         //[/UserSliderCode_sliderPitchShift]
     }
     else if (sliderThatWasMoved == sliderTimeStretch)
     {
         //[UserSliderCode_sliderTimeStretch] -- add your slider handling code here..
+        if (receiver)
+		{
+			receiver->onTimeStretchValueChanged(sliderTimeStretch->getValue());
+		}
         //[/UserSliderCode_sliderTimeStretch]
     }
     else if (sliderThatWasMoved == sliderPosition)
     {
         //[UserSliderCode_sliderPosition] -- add your slider handling code here..
+        if (receiver)
+		{
+			int position = sliderPosition->getValue();
+			receiver->onProgressValueChanged(position);
+			btnRewind->setEnabled(position != 0);
+		}
         //[/UserSliderCode_sliderPosition]
     }
 
@@ -226,16 +243,33 @@ void MainGUI::buttonClicked (Button* buttonThatWasClicked)
     if (buttonThatWasClicked == btnStop)
     {
         //[UserButtonCode_btnStop] -- add your button handler code here..
+		if (receiver)
+		{
+			receiver->onStopPressed();
+		}
         //[/UserButtonCode_btnStop]
     }
     else if (buttonThatWasClicked == btnRewind)
     {
         //[UserButtonCode_btnRewind] -- add your button handler code here..
+        if (receiver)
+		{
+			receiver->onRewindPressed();
+		}
         //[/UserButtonCode_btnRewind]
     }
     else if (buttonThatWasClicked == btnPlay)
     {
         //[UserButtonCode_btnPlay] -- add your button handler code here..
+        if (receiver)
+		{
+			if (btnPlay->getToggleState())
+			{
+				receiver->onStartPressed();
+			} else {
+				receiver->onPausePressed();
+			}
+		}
         //[/UserButtonCode_btnPlay]
     }
 
@@ -290,8 +324,48 @@ void MainGUI::doRewind()
 // set the progress bar
 void MainGUI::setProgress(int current, int duration)
 {
-	sliderPosition->setValue(((float)current)/duration);
+	//float percentage = (float)(100*current) / duration;
+	int minutes;
+	int seconds;
+
+	// current
+	minutes = current / 60;
+	seconds = current - 60*minutes;
+	String currentPositionString;
+	if (seconds < 10)
+	{
+		currentPositionString = String(minutes) += String(":0") += String(seconds);
+	} else {
+		currentPositionString = String(minutes) += String(":") += String(seconds);
+	}
+
+	// duration
+	minutes = duration / 60;
+	seconds = duration - 60*minutes;
+	String durationPositionString;
+	if (seconds < 10)
+	{
+		durationPositionString = String(minutes) += String(":0") += String(seconds);
+	} else {
+		durationPositionString = String(minutes) += String(":") += String(seconds);
+	}
+
+	sliderPosition->setRange(0, duration, 1);
+	sliderPosition->setValue(current);
+	labelProgress->setText(currentPositionString, false);
+	labelTotalTime->setText(durationPositionString, false);
 }
+
+void MainGUI::setReceiver(GUIReceiver *newReceiver)
+{
+	receiver = newReceiver;
+}
+
+void MainGUI::removeReceiver()
+{
+	receiver = 0;
+}
+
 //[/MiscUserCode]
 
 
@@ -346,7 +420,7 @@ BEGIN_JUCER_METADATA
               buttonText="Play" connectedEdges="2" needsCallback="1" radioGroupId="0"/>
   <SLIDER name="Position slider" id="80d97635b641600c" memberName="sliderPosition"
           virtualName="" explicitFocusOrder="0" pos="60 370 190 24" min="0"
-          max="10" int="0" style="LinearHorizontal" textBoxPos="NoTextBox"
+          max="100" int="0" style="LinearHorizontal" textBoxPos="NoTextBox"
           textBoxEditable="0" textBoxWidth="40" textBoxHeight="20" skewFactor="1"/>
   <LABEL name="Time label" id="c97ed12e6c9ec95b" memberName="labelProgress"
          virtualName="" explicitFocusOrder="0" pos="10 376 50 14" edTextCol="ff000000"
