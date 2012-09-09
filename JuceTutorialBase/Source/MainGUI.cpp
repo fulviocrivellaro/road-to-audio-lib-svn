@@ -126,17 +126,17 @@ MainGUI::MainGUI ()
     cachedImage_sound_wave_jpg = ImageCache::getFromMemory (sound_wave_jpg, sound_wave_jpgSize);
 
     //[UserPreSize]
-	receiver = NULL;
-	btnPlay->setClickingTogglesState(true);
-	sliderTimeStretch->setValue(100, false);
-	sliderTimeStretch->setTextValueSuffix("%");
-	setBounds(100, 100, 300, 400);
-    //[/UserPreSize]
+	//[/UserPreSize]
 
     setSize (300, 400);
 
 
     //[Constructor] You can add your own custom stuff here..
+    //receivers = vect;
+	btnPlay->setClickingTogglesState(true);
+	sliderTimeStretch->setValue(100, false);
+	sliderTimeStretch->setTextValueSuffix("%");
+	setBounds(100, 100, 300, 400);
     //[/Constructor]
 }
 
@@ -204,28 +204,31 @@ void MainGUI::sliderValueChanged (Slider* sliderThatWasMoved)
     if (sliderThatWasMoved == sliderPitchShift)
     {
         //[UserSliderCode_sliderPitchShift] -- add your slider handling code here..
-		if (receiver)
+		std::set<GUIReceiver*>::iterator it;
+		for (it=receivers.begin(); it != receivers.end(); it++)
 		{
-			receiver->onPitchShiftValueChanged(sliderPitchShift->getValue());
+			(*it)->onPitchShiftValueChanged(sliderPitchShift->getValue());
 		}
         //[/UserSliderCode_sliderPitchShift]
     }
     else if (sliderThatWasMoved == sliderTimeStretch)
     {
         //[UserSliderCode_sliderTimeStretch] -- add your slider handling code here..
-        if (receiver)
+		std::set<GUIReceiver*>::iterator it;
+        for (it=receivers.begin(); it != receivers.end(); it++)
 		{
-			receiver->onTimeStretchValueChanged(sliderTimeStretch->getValue());
+			(*it)->onTimeStretchValueChanged(sliderTimeStretch->getValue());
 		}
         //[/UserSliderCode_sliderTimeStretch]
     }
     else if (sliderThatWasMoved == sliderPosition)
     {
         //[UserSliderCode_sliderPosition] -- add your slider handling code here..
-        if (receiver)
+		int position = sliderPosition->getValue();
+		std::set<GUIReceiver*>::iterator it;
+		for (it=receivers.begin(); it != receivers.end(); it++)
 		{
-			int position = sliderPosition->getValue();
-			receiver->onProgressValueChanged(position);
+			(*it)->onProgressValueChanged(position);
 			btnRewind->setEnabled(position != 0);
 		}
         //[/UserSliderCode_sliderPosition]
@@ -243,31 +246,34 @@ void MainGUI::buttonClicked (Button* buttonThatWasClicked)
     if (buttonThatWasClicked == btnStop)
     {
         //[UserButtonCode_btnStop] -- add your button handler code here..
-		if (receiver)
+		std::set<GUIReceiver*>::iterator it;
+		for (it=receivers.begin(); it != receivers.end(); it++)
 		{
-			receiver->onStopPressed();
+			(*it)->onStopPressed();
 		}
         //[/UserButtonCode_btnStop]
     }
     else if (buttonThatWasClicked == btnRewind)
     {
         //[UserButtonCode_btnRewind] -- add your button handler code here..
-        if (receiver)
+		std::set<GUIReceiver*>::iterator it;
+        for (it=receivers.begin(); it != receivers.end(); it++)
 		{
-			receiver->onRewindPressed();
+			(*it)->onRewindPressed();
 		}
         //[/UserButtonCode_btnRewind]
     }
     else if (buttonThatWasClicked == btnPlay)
     {
         //[UserButtonCode_btnPlay] -- add your button handler code here..
-        if (receiver)
+		std::set<GUIReceiver*>::iterator it;
+        for (it=receivers.begin(); it != receivers.end(); it++)
 		{
 			if (btnPlay->getToggleState())
 			{
-				receiver->onStartPressed();
+				(*it)->onStartPressed();
 			} else {
-				receiver->onPausePressed();
+				(*it)->onPausePressed();
 			}
 		}
         //[/UserButtonCode_btnPlay]
@@ -356,14 +362,14 @@ void MainGUI::setProgress(int current, int duration)
 	labelTotalTime->setText(durationPositionString, false);
 }
 
-void MainGUI::setReceiver(GUIReceiver *newReceiver)
+void MainGUI::addReceiver(GUIReceiver *newReceiver)
 {
-	receiver = newReceiver;
+	receivers.insert(newReceiver);
 }
 
-void MainGUI::removeReceiver()
+void MainGUI::removeReceiver(GUIReceiver *toBeRemovedReceiver)
 {
-	receiver = 0;
+	receivers.erase(toBeRemovedReceiver);
 }
 
 //[/MiscUserCode]
