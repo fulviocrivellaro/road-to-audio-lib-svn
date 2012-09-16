@@ -3,7 +3,7 @@
 
   This is an automatically generated file created by the Jucer!
 
-  Creation date:  9 Sep 2012 8:41:53pm
+  Creation date:  15 Sep 2012 5:39:25pm
 
   Be careful when adding custom code to these files, as only the code within
   the "//[xyz]" and "//[/xyz]" sections will be retained when the file is loaded
@@ -19,8 +19,8 @@
   ==============================================================================
 */
 
-#ifndef __JUCER_HEADER_MAINGUI_MAINGUI_CF0395CE__
-#define __JUCER_HEADER_MAINGUI_MAINGUI_CF0395CE__
+#ifndef __JUCER_HEADER_MAINGUI_MAINGUI_B8518D0F__
+#define __JUCER_HEADER_MAINGUI_MAINGUI_B8518D0F__
 
 //[Headers]     -- You can add your own extra header files here --
 #include <../JuceLibraryCode/JuceHeader.h>
@@ -112,4 +112,4 @@ private:
 };
 
 
-#endif   // __JUCER_HEADER_MAINGUI_MAINGUI_CF0395CE__
+#endif   // __JUCER_HEADER_MAINGUI_MAINGUI_B8518D0F__

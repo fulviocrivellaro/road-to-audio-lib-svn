@@ -8,7 +8,7 @@ class JuceGUIHandler :
 {
 public:
 	JuceGUIHandler(MainGUI *newGui);
-	~JuceGUIHandler(void);
+	virtual ~JuceGUIHandler(void);
 
 	// set the panpot value
 	virtual void setPitchShiftValue(int value);

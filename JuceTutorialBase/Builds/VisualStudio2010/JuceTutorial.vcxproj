@@ -1160,6 +1160,7 @@
     <ClCompile Include="..\..\JuceLibraryCode\modules\juce_video\juce_video.cpp" />
     <ClCompile Include="..\..\Source\MainAppWindow.cpp" />
     <ClCompile Include="..\..\Source\MainGUI.cpp" />
+    <ClCompile Include="CallbackAudioFormatReader.cpp" />
     <ClCompile Include="JuceGUIHandler.cpp" />
     <ClCompile Include="PSTSEntryPoint.cpp" />
   </ItemGroup>
@@ -1578,6 +1579,7 @@
     <ClInclude Include="..\..\JuceLibraryCode\JuceHeader.h" />
     <ClInclude Include="..\..\Source\MainAppWindow.h" />
     <ClInclude Include="..\..\Source\MainGUI.h" />
+    <ClInclude Include="CallbackAudioFormatReader.h" />
     <ClInclude Include="GUIHandler.h" />
     <ClInclude Include="GUIReceiver.h" />
     <ClInclude Include="JuceGUIHandler.h" />
