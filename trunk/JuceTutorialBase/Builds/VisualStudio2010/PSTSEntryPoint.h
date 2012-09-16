@@ -2,6 +2,8 @@
 
 #include "guihandler.h"
 #include "GUIReceiver.h"
+#include "JuceHeader.h"
+#include "CallbackAudioFormatReader.h"
 
 class PSTSEntryPoint : public GUIReceiver
 {
@@ -23,9 +25,26 @@ public:
 	// receive the progress bar
 	virtual void onProgressValueChanged(int value);
 
+	// listen to progress seek
+	void onSeek(long sample);
+
 private:
-	int duration;	
+	// utils
+	int duration;
+	long positionInSamples, previousPosition;
 	GUIHandler *guiHandler;
+
+	// Juce Audio Objects
+	AudioDeviceManager audioDeviceManager;
+	AudioIODevice *audioDevice;
+    File *wavAudioFile;
+	//FileInputStream *wavInputStream;
+	//WavAudioFormat *wavAudioFormat;
+	AudioFormatReader *audioFormatReader;
+	AudioFormatReaderSource *audioFormatReaderSource;
+	AudioSourcePlayer *audioSourcePlayer;
+	
+	void init();
 	
 };
 

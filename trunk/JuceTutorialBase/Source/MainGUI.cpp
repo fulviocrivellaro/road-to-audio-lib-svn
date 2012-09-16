@@ -3,7 +3,7 @@
 
   This is an automatically generated file created by the Jucer!
 
-  Creation date:  9 Sep 2012 8:41:53pm
+  Creation date:  15 Sep 2012 5:39:25pm
 
   Be careful when adding custom code to these files, as only the code within
   the "//[xyz]" and "//[/xyz]" sections will be retained when the file is loaded
@@ -126,7 +126,7 @@ MainGUI::MainGUI ()
     cachedImage_sound_wave_jpg = ImageCache::getFromMemory (sound_wave_jpg, sound_wave_jpgSize);
 
     //[UserPreSize]
-	//[/UserPreSize]
+    //[/UserPreSize]
 
     setSize (300, 400);
 
@@ -229,7 +229,6 @@ void MainGUI::sliderValueChanged (Slider* sliderThatWasMoved)
 		for (it=receivers.begin(); it != receivers.end(); it++)
 		{
 			(*it)->onProgressValueChanged(position);
-			btnRewind->setEnabled(position != 0);
 		}
         //[/UserSliderCode_sliderPosition]
     }
@@ -357,9 +356,11 @@ void MainGUI::setProgress(int current, int duration)
 	}
 
 	sliderPosition->setRange(0, duration, 1);
-	sliderPosition->setValue(current);
+	sliderPosition->setValue(current, false);
 	labelProgress->setText(currentPositionString, false);
 	labelTotalTime->setText(durationPositionString, false);
+
+	btnRewind->setEnabled(current != 0);
 }
 
 void MainGUI::addReceiver(GUIReceiver *newReceiver)
