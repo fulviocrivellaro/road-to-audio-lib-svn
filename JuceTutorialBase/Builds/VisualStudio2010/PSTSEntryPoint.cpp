@@ -14,7 +14,7 @@ PSTSEntryPoint::~PSTSEntryPoint(void)
 	delete audioSourcePlayer;
 	delete audioFormatReaderSource;
 	delete audioFormatReader;
-	delete wavAudioFile;
+	//delete wavAudioFile;
 }
 
 void PSTSEntryPoint::init()
@@ -23,37 +23,42 @@ void PSTSEntryPoint::init()
 	String outcome = audioDeviceManager.initialise(0, 3, nullptr, true, "DirectSound");
 	if (outcome.isEmpty())
 	{
-		
+		audioDevice = audioDeviceManager.getCurrentAudioDevice();
+
 		DBG("OK - play");
 		DBG(audioDeviceManager.getCurrentAudioDeviceType());
 
-		int bufferSize = 2048;
-
-		// initialize audio session
-		wavAudioFile = new File("C:\\2012_cisternino\\Nutshell-Buccia.wav");
-		WavAudioFormat wavAudioFormat;
-		audioFormatReader = wavAudioFormat.createReaderFor(wavAudioFile->createInputStream(), false);
-		audioFormatReaderSource = new CallbackAudioFormatReader(audioFormatReader, false, this);
-		audioSourcePlayer = new AudioSourcePlayer();
-		audioSourcePlayer->setSource(audioFormatReaderSource);
-
-		//DBG("Gain is: " + String(audioSourcePlayer->getGain()));
-		//DBG("Audio is: " + String(audioDevice->isOpen()?String("Open"):String("Closed")));
-
-		int fs = audioFormatReader->sampleRate;
-		duration = audioFormatReader->lengthInSamples / fs;
-		previousPosition = 0;
-		positionInSamples = 0;
-
-		audioDevice = audioDeviceManager.getCurrentAudioDevice();
-		audioDevice->open(0, 3, fs, bufferSize);
-
-		audioFormatReaderSource->prepareToPlay(bufferSize, 44100);
-		
 	} else {
 		DBG(outcome);
 	}
 	
+}
+
+void PSTSEntryPoint::prepareForFilename(std::string filename)
+{
+	int bufferSize = 2048;
+
+	// initialize audio session
+	//wavAudioFile = new File((const char*) filename.c_str());
+	WavAudioFormat wavAudioFormat;
+	audioFormatReader = wavAudioFormat.createReaderFor(File((const char*) filename.c_str()).createInputStream(), false);
+	//AudioFormatManager manager;
+	//audioFormatReader = manager.createReaderFor(File((const char*) filename.c_str()).createInputStream());
+	audioFormatReaderSource = new CallbackAudioFormatReader(audioFormatReader, false, this);
+	audioSourcePlayer = new AudioSourcePlayer();
+	audioSourcePlayer->setSource(audioFormatReaderSource);
+
+	//DBG("Gain is: " + String(audioSourcePlayer->getGain()));
+	//DBG("Audio is: " + String(audioDevice->isOpen()?String("Open"):String("Closed")));
+
+	int fs = audioFormatReader->sampleRate;
+	duration = audioFormatReader->lengthInSamples / fs;
+	previousPosition = 0;
+	positionInSamples = 0;
+
+	audioDevice->open(0, 3, fs, bufferSize);
+
+	audioFormatReaderSource->prepareToPlay(bufferSize, 44100);
 }
 
 void PSTSEntryPoint::run()
@@ -96,11 +101,9 @@ void PSTSEntryPoint::onStopPressed()
 	previousPosition = 0;
 }
 
-void PSTSEntryPoint::onRewindPressed()
+void PSTSEntryPoint::onFileSelected(std::string fileName)
 {
-	guiHandler->doRewind();
-	guiHandler->setProgress(0, duration);
-	audioDeviceManager.playTestSound();
+	prepareForFilename(fileName);
 }
 
 // receive the progress bar

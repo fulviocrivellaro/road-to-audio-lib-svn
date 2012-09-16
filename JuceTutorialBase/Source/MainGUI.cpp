@@ -3,7 +3,7 @@
 
   This is an automatically generated file created by the Jucer!
 
-  Creation date:  15 Sep 2012 5:39:25pm
+  Creation date:  16 Sep 2012 5:20:06pm
 
   Be careful when adding custom code to these files, as only the code within
   the "//[xyz]" and "//[/xyz]" sections will be retained when the file is loaded
@@ -20,6 +20,7 @@
 */
 
 //[Headers] You can add your own extra header files here...
+#include <string>
 //[/Headers]
 
 #include "MainGUI.h"
@@ -37,7 +38,7 @@ MainGUI::MainGUI ()
       sliderTimeStretch (0),
       label3 (0),
       btnStop (0),
-      btnRewind (0),
+      btnOpen (0),
       btnPlay (0),
       sliderPosition (0),
       labelProgress (0),
@@ -90,10 +91,10 @@ MainGUI::MainGUI ()
     btnStop->setConnectedEdges (Button::ConnectedOnLeft | Button::ConnectedOnRight);
     btnStop->addListener (this);
 
-    addAndMakeVisible (btnRewind = new TextButton (L"Rewind button"));
-    btnRewind->setButtonText (L"Rewind");
-    btnRewind->setConnectedEdges (Button::ConnectedOnLeft);
-    btnRewind->addListener (this);
+    addAndMakeVisible (btnOpen = new TextButton (L"Open button"));
+    btnOpen->setButtonText (L"Open...");
+    btnOpen->setConnectedEdges (Button::ConnectedOnLeft);
+    btnOpen->addListener (this);
 
     addAndMakeVisible (btnPlay = new TextButton (L"Play button"));
     btnPlay->setButtonText (L"Play");
@@ -151,7 +152,7 @@ MainGUI::~MainGUI()
     deleteAndZero (sliderTimeStretch);
     deleteAndZero (label3);
     deleteAndZero (btnStop);
-    deleteAndZero (btnRewind);
+    deleteAndZero (btnOpen);
     deleteAndZero (btnPlay);
     deleteAndZero (sliderPosition);
     deleteAndZero (labelProgress);
@@ -187,7 +188,7 @@ void MainGUI::resized()
     sliderTimeStretch->setBounds (170, 220, 80, 66);
     label3->setBounds (70, 300, 160, 24);
     btnStop->setBounds (110, 330, 80, 24);
-    btnRewind->setBounds (190, 330, 80, 24);
+    btnOpen->setBounds (190, 330, 80, 24);
     btnPlay->setBounds (30, 330, 80, 24);
     sliderPosition->setBounds (60, 370, 190, 24);
     labelProgress->setBounds (10, 376, 50, 14);
@@ -252,15 +253,20 @@ void MainGUI::buttonClicked (Button* buttonThatWasClicked)
 		}
         //[/UserButtonCode_btnStop]
     }
-    else if (buttonThatWasClicked == btnRewind)
+    else if (buttonThatWasClicked == btnOpen)
     {
-        //[UserButtonCode_btnRewind] -- add your button handler code here..
-		std::set<GUIReceiver*>::iterator it;
-        for (it=receivers.begin(); it != receivers.end(); it++)
+        //[UserButtonCode_btnOpen] -- add your button handler code here..
+		FileChooser chooser("Choose file to open", File::nonexistent, "*.wav");
+		if (chooser.browseForFileToOpen())
 		{
-			(*it)->onRewindPressed();
+			String filename = chooser.getResult().getFullPathName();
+			std::set<GUIReceiver*>::iterator it;
+			for (it=receivers.begin(); it != receivers.end(); it++)
+			{
+				(*it)->onFileSelected((const char *)filename.getCharPointer());
+			}
 		}
-        //[/UserButtonCode_btnRewind]
+        //[/UserButtonCode_btnOpen]
     }
     else if (buttonThatWasClicked == btnPlay)
     {
@@ -302,28 +308,24 @@ void MainGUI::doStart()
 {
 	btnPlay->setToggleState(true, false);
 	btnStop->setEnabled(true);
-	btnRewind->setEnabled(false);
 }
 
 void MainGUI::doPause()
 {
 	btnPlay->setToggleState(false, false);
 	btnStop->setEnabled(true);
-	btnRewind->setEnabled(true);
 }
 
 void MainGUI::doStop()
 {
 	btnPlay->setToggleState(false, false);
 	btnStop->setEnabled(true);
-	btnRewind->setEnabled(true);
 }
 
 void MainGUI::doRewind()
 {
 	btnPlay->setToggleState(false, false);
 	btnStop->setEnabled(true);
-	btnRewind->setEnabled(false);
 }
 
 // set the progress bar
@@ -359,8 +361,6 @@ void MainGUI::setProgress(int current, int duration)
 	sliderPosition->setValue(current, false);
 	labelProgress->setText(currentPositionString, false);
 	labelTotalTime->setText(durationPositionString, false);
-
-	btnRewind->setEnabled(current != 0);
 }
 
 void MainGUI::addReceiver(GUIReceiver *newReceiver)
@@ -419,8 +419,8 @@ BEGIN_JUCER_METADATA
   <TEXTBUTTON name="Stop button" id="20706470cab39e4b" memberName="btnStop"
               virtualName="" explicitFocusOrder="0" pos="110 330 80 24" buttonText="Stop"
               connectedEdges="3" needsCallback="1" radioGroupId="0"/>
-  <TEXTBUTTON name="Rewind button" id="1026d20b047dea2d" memberName="btnRewind"
-              virtualName="" explicitFocusOrder="0" pos="190 330 80 24" buttonText="Rewind"
+  <TEXTBUTTON name="Open button" id="1026d20b047dea2d" memberName="btnOpen"
+              virtualName="" explicitFocusOrder="0" pos="190 330 80 24" buttonText="Open..."
               connectedEdges="1" needsCallback="1" radioGroupId="0"/>
   <TEXTBUTTON name="Play button" id="b93c34b1715dd879" memberName="btnPlay"
               virtualName="" explicitFocusOrder="0" pos="30 330 80 24" bgColOn="ff137507"

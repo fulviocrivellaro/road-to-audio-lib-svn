@@ -1,4 +1,7 @@
 #pragma once
+
+#include <string>
+
 class GUIReceiver
 {
 public:
@@ -13,7 +16,9 @@ public:
 	virtual void onStartPressed() = 0;
 	virtual void onPausePressed() = 0;
 	virtual void onStopPressed() = 0;
-	virtual void onRewindPressed() = 0;
+	
+	// receive the requested file
+	virtual void onFileSelected(std::string fileName) = 0;
 
 	// receive the progress bar
 	virtual void onProgressValueChanged(int value) = 0;

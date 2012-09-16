@@ -4,6 +4,7 @@
 #include "GUIReceiver.h"
 #include "JuceHeader.h"
 #include "CallbackAudioFormatReader.h"
+#include <string>
 
 class PSTSEntryPoint : public GUIReceiver
 {
@@ -20,7 +21,9 @@ public:
 	virtual void onStartPressed();
 	virtual void onPausePressed();
 	virtual void onStopPressed();
-	virtual void onRewindPressed();
+	
+	// receive new filename
+	virtual void onFileSelected(std::string fileName);
 
 	// receive the progress bar
 	virtual void onProgressValueChanged(int value);
@@ -37,7 +40,7 @@ private:
 	// Juce Audio Objects
 	AudioDeviceManager audioDeviceManager;
 	AudioIODevice *audioDevice;
-    File *wavAudioFile;
+    //File *wavAudioFile;
 	//FileInputStream *wavInputStream;
 	//WavAudioFormat *wavAudioFormat;
 	AudioFormatReader *audioFormatReader;
@@ -45,6 +48,7 @@ private:
 	AudioSourcePlayer *audioSourcePlayer;
 	
 	void init();
+	void prepareForFilename(std::string filename);
 	
 };
 

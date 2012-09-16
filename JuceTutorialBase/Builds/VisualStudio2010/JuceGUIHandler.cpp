@@ -42,11 +42,6 @@ void JuceGUIHandler::doStop()
 	gui->doStop();
 }
 
-void JuceGUIHandler::doRewind()
-{
-	gui->doRewind();
-}
-
 // set the progress bar
 void JuceGUIHandler::setProgress(int current, int duration)
 {

@@ -18,7 +18,6 @@ public:
 	virtual void doStart();
 	virtual void doPause();
 	virtual void doStop();
-	virtual void doRewind();
 
 	// set the progress bar
 	virtual void setProgress(int current, int duration);
