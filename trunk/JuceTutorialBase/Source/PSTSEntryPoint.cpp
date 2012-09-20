@@ -20,16 +20,12 @@ PSTSEntryPoint::~PSTSEntryPoint(void)
 void PSTSEntryPoint::init()
 {
 	DBG("Initializing");
-	String outcome = audioDeviceManager.initialise(0, 3, nullptr, true, "DirectSound");
+	String outcome = audioDeviceManager.initialise(0, 3, nullptr, false);
 	if (outcome.isEmpty())
 	{
-		audioDevice = audioDeviceManager.getCurrentAudioDevice();
-
-		DBG("OK - play");
-		DBG(audioDeviceManager.getCurrentAudioDeviceType());
-
+		DBG("OK - playing on " + audioDeviceManager.getCurrentAudioDeviceType());
 	} else {
-		DBG(outcome);
+		DBG("Initialization error: " + outcome);
 	}
 	
 }
@@ -39,7 +35,6 @@ void PSTSEntryPoint::prepareForFilename(std::string filename)
 	int bufferSize = 2048;
 
 	// initialize audio session
-	//wavAudioFile = new File((const char*) filename.c_str());
 	WavAudioFormat wavAudioFormat;
 	audioFormatReader = wavAudioFormat.createReaderFor(File((const char*) filename.c_str()).createInputStream(), false);
 	//AudioFormatManager manager;
@@ -48,16 +43,12 @@ void PSTSEntryPoint::prepareForFilename(std::string filename)
 	audioSourcePlayer = new AudioSourcePlayer();
 	audioSourcePlayer->setSource(audioFormatReaderSource);
 
-	//DBG("Gain is: " + String(audioSourcePlayer->getGain()));
-	//DBG("Audio is: " + String(audioDevice->isOpen()?String("Open"):String("Closed")));
-
 	int fs = audioFormatReader->sampleRate;
 	duration = audioFormatReader->lengthInSamples / fs;
 	previousPosition = 0;
 	positionInSamples = 0;
 
-	audioDevice->open(0, 3, fs, bufferSize);
-
+	audioDeviceManager.getCurrentAudioDevice()->open(0, 3, fs, bufferSize);
 	audioFormatReaderSource->prepareToPlay(bufferSize, 44100);
 }
 
@@ -82,20 +73,20 @@ void PSTSEntryPoint::onTimeStretchValueChanged(int value)
 void PSTSEntryPoint::onStartPressed(void)
 {
 	guiHandler->doStart();
-	audioDevice->start(audioSourcePlayer);
+	audioDeviceManager.getCurrentAudioDevice()->start(audioSourcePlayer);
 }
 
 void PSTSEntryPoint::onPausePressed()
 {
 	guiHandler->doPause();
-	audioDevice->stop();
+	audioDeviceManager.getCurrentAudioDevice()->stop();
 }
 
 void PSTSEntryPoint::onStopPressed()
 {
 	guiHandler->doStop();
 	guiHandler->setProgress(0, duration);
-	audioDevice->stop();
+	audioDeviceManager.getCurrentAudioDevice()->stop();
 	audioFormatReaderSource->setNextReadPosition(0);
 	positionInSamples = 0;
 	previousPosition = 0;

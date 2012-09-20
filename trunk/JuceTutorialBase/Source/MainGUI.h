@@ -25,7 +25,7 @@
 //[Headers]     -- You can add your own extra header files here --
 #include <../JuceLibraryCode/JuceHeader.h>
 #include <set>
-#include "../Builds/VisualStudio2010/GUIReceiver.h"
+#include "GUIReceiver.h"
 //[/Headers]
 
 
