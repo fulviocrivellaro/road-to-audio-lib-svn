@@ -33,6 +33,7 @@ public:
 
 private:
 	// utils
+	bool initialized;
 	int duration;
 	long positionInSamples, previousPosition;
 	GUIHandler *guiHandler;
@@ -42,7 +43,7 @@ private:
 	AudioSourcePlayer *audioSourcePlayer;
 	AudioFormatReaderSource *audioFormatReaderSource;
 	AudioFormatReader *audioFormatReader;
-	
+
 	void init();
 	void prepareForFilename(std::string filename);
 	

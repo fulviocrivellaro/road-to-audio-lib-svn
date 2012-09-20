@@ -9,12 +9,15 @@ PSTSEntryPoint::PSTSEntryPoint(GUIHandler *newGUIHandler)
 
 PSTSEntryPoint::~PSTSEntryPoint(void)
 {
-	audioFormatReaderSource->releaseResources();
-	audioDeviceManager.closeAudioDevice();
-	delete audioSourcePlayer;
-	delete audioFormatReaderSource;
-	delete audioFormatReader;
-	//delete wavAudioFile;
+	if (initialized)
+	{
+		audioFormatReaderSource->releaseResources();
+		audioDeviceManager.closeAudioDevice();
+		delete audioSourcePlayer;
+		delete audioFormatReaderSource;
+		delete audioFormatReader;
+		//delete wavAudioFile;
+	}
 }
 
 void PSTSEntryPoint::init()
@@ -27,18 +30,31 @@ void PSTSEntryPoint::init()
 	} else {
 		DBG("Initialization error: " + outcome);
 	}
+	initialized = false;
 }
 
 void PSTSEntryPoint::prepareForFilename(std::string filename)
 {
-	int bufferSize = 2048;
+	int bufferSize = audioDeviceManager.getCurrentAudioDevice()->getDefaultBufferSize();
 
-	// initialize audio session
+	if (!initialized)
+	{
+		audioSourcePlayer = new AudioSourcePlayer();
+	}
+
 	WavAudioFormat wavAudioFormat;
-	audioFormatReader = wavAudioFormat.createReaderFor(File((const char*) filename.c_str()).createInputStream(), false);
-	audioFormatReaderSource = new CallbackAudioFormatReader(audioFormatReader, false, this);
-	audioSourcePlayer = new AudioSourcePlayer();
-	audioSourcePlayer->setSource(audioFormatReaderSource);
+	AudioFormatReader* newAudioFormatReader = wavAudioFormat.createReaderFor(File((const char*) filename.c_str()).createInputStream(), false);
+	AudioFormatReaderSource* newAudioFormatReaderSource = new CallbackAudioFormatReader(newAudioFormatReader, false, this);
+	audioSourcePlayer->setSource(newAudioFormatReaderSource);
+
+	if (initialized)
+	{
+		//audioFormatReaderSource->releaseResources();
+		delete audioFormatReaderSource;
+		delete audioFormatReader;
+	}
+	audioFormatReaderSource = newAudioFormatReaderSource;
+	audioFormatReader = newAudioFormatReader;
 
 	int fs = audioFormatReader->sampleRate;
 	duration = audioFormatReader->lengthInSamples / fs;
@@ -47,6 +63,8 @@ void PSTSEntryPoint::prepareForFilename(std::string filename)
 
 	audioDeviceManager.getCurrentAudioDevice()->open(0, 3, fs, bufferSize);
 	audioFormatReaderSource->prepareToPlay(bufferSize, 44100);
+
+	initialized = true;
 }
 
 void PSTSEntryPoint::run()
