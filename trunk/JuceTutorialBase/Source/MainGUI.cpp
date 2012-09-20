@@ -334,30 +334,40 @@ void MainGUI::setProgress(int current, int duration)
 	//float percentage = (float)(100*current) / duration;
 	int minutes;
 	int seconds;
-
-	// current
-	minutes = current / 60;
-	seconds = current - 60*minutes;
 	String currentPositionString;
-	if (seconds < 10)
-	{
-		currentPositionString = String(minutes) += String(":0") += String(seconds);
-	} else {
-		currentPositionString = String(minutes) += String(":") += String(seconds);
-	}
-
-	// duration
-	minutes = duration / 60;
-	seconds = duration - 60*minutes;
 	String durationPositionString;
-	if (seconds < 10)
+	
+	if (duration == 0)
 	{
-		durationPositionString = String(minutes) += String(":0") += String(seconds);
+		// null duration means no file available
+		sliderPosition->setEnabled(false);
+		currentPositionString = "0:00";
+		durationPositionString = "0:00";
+		sliderPosition->setRange(0, 1, 1);
 	} else {
-		durationPositionString = String(minutes) += String(":") += String(seconds);
-	}
+		// current
+		sliderPosition->setEnabled(true);
+		minutes = current / 60;
+		seconds = current - 60*minutes;
+		if (seconds < 10)
+		{
+			currentPositionString = String(minutes) += String(":0") += String(seconds);
+		} else {
+			currentPositionString = String(minutes) += String(":") += String(seconds);
+		}
 
-	sliderPosition->setRange(0, duration, 1);
+		// duration
+		minutes = duration / 60;
+		seconds = duration - 60*minutes;
+		if (seconds < 10)
+		{
+			durationPositionString = String(minutes) += String(":0") += String(seconds);
+		} else {
+			durationPositionString = String(minutes) += String(":") += String(seconds);
+		}
+
+		sliderPosition->setRange(0, duration, 1);
+	}
 	sliderPosition->setValue(current, false);
 	labelProgress->setText(currentPositionString, false);
 	labelTotalTime->setText(durationPositionString, false);
