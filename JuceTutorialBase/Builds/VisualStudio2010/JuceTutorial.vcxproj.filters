@@ -1368,13 +1368,10 @@
     <ClCompile Include="..\..\JuceLibraryCode\modules\juce_video\juce_video.cpp">
       <Filter>Juce Library Code</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\MainGUI.cpp">
-      <Filter>JuceTutorial\Source\JuceGUIClasses</Filter>
+    <ClCompile Include="..\..\Source\PSTSEntryPoint.cpp">
+      <Filter>JuceTutorial\Source\Core</Filter>
     </ClCompile>
-    <ClCompile Include="JuceGUIHandler.cpp">
-      <Filter>JuceTutorial\Source\JuceGUIClasses</Filter>
-    </ClCompile>
-    <ClCompile Include="PSTSEntryPoint.cpp">
+    <ClCompile Include="..\..\Source\CallbackAudioFormatReader.cpp">
       <Filter>JuceTutorial\Source\Core</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\ApplicationStartup.cpp">
@@ -1383,8 +1380,11 @@
     <ClCompile Include="..\..\Source\MainAppWindow.cpp">
       <Filter>JuceTutorial\Source\JuceCore</Filter>
     </ClCompile>
-    <ClCompile Include="CallbackAudioFormatReader.cpp">
-      <Filter>JuceTutorial\Source\Core</Filter>
+    <ClCompile Include="..\..\Source\JuceGUIHandler.cpp">
+      <Filter>JuceTutorial\Source\JuceGUIClasses</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\MainGUI.cpp">
+      <Filter>JuceTutorial\Source\JuceGUIClasses</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -2624,26 +2624,26 @@
     <ClInclude Include="..\..\JuceLibraryCode\JuceHeader.h">
       <Filter>Juce Library Code</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\MainGUI.h">
-      <Filter>JuceTutorial\Source\JuceGUIClasses</Filter>
-    </ClInclude>
-    <ClInclude Include="GUIReceiver.h">
+    <ClInclude Include="..\..\Source\GUIHandler.h">
       <Filter>JuceTutorial\Source\GUIInterfaces</Filter>
     </ClInclude>
-    <ClInclude Include="JuceGUIHandler.h">
-      <Filter>JuceTutorial\Source\JuceGUIClasses</Filter>
+    <ClInclude Include="..\..\Source\GUIReceiver.h">
+      <Filter>JuceTutorial\Source\GUIInterfaces</Filter>
     </ClInclude>
-    <ClInclude Include="PSTSEntryPoint.h">
+    <ClInclude Include="..\..\Source\PSTSEntryPoint.h">
       <Filter>JuceTutorial\Source\Core</Filter>
     </ClInclude>
-    <ClInclude Include="GUIHandler.h">
-      <Filter>JuceTutorial\Source\GUIInterfaces</Filter>
+    <ClInclude Include="..\..\Source\CallbackAudioFormatReader.h">
+      <Filter>JuceTutorial\Source\Core</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\MainAppWindow.h">
       <Filter>JuceTutorial\Source\JuceCore</Filter>
     </ClInclude>
-    <ClInclude Include="CallbackAudioFormatReader.h">
-      <Filter>JuceTutorial\Source\Core</Filter>
+    <ClInclude Include="..\..\Source\JuceGUIHandler.h">
+      <Filter>JuceTutorial\Source\JuceGUIClasses</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\MainGUI.h">
+      <Filter>JuceTutorial\Source\JuceGUIClasses</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

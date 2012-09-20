@@ -1,8 +1,8 @@
 #pragma once
 
-#include "guihandler.h"
+#include "GUIHandler.h"
 #include "GUIReceiver.h"
-#include "JuceHeader.h"
+#include "../JuceLibraryCode/JuceHeader.h"
 #include "CallbackAudioFormatReader.h"
 #include <string>
 
@@ -39,13 +39,9 @@ private:
 
 	// Juce Audio Objects
 	AudioDeviceManager audioDeviceManager;
-	AudioIODevice *audioDevice;
-    //File *wavAudioFile;
-	//FileInputStream *wavInputStream;
-	//WavAudioFormat *wavAudioFormat;
-	AudioFormatReader *audioFormatReader;
-	AudioFormatReaderSource *audioFormatReaderSource;
 	AudioSourcePlayer *audioSourcePlayer;
+	AudioFormatReaderSource *audioFormatReaderSource;
+	AudioFormatReader *audioFormatReader;
 	
 	void init();
 	void prepareForFilename(std::string filename);

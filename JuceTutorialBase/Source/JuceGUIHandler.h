@@ -1,7 +1,7 @@
 #pragma once
 
-#include "guihandler.h"
-#include "../../Source/MainGUI.h"
+#include "GUIHandler.h"
+#include "MainGUI.h"
 
 class JuceGUIHandler :
 	public GUIHandler

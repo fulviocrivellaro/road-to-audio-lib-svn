@@ -34,8 +34,8 @@
  */
 //#include <juce/juce.h>
 #include <../JuceLibraryCode/JuceHeader.h>
-#include "../Builds/VisualStudio2010/PSTSEntryPoint.h"
-#include "../Builds/VisualStudio2010/JuceGUIHandler.h"
+#include "PSTSEntryPoint.h"
+#include "JuceGUIHandler.h"
 #include "MainGUI.h"
 
 #define VALIDCHARS "ABCDEFGHIJKLMNOPQRTSUVWXYZabcdefghijklmnopqrstuvwxyz_0123456789"
