@@ -27,7 +27,6 @@ void PSTSEntryPoint::init()
 	} else {
 		DBG("Initialization error: " + outcome);
 	}
-	
 }
 
 void PSTSEntryPoint::prepareForFilename(std::string filename)
@@ -37,8 +36,6 @@ void PSTSEntryPoint::prepareForFilename(std::string filename)
 	// initialize audio session
 	WavAudioFormat wavAudioFormat;
 	audioFormatReader = wavAudioFormat.createReaderFor(File((const char*) filename.c_str()).createInputStream(), false);
-	//AudioFormatManager manager;
-	//audioFormatReader = manager.createReaderFor(File((const char*) filename.c_str()).createInputStream());
 	audioFormatReaderSource = new CallbackAudioFormatReader(audioFormatReader, false, this);
 	audioSourcePlayer = new AudioSourcePlayer();
 	audioSourcePlayer->setSource(audioFormatReaderSource);
@@ -55,7 +52,7 @@ void PSTSEntryPoint::prepareForFilename(std::string filename)
 void PSTSEntryPoint::run()
 {
 	guiHandler->setTimeStretchValue(100);
-	guiHandler->setProgress(0, duration);
+	guiHandler->setProgress(0, 0);
 }
 
 // receive the panpot value
