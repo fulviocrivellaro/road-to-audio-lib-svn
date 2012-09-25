@@ -15,8 +15,6 @@ PSTSEntryPoint::~PSTSEntryPoint(void)
 		audioDeviceManager.closeAudioDevice();
 		delete audioSourcePlayer;
 		delete audioFormatReaderSource;
-		//delete audioFormatReader;
-		//delete wavAudioFile;
 	}
 }
 
@@ -43,13 +41,19 @@ void PSTSEntryPoint::prepareForFilename(std::string filename)
 	}
 
 	WavAudioFormat wavAudioFormat;
+	
+	// need to create a new, temporary AudioFormatReaderSource, for the player
 	AudioFormatReaderSource* newAudioFormatReaderSource = new CallbackAudioFormatReader(wavAudioFormat.createReaderFor(File((const char*) filename.c_str()).createInputStream(), false), true, this);
+	// AFTER setting the new AudioFormatReaderSource, the releaseResources() method is called on the source instance
 	audioSourcePlayer->setSource(newAudioFormatReaderSource);
 
+	// check if this is not the first run
 	if (initialized)
 	{
+		// now the old AudioFormatReaderSource is no longer needed - can delete it (AudioSourcePlayer will NOT do it)
 		delete audioFormatReaderSource;
 	}
+	// we can update our pointer to the current AudioFormatReaderSource at last
 	audioFormatReaderSource = newAudioFormatReaderSource;
 	
 	int fs = audioFormatReaderSource->getAudioFormatReader()->sampleRate;
