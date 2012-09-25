@@ -15,7 +15,7 @@ PSTSEntryPoint::~PSTSEntryPoint(void)
 		audioDeviceManager.closeAudioDevice();
 		delete audioSourcePlayer;
 		delete audioFormatReaderSource;
-		delete audioFormatReader;
+		//delete audioFormatReader;
 		//delete wavAudioFile;
 	}
 }
@@ -43,21 +43,17 @@ void PSTSEntryPoint::prepareForFilename(std::string filename)
 	}
 
 	WavAudioFormat wavAudioFormat;
-	AudioFormatReader* newAudioFormatReader = wavAudioFormat.createReaderFor(File((const char*) filename.c_str()).createInputStream(), false);
-	AudioFormatReaderSource* newAudioFormatReaderSource = new CallbackAudioFormatReader(newAudioFormatReader, false, this);
+	AudioFormatReaderSource* newAudioFormatReaderSource = new CallbackAudioFormatReader(wavAudioFormat.createReaderFor(File((const char*) filename.c_str()).createInputStream(), false), true, this);
 	audioSourcePlayer->setSource(newAudioFormatReaderSource);
 
 	if (initialized)
 	{
-		//audioFormatReaderSource->releaseResources();
 		delete audioFormatReaderSource;
-		delete audioFormatReader;
 	}
 	audioFormatReaderSource = newAudioFormatReaderSource;
-	audioFormatReader = newAudioFormatReader;
-
-	int fs = audioFormatReader->sampleRate;
-	duration = audioFormatReader->lengthInSamples / fs;
+	
+	int fs = audioFormatReaderSource->getAudioFormatReader()->sampleRate;
+	duration = audioFormatReaderSource->getAudioFormatReader()->lengthInSamples / fs;
 	previousPosition = 0;
 	positionInSamples = 0;
 
@@ -115,7 +111,7 @@ void PSTSEntryPoint::onFileSelected(std::string fileName)
 // receive the progress bar
 void PSTSEntryPoint::onProgressValueChanged(int value)
 {
-	positionInSamples = value * audioFormatReader->sampleRate;
+	positionInSamples = value * audioFormatReaderSource->getAudioFormatReader()->sampleRate;
 	audioFormatReaderSource->setNextReadPosition(positionInSamples);
 	
 	guiHandler->setProgress(value, duration);
@@ -125,7 +121,7 @@ void PSTSEntryPoint::onProgressValueChanged(int value)
 void PSTSEntryPoint::onSeek(long sample)
 {
 	positionInSamples += sample;
-	int currentPosition = positionInSamples / audioFormatReader->sampleRate;
+	int currentPosition = positionInSamples / audioFormatReaderSource->getAudioFormatReader()->sampleRate;
 	if (currentPosition != previousPosition)
 	{
 		previousPosition = currentPosition;

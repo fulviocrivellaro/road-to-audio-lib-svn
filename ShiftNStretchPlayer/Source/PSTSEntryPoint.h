@@ -42,7 +42,6 @@ private:
 	AudioDeviceManager audioDeviceManager;
 	AudioSourcePlayer *audioSourcePlayer;
 	AudioFormatReaderSource *audioFormatReaderSource;
-	AudioFormatReader *audioFormatReader;
 
 	void init();
 	void prepareForFilename(std::string filename);
