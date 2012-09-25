@@ -10,7 +10,7 @@ public:
 
 	PSTSEntryPoint *seekListener;
 
-	CallbackAudioFormatReader(AudioFormatReader *readerSource, bool deleteThisWhenBoh, PSTSEntryPoint *newListener);
+	CallbackAudioFormatReader(AudioFormatReader *readerSource, bool deleteReaderWhenThisIsDeleted , PSTSEntryPoint *newListener);
 	~CallbackAudioFormatReader(void);
 
 	void getNextAudioBlock(const AudioSourceChannelInfo &bufferToFill);
