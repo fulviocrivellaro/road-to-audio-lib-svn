@@ -1,8 +1,8 @@
 #include "CallbackAudioFormatReader.h"
 #include "PSTSEntryPoint.h"
 
-CallbackAudioFormatReader::CallbackAudioFormatReader(AudioFormatReader *readerSource, bool deleteThisWhenBoh, PSTSEntryPoint *newListener)
-	: AudioFormatReaderSource(readerSource, deleteThisWhenBoh), seekListener(newListener)
+CallbackAudioFormatReader::CallbackAudioFormatReader(AudioFormatReader *readerSource, bool deleteReaderWhenThisIsDeleted , PSTSEntryPoint *newListener)
+	: AudioFormatReaderSource(readerSource, deleteReaderWhenThisIsDeleted ), seekListener(newListener)
 {
 	// default, base constructor
 }
