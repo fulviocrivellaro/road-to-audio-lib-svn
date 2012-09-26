@@ -33,7 +33,6 @@ public:
 
 private:
 	// utils
-	bool initialized;
 	int duration;
 	long positionInSamples, previousPosition;
 	GUIHandler *guiHandler;
