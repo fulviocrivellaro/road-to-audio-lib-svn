@@ -9,7 +9,7 @@ PSTSEntryPoint::PSTSEntryPoint(GUIHandler *newGUIHandler)
 
 PSTSEntryPoint::~PSTSEntryPoint(void)
 {
-	if (initialized)
+	if (audioSourcePlayer != nullptr)
 	{
 		audioFormatReaderSource->releaseResources();
 		audioDeviceManager.closeAudioDevice();
@@ -28,13 +28,15 @@ void PSTSEntryPoint::init()
 	} else {
 		DBG("Initialization error: " + outcome);
 	}
-	initialized = false;
+	// sets the player to null
+	audioSourcePlayer = nullptr;
 }
 
 void PSTSEntryPoint::prepareForFilename(std::string filename)
 {
 	int bufferSize = audioDeviceManager.getCurrentAudioDevice()->getDefaultBufferSize();
 
+	bool initialized = (audioSourcePlayer != nullptr);
 	if (!initialized)
 	{
 		audioSourcePlayer = new AudioSourcePlayer();
