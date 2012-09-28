@@ -1118,6 +1118,8 @@
     <ClInclude Include="..\..\Source\MainAppWindow.h"/>
     <ClInclude Include="..\..\Source\GUIHandler.h"/>
     <ClInclude Include="..\..\Source\GUIReceiver.h"/>
+    <ClInclude Include="..\..\Source\IEventHandler.h"/>
+    <ClInclude Include="..\..\Source\IAudioFacade.h"/>
     <ClInclude Include="..\..\Source\PSTSEntryPoint.h"/>
     <ClInclude Include="..\..\Source\JuceGUIHandler.h"/>
     <ClInclude Include="..\..\Source\MainGUI.h"/>

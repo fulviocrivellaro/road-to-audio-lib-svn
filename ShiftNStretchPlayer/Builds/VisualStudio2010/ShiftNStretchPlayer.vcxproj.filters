@@ -14,6 +14,9 @@
     <Filter Include="ShiftNStretchPlayer\Source">
       <UniqueIdentifier>{A8874DA9-EFB6-6F16-1E81-3BA4F7CD51A7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ShiftNStretchPlayer\Source\Abstraction">
+      <UniqueIdentifier>{F6CCF3C7-A1C7-83B0-1666-C419DC11DF02}</UniqueIdentifier>
+    </Filter>
     <Filter Include="ShiftNStretchPlayer\Source\JuceAudio">
       <UniqueIdentifier>{EB48CB6A-8536-7CCF-7C74-92DA6C19EFFA}</UniqueIdentifier>
     </Filter>
@@ -25,6 +28,12 @@
     </Filter>
     <Filter Include="ShiftNStretchPlayer\Source\Core">
       <UniqueIdentifier>{C61FFBF9-4711-FB5F-1257-21FA970968E6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ShiftNStretchPlayer\Source\Core\Events">
+      <UniqueIdentifier>{63FA758D-467A-EDD6-C60F-D11F2597FF25}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ShiftNStretchPlayer\Source\Core\Audio">
+      <UniqueIdentifier>{2DBFC0A0-C1E8-FB43-D309-1525FA3073FA}</UniqueIdentifier>
     </Filter>
     <Filter Include="ShiftNStretchPlayer\Source\JuceGUI">
       <UniqueIdentifier>{2A3E3E9B-3C00-4151-9A37-E4A1E80B3165}</UniqueIdentifier>
@@ -1430,6 +1439,12 @@
     </ClInclude>
     <ClInclude Include="..\..\Source\GUIReceiver.h">
       <Filter>ShiftNStretchPlayer\Source\EventHandling</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\IEventHandler.h">
+      <Filter>ShiftNStretchPlayer\Source\Core\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\IAudioFacade.h">
+      <Filter>ShiftNStretchPlayer\Source\Core\Audio</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\PSTSEntryPoint.h">
       <Filter>ShiftNStretchPlayer\Source\Core</Filter>
