@@ -23,7 +23,12 @@
       </GROUP>
     </GROUP>
     <GROUP id="{C1A5FE88-3969-CD53-021F-DB00CCCBC993}" name="Source">
-      <GROUP id="{BF7CA652-F4C9-5AE0-5CAB-CF6041A2A904}" name="Abstraction"/>
+      <GROUP id="{BF7CA652-F4C9-5AE0-5CAB-CF6041A2A904}" name="Abstraction">
+        <FILE id="s4nMOX" name="JuceAudioFacade.cpp" compile="1" resource="0"
+              file="Source/JuceAudioFacade.cpp"/>
+        <FILE id="EpMFbp" name="JuceAudioFacade.h" compile="0" resource="0"
+              file="Source/JuceAudioFacade.h"/>
+      </GROUP>
       <GROUP id="{C39C7ED2-6535-985B-FBA3-620EF5043345}" name="JuceAudio">
         <FILE id="SW6lCn" name="CallbackAudioFormatReader.cpp" compile="1"
               resource="0" file="Source/CallbackAudioFormatReader.cpp"/>
@@ -43,10 +48,13 @@
       </GROUP>
       <GROUP id="{E6E1E1B4-F08B-EE9C-6256-4E6A827ACA97}" name="Core">
         <GROUP id="{48BA1EAF-1FD6-5D09-15A1-611D59906ACC}" name="Events">
-          <FILE id="VmvvFh" name="IEventHandler.h" compile="0" resource="1" file="Source/IEventHandler.h"/>
+          <FILE id="gapLtf" name="IEventHandler.h" compile="0" resource="0" file="Source/IEventHandler.h"/>
         </GROUP>
         <GROUP id="{56BD3DC3-8B30-723A-8973-316E4CD2B083}" name="Audio">
-          <FILE id="UWCwWu" name="IAudioFacade.h" compile="0" resource="1" file="Source/IAudioFacade.h"/>
+          <FILE id="lTOW2Q" name="AudioDevice.cpp" compile="1" resource="0" file="Source/AudioDevice.cpp"/>
+          <FILE id="Mx5uIC" name="AudioDevice.h" compile="0" resource="0" file="Source/AudioDevice.h"/>
+          <FILE id="KKdUkf" name="IAudioDevice.h" compile="0" resource="0" file="Source/IAudioDevice.h"/>
+          <FILE id="Nu5ACU" name="IAudioFacade.h" compile="0" resource="0" file="Source/IAudioFacade.h"/>
         </GROUP>
         <FILE id="pnJMTy" name="PSTSEntryPoint.cpp" compile="1" resource="0"
               file="Source/PSTSEntryPoint.cpp"/>
@@ -75,6 +83,7 @@
     <MODULE id="juce_audio_devices" showAllCode="1" useLocalCopy="1"/>
     <MODULE id="juce_audio_formats" showAllCode="1" useLocalCopy="1"/>
     <MODULE id="juce_audio_processors" showAllCode="1" useLocalCopy="1"/>
+    <MODULE id="juce_audio_utils" showAllCode="1" useLocalCopy="1"/>
   </MODULES>
   <JUCEOPTIONS/>
 </JUCERPROJECT>

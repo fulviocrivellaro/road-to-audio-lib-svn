@@ -1,4 +1,8 @@
 #include "PSTSEntryPoint.h"
+#include "JuceAudioFacade.h"
+#include "AudioDevice.h"
+#include <vector>
+#include <string>
 
 PSTSEntryPoint::PSTSEntryPoint(GUIHandler *newGUIHandler)
 	: guiHandler(newGUIHandler)
@@ -30,6 +34,16 @@ void PSTSEntryPoint::init()
 	}
 	// sets the player to null
 	audioSourcePlayer = nullptr;
+
+	// dumps info about current output hardware available
+	JuceAudioFacade facade;
+	vector<AudioDevice> devices = facade.listAllDevices();
+	for (int i=0; i<devices.size(); i++)
+	{
+		AudioDevice dev = devices[i];
+		DBG("DRV (" + String(dev.getDriverIndex()) + "): " + dev.getDriver().c_str() + " - NAME (" + String(dev.getDeviceIndex()) + "): " + dev.getName().c_str());
+	}
+
 }
 
 void PSTSEntryPoint::prepareForFilename(std::string filename)
@@ -101,12 +115,15 @@ void PSTSEntryPoint::onPausePressed()
 
 void PSTSEntryPoint::onStopPressed()
 {
-	guiHandler->doStop();
-	guiHandler->setProgress(0, duration);
-	audioDeviceManager.getCurrentAudioDevice()->stop();
-	audioFormatReaderSource->setNextReadPosition(0);
-	positionInSamples = 0;
-	previousPosition = 0;
+	if (audioSourcePlayer != nullptr)
+	{
+		guiHandler->doStop();
+		guiHandler->setProgress(0, duration);
+		audioDeviceManager.getCurrentAudioDevice()->stop();
+		audioFormatReaderSource->setNextReadPosition(0);
+		positionInSamples = 0;
+		previousPosition = 0;
+	}
 }
 
 void PSTSEntryPoint::onFileSelected(std::string fileName)
