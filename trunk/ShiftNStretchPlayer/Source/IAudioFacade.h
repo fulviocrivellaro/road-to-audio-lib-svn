@@ -1,28 +1,21 @@
-/*
-  ==============================================================================
-
-    IAudioFacade
-    Created: 28 Sep 2012 8:48:54am
-    Author:  audiolib
-
-  ==============================================================================
-*/
-
-#ifndef __IAUDIOFACADE_CA2E7815__
-#define __IAUDIOFACADE_CA2E7815__
+#pragma once
 
 #include <vector>
 #include <string>
+
+#include "AudioDevice.h"
 
 using namespace std;
 
 class IAudioFacade
 {
 public:
+	virtual ~IAudioFacade(void) {};
 
 	// hardware methods
-	virtual vector<string> getDrivers() = 0;
-	virtual vector<string> getDevices(string driver) = 0;
+	virtual vector<string> listDrivers() = 0;
+	virtual vector<string> listDevices(int driver) = 0;
+	virtual vector<AudioDevice> listAllDevices() = 0;
 
 	// audio methods
 	/*
@@ -31,8 +24,5 @@ public:
 	virtual bool pause() = 0;
 	virtual bool seek() = 0;
 	*/
-}
+};
 
-
-
-#endif  // __IAUDIOFACADE_CA2E7815__
