@@ -34,9 +34,10 @@
  */
 //#include <juce/juce.h>
 #include <../JuceLibraryCode/JuceHeader.h>
-#include "PSTSEntryPoint.h"
-#include "JuceGUIHandler.h"
 #include "MainGUI.h"
+
+class PSTSEntryPoint;
+class JuceGUIHandler;
 
 #define VALIDCHARS "ABCDEFGHIJKLMNOPQRTSUVWXYZabcdefghijklmnopqrstuvwxyz_0123456789"
 #define PROJECT_NAME_IDENTIFIER (String(PROJECT_NAME).replaceCharacter (' ', '_')		\
@@ -68,6 +69,5 @@ class MainAppWindow  : public DocumentWindow
 	private:
 		JuceGUIHandler *guiHandler;
 		PSTSEntryPoint *entryPoint;
-
 	};
 #endif 
