@@ -18,7 +18,7 @@ public:
 	// hardware queries
 	vector<string> listDrivers();
 	vector<string> listDevices(int driverIndex);
-	vector<AudioDevice> listAllDevices();
+	vector<const IAudioDevice* const> listAllDevices();
 
 	// audio methods
 	/*
@@ -29,6 +29,8 @@ public:
 	*/
 
 private:
-	AudioDeviceManager audioDeviceManager;
+	AudioDeviceManager mAudioDeviceManager;
+	vector<const IAudioDevice* const> mAudioDevices;
+	vector<string> mDrivers;
 };
 

@@ -3,32 +3,32 @@
 
 AudioDevice::AudioDevice(int driverIndex, int deviceIndex, string driver, string name)
 {
-	AudioDevice::driverIndex = driverIndex;
-	AudioDevice::deviceIndex = deviceIndex;
-	AudioDevice::driver = driver;
-	AudioDevice::name = name;
+	AudioDevice::mDriverIndex = driverIndex;
+	AudioDevice::mDeviceIndex = deviceIndex;
+	AudioDevice::mDriver = driver;
+	AudioDevice::mName = name;
 }
 
 AudioDevice::~AudioDevice(void) {}
 
 // hardware indexes
-int AudioDevice::getDriverIndex()
+inline int AudioDevice::getDriverIndex() const
 {
-	return driverIndex;
+	return mDriverIndex;
 }
 
-int AudioDevice::getDeviceIndex()
+inline int AudioDevice::getDeviceIndex() const
 {
-	return deviceIndex;
+	return mDeviceIndex;
 }
 
 // utils
-string AudioDevice::getDriver()
+inline string AudioDevice::getDriver() const
 {
-	return driver;
+	return mDriver;
 }
 
-string AudioDevice::getName()
+inline string AudioDevice::getName() const
 {
-	return name;
+	return mName;
 }

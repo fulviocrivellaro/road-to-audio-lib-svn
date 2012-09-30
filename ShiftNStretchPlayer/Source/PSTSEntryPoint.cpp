@@ -37,11 +37,11 @@ void PSTSEntryPoint::init()
 
 	// dumps info about current output hardware available
 	JuceAudioFacade facade;
-	vector<AudioDevice> devices = facade.listAllDevices();
+	vector<const IAudioDevice* const> devices = facade.listAllDevices();
 	for (int i=0; i<devices.size(); i++)
 	{
-		AudioDevice dev = devices[i];
-		DBG("DRV (" + String(dev.getDriverIndex()) + "): " + dev.getDriver().c_str() + " - NAME (" + String(dev.getDeviceIndex()) + "): " + dev.getName().c_str());
+		const IAudioDevice* dev = devices[i];
+		DBG("DRV (" + String(dev->getDriverIndex()) + "): " + dev->getDriver().c_str() + " - NAME (" + String(dev->getDeviceIndex()) + "): " + dev->getName().c_str());
 	}
 
 }
