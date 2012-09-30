@@ -3,7 +3,7 @@
 #include <vector>
 #include <string>
 
-#include "AudioDevice.h"
+#include "IAudioDevice.h"
 
 using namespace std;
 
@@ -15,7 +15,7 @@ public:
 	// hardware methods
 	virtual vector<string> listDrivers() = 0;
 	virtual vector<string> listDevices(int driver) = 0;
-	virtual vector<AudioDevice> listAllDevices() = 0;
+	virtual vector<const IAudioDevice* const> listAllDevices() = 0;
 
 	// audio methods
 	/*

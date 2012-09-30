@@ -10,11 +10,11 @@ public:
 	virtual ~IAudioDevice(void) {};
 
 	// hardware indexes
-	virtual int getDriverIndex() = 0;
-	virtual int getDeviceIndex() = 0;
+	virtual int getDriverIndex() const = 0;
+	virtual int getDeviceIndex() const = 0;
 
 	// utils
-	virtual string getDriver() = 0;
-	virtual string getName() = 0;
+	virtual string getDriver() const = 0;
+	virtual string getName() const = 0;
 };
 

@@ -14,19 +14,19 @@ public:
 	~AudioDevice(void);
 
 	// hardware indexes
-	int getDriverIndex();
-	int getDeviceIndex();
+	int getDriverIndex() const;
+	int getDeviceIndex() const;
 
 	// utils
-	string getDriver();
-	string getName();
+	string getDriver() const;
+	string getName() const;
 
 private:
 
-	int driverIndex;
-	int deviceIndex;
+	int mDriverIndex;
+	int mDeviceIndex;
 
-	string driver;
-	string name;
+	string mDriver;
+	string mName;
 };
 
