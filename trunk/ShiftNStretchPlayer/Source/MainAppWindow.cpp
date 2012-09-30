@@ -29,6 +29,8 @@
  */
 
 #include "MainAppWindow.h"
+#include "PSTSEntryPoint.h"
+#include "JuceGUIHandler.h"
 
 //==============================================================================
 MainAppWindow::MainAppWindow()
