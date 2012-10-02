@@ -51,6 +51,8 @@
           <FILE id="gapLtf" name="IEventHandler.h" compile="0" resource="0" file="Source/IEventHandler.h"/>
         </GROUP>
         <GROUP id="{56BD3DC3-8B30-723A-8973-316E4CD2B083}" name="Audio">
+          <FILE id="SqO8X5" name="IAudioReaderSeekListener.h" compile="0" resource="0"
+                file="Source/IAudioReaderSeekListener.h"/>
           <FILE id="lTOW2Q" name="AudioDevice.cpp" compile="1" resource="0" file="Source/AudioDevice.cpp"/>
           <FILE id="Mx5uIC" name="AudioDevice.h" compile="0" resource="0" file="Source/AudioDevice.h"/>
           <FILE id="KKdUkf" name="IAudioDevice.h" compile="0" resource="0" file="Source/IAudioDevice.h"/>
@@ -83,7 +85,6 @@
     <MODULE id="juce_audio_devices" showAllCode="1" useLocalCopy="1"/>
     <MODULE id="juce_audio_formats" showAllCode="1" useLocalCopy="1"/>
     <MODULE id="juce_audio_processors" showAllCode="1" useLocalCopy="1"/>
-    <MODULE id="juce_audio_utils" showAllCode="1" useLocalCopy="1"/>
   </MODULES>
   <JUCEOPTIONS/>
 </JUCERPROJECT>

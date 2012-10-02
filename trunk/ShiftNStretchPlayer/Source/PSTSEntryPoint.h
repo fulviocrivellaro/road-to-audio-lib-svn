@@ -4,9 +4,13 @@
 #include "GUIReceiver.h"
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "CallbackAudioFormatReader.h"
+#include "IAudioReaderSeekListener.h"
+
 #include <string>
 
-class PSTSEntryPoint : public GUIReceiver
+class IAudioFacade;
+
+class PSTSEntryPoint : public GUIReceiver, IAudioReaderSeekListener
 {
 public:
 	PSTSEntryPoint(GUIHandler *newGUIHandler);
@@ -29,21 +33,15 @@ public:
 	virtual void onProgressValueChanged(int value);
 
 	// listen to progress seek
-	void onSeek(long sample);
+	void onSeek(int samplesRead, long currentPosition);
 
 private:
 	// utils
 	int duration;
 	long positionInSamples, previousPosition;
 	GUIHandler *guiHandler;
+	IAudioFacade *mAudioFacade;
 
-	// Juce Audio Objects
-	AudioDeviceManager audioDeviceManager;
-	AudioSourcePlayer *audioSourcePlayer;
-	AudioFormatReaderSource *audioFormatReaderSource;
-
-	void init();
 	void prepareForFilename(std::string filename);
-	
 };
 
