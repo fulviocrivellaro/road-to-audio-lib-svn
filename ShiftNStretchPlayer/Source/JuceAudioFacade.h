@@ -1,6 +1,7 @@
 #pragma once
 
 #include "IAudioFacade.h"
+#include "IAudioReaderSeekListener.h"
 #include "../JuceLibraryCode/JuceHeader.h"
 
 #include <vector>
@@ -9,28 +10,37 @@
 using namespace std;
 
 class JuceAudioFacade :
-	public IAudioFacade
+	public IAudioFacade, IAudioReaderSeekListener
 {
 public:
 	JuceAudioFacade(void);
-	~JuceAudioFacade(void);
+	virtual ~JuceAudioFacade(void);
 
 	// hardware queries
-	vector<string> listDrivers();
-	vector<string> listDevices(int driverIndex);
-	vector<const IAudioDevice* const> listAllDevices();
+	vector<string> listDrivers() const;
+	vector<string> listDevices(int driverIndex) const;
+	vector<const IAudioDevice* const> listAllDevices() const;
 
-	// audio methods
-	/*
-	virtual bool play() = 0;
-	virtual bool stop() = 0;
-	virtual bool pause() = 0;
-	virtual bool seek() = 0;
-	*/
+	bool setFileSource(std::string filename);
+	int getSamplingFrequency() const;
+	long getSourceLength() const;
+
+	// transport methods
+	bool play();
+	bool stop();
+	bool pause();
+	bool seek(long newPosition);
+
+	void onSeek(int samplesRead, long currentPosition);
+
+	void setAudioSeekListener(IAudioReaderSeekListener *newSeekListener);
 
 private:
 	AudioDeviceManager mAudioDeviceManager;
 	vector<const IAudioDevice* const> mAudioDevices;
+	AudioSourcePlayer *mAudioSourcePlayer;
+	AudioFormatReaderSource *mAudioFormatReaderSource;
 	vector<string> mDrivers;
+	IAudioReaderSeekListener *seekListener;
 };
 

@@ -1,10 +1,11 @@
 #include "CallbackAudioFormatReader.h"
-#include "PSTSEntryPoint.h"
+#include "IAudioReaderSeekListener.h"
 
-CallbackAudioFormatReader::CallbackAudioFormatReader(AudioFormatReader *readerSource, bool deleteReaderWhenThisIsDeleted , PSTSEntryPoint *newListener)
+CallbackAudioFormatReader::CallbackAudioFormatReader(AudioFormatReader *readerSource, bool deleteReaderWhenThisIsDeleted , IAudioReaderSeekListener *newListener)
 	: AudioFormatReaderSource(readerSource, deleteReaderWhenThisIsDeleted ), seekListener(newListener)
 {
 	// default, base constructor
+	currentReadPosition = 0;
 }
 
 
@@ -16,6 +17,14 @@ void CallbackAudioFormatReader::getNextAudioBlock(const AudioSourceChannelInfo &
 {
 	AudioFormatReaderSource::getNextAudioBlock(bufferToFill);
 
+	currentReadPosition += bufferToFill.numSamples;
+
 	const MessageManagerLock mmLock;
-	seekListener->onSeek(bufferToFill.numSamples);
+	seekListener->onSeek(bufferToFill.numSamples, currentReadPosition);
+}
+
+void CallbackAudioFormatReader::setNextReadPosition(int64 newPosition)
+{
+	AudioFormatReaderSource::setNextReadPosition(newPosition);
+	currentReadPosition = newPosition;
 }
