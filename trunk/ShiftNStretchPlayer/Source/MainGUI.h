@@ -25,6 +25,7 @@
 //[Headers]     -- You can add your own extra header files here --
 #include <../JuceLibraryCode/JuceHeader.h>
 #include <set>
+#include <string>
 #include "GUIReceiver.h"
 //[/Headers]
 
@@ -66,6 +67,7 @@ public:
 	// add/remove receivers
 	void addReceiver(GUIReceiver *newReceiver);
 	void removeReceiver(GUIReceiver *toBeRemovedReceiver);
+	void registerAudioFormats(std::set<std::string> formats);
 
     //[/UserMethods]
 
@@ -87,7 +89,7 @@ private:
 
 	//GUIReceiver *receiver;
 	std::set<GUIReceiver*> receivers;
-
+	String mAvailableFormatsString;
     //[/UserVariables]
 
     //==============================================================================

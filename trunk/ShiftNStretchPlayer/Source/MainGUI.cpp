@@ -138,6 +138,7 @@ MainGUI::MainGUI ()
 	sliderTimeStretch->setValue(100, false);
 	sliderTimeStretch->setTextValueSuffix("%");
 	setBounds(100, 100, 300, 400);
+	mAvailableFormatsString = "";
     //[/Constructor]
 }
 
@@ -256,7 +257,7 @@ void MainGUI::buttonClicked (Button* buttonThatWasClicked)
     else if (buttonThatWasClicked == btnOpen)
     {
         //[UserButtonCode_btnOpen] -- add your button handler code here..
-		FileChooser chooser("Choose file to open", File::nonexistent, "*.wav");
+		FileChooser chooser("Choose file to open", File::nonexistent, mAvailableFormatsString);
 		if (chooser.browseForFileToOpen())
 		{
 			String filename = chooser.getResult().getFullPathName();
@@ -381,6 +382,21 @@ void MainGUI::addReceiver(GUIReceiver *newReceiver)
 void MainGUI::removeReceiver(GUIReceiver *toBeRemovedReceiver)
 {
 	receivers.erase(toBeRemovedReceiver);
+}
+
+void MainGUI::registerAudioFormats(std::set<std::string> formats)
+{
+	int numFormats = formats.size();
+	if (numFormats > 0)
+	{
+		std::set<std::string>::iterator it;
+		for (it = formats.begin(); it != formats.end(); it++)
+		{
+			std::string currentFormat = "*" + *it + ";";
+			mAvailableFormatsString += String(currentFormat.c_str());
+		}
+	}
+	DBG("Registered file format audio wildcard: " + mAvailableFormatsString);
 }
 
 //[/MiscUserCode]

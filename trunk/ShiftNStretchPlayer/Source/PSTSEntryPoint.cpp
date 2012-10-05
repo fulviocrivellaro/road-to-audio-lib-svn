@@ -28,6 +28,8 @@ void PSTSEntryPoint::run()
 	// initialize Juce Facade
 	mAudioFacade = new JuceAudioFacade();
 	mAudioFacade->setAudioSeekListener(this);
+
+	guiHandler->registerAudioFormats(mAudioFacade->getSupportedAudioFormats());
 }
 
 // receive the panpot value
