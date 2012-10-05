@@ -4,6 +4,7 @@
 #include "IAudioReaderSeekListener.h"
 #include "../JuceLibraryCode/JuceHeader.h"
 
+#include <set>
 #include <vector>
 #include <string>
 
@@ -20,6 +21,7 @@ public:
 	vector<string> listDrivers() const;
 	vector<string> listDevices(int driverIndex) const;
 	vector<const IAudioDevice* const> listAllDevices() const;
+	set<string> getSupportedAudioFormats() const;
 
 	bool setFileSource(std::string filename);
 	int getSamplingFrequency() const;
@@ -37,6 +39,7 @@ public:
 
 private:
 	AudioDeviceManager mAudioDeviceManager;
+	AudioFormatManager mAudioFormatManager;
 	vector<const IAudioDevice* const> mAudioDevices;
 	AudioSourcePlayer *mAudioSourcePlayer;
 	AudioFormatReaderSource *mAudioFormatReaderSource;

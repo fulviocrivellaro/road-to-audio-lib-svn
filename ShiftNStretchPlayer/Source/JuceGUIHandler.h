@@ -22,6 +22,9 @@ public:
 	// set the progress bar
 	virtual void setProgress(int current, int duration);
 
+	// register the knon audio formats
+	void registerAudioFormats(std::set<std::string> formats);
+
 private:
 	MainGUI* gui;
 	MainGUI* getGUI();

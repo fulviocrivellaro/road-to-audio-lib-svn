@@ -47,3 +47,8 @@ void JuceGUIHandler::setProgress(int current, int duration)
 {
 	gui->setProgress(current, duration);
 }
+
+void JuceGUIHandler::registerAudioFormats(std::set<std::string> formats)
+{
+	gui->registerAudioFormats(formats);
+}

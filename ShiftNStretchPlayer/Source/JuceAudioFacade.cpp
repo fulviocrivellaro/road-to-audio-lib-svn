@@ -28,6 +28,9 @@ JuceAudioFacade::JuceAudioFacade(void) :
 		DBG("Initialization error: " + outcome);
 	}
 
+	// register basic audio formats
+	mAudioFormatManager.registerBasicFormats();
+
 	// dumps info about current output hardware available
 	
 	for (int i=0; i<mAudioDevices.size(); i++)
@@ -82,14 +85,26 @@ vector<const IAudioDevice* const> JuceAudioFacade::listAllDevices() const
 	return mAudioDevices;
 }
 
+set<string> JuceAudioFacade::getSupportedAudioFormats() const
+{
+	set<string> result;
+	for (int i=0; i<mAudioFormatManager.getNumKnownFormats(); i++)
+	{
+		StringArray extensions = mAudioFormatManager.getKnownFormat(i)->getFileExtensions();
+		for (int j=0; j<extensions.size(); j++)
+		{
+			result.insert(extensions[j].getCharPointer());
+		}
+	}
+	return result;
+}
+
 bool JuceAudioFacade::setFileSource(std::string filename)
 {
-	int bufferSize = mAudioDeviceManager.getCurrentAudioDevice()->getDefaultBufferSize();
-
 	bool initialized = (mAudioSourcePlayer != nullptr);
 	if (initialized)
 	{
-		stop();
+		pause();
 	} else {
 		mAudioSourcePlayer = new AudioSourcePlayer();
 	}
@@ -97,7 +112,8 @@ bool JuceAudioFacade::setFileSource(std::string filename)
 	WavAudioFormat wavAudioFormat;
 	
 	// need to create a new, temporary AudioFormatReaderSource, for the player
-	AudioFormatReaderSource* newAudioFormatReaderSource = new CallbackAudioFormatReader(wavAudioFormat.createReaderFor(File((const char*) filename.c_str()).createInputStream(), false), true, this);
+	AudioFormatReader *audioFormatReader = mAudioFormatManager.createReaderFor(File((const char*) filename.c_str()));
+	AudioFormatReaderSource* newAudioFormatReaderSource = new CallbackAudioFormatReader(audioFormatReader, true, this);
 	// AFTER setting the new AudioFormatReaderSource, the releaseResources() method is called on the source instance
 	mAudioSourcePlayer->setSource(newAudioFormatReaderSource);
 
@@ -112,6 +128,7 @@ bool JuceAudioFacade::setFileSource(std::string filename)
 	
 	int fs = mAudioFormatReaderSource->getAudioFormatReader()->sampleRate;
 
+	int bufferSize = mAudioDeviceManager.getCurrentAudioDevice()->getDefaultBufferSize();
 	mAudioDeviceManager.getCurrentAudioDevice()->open(0, 3, fs, bufferSize);
 	mAudioFormatReaderSource->prepareToPlay(bufferSize, fs);
 
@@ -178,6 +195,8 @@ bool JuceAudioFacade::seek(long newPosition)
 	}
 	return false;
 }
+
+// events
 
 void JuceAudioFacade::onSeek(int samplesRead, long currentPosition)
 {

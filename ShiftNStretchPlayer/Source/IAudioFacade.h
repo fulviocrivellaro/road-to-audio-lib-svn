@@ -1,5 +1,6 @@
 #pragma once
 
+#include <set>
 #include <vector>
 #include <string>
 
@@ -18,6 +19,7 @@ public:
 	virtual vector<string> listDrivers() const = 0;
 	virtual vector<string> listDevices(int driver) const = 0;
 	virtual vector<const IAudioDevice* const> listAllDevices() const = 0;
+	virtual set<string> getSupportedAudioFormats() const = 0;
 
 	//
 	virtual bool setFileSource(std::string filename) = 0;

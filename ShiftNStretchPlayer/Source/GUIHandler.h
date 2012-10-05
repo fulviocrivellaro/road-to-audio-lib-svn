@@ -1,4 +1,8 @@
 #pragma once
+
+#include <set>
+#include <string>
+
 class GUIHandler
 {
 public:
@@ -16,6 +20,9 @@ public:
 
 	// set the progress bar
 	virtual void setProgress(int current, int duration) = 0;
+
+	// register the knon audio formats
+	virtual void registerAudioFormats(std::set<std::string> formats) = 0;
 
 };
 
