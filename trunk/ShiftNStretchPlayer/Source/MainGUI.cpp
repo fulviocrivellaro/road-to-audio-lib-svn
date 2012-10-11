@@ -338,6 +338,8 @@ void MainGUI::setProgress(int current, int duration)
 	String currentPositionString;
 	String durationPositionString;
 	
+	const MessageManagerLock lock;
+
 	if (duration == 0)
 	{
 		// null duration means no file available
@@ -369,6 +371,7 @@ void MainGUI::setProgress(int current, int duration)
 
 		sliderPosition->setRange(0, duration, 1);
 	}
+	
 	sliderPosition->setValue(current, false);
 	labelProgress->setText(currentPositionString, false);
 	labelTotalTime->setText(durationPositionString, false);
