@@ -19,7 +19,6 @@ void CallbackAudioFormatReader::getNextAudioBlock(const AudioSourceChannelInfo &
 
 	currentReadPosition += bufferToFill.numSamples;
 
-	const MessageManagerLock mmLock;
 	seekListener->onSeek(bufferToFill.numSamples, currentReadPosition);
 }
 
