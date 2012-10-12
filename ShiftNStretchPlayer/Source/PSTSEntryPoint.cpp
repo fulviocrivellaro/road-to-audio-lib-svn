@@ -17,9 +17,15 @@ PSTSEntryPoint::~PSTSEntryPoint(void)
 
 void PSTSEntryPoint::prepareForFilename(std::string filename)
 {
+	bool wasPlaying = mAudioFacade->isPlaying();
 	mAudioFacade->setFileSource(filename);
 	duration = mAudioFacade->getSourceLength() / mAudioFacade->getSamplingFrequency();
 	resetGui();
+	
+	if (wasPlaying)
+	{
+		onStartPressed();
+	}
 }
 
 void PSTSEntryPoint::run()

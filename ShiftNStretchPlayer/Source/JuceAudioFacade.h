@@ -26,6 +26,7 @@ public:
 	bool setFileSource(std::string filename);
 	int getSamplingFrequency() const;
 	long getSourceLength() const;
+	bool isPlaying() const;
 
 	// transport methods
 	bool play();

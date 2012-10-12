@@ -155,6 +155,11 @@ long JuceAudioFacade::getSourceLength() const
 	}
 }
 
+bool JuceAudioFacade::isPlaying() const
+{
+	return mAudioDeviceManager.getCurrentAudioDevice() != nullptr && mAudioDeviceManager.getCurrentAudioDevice()->isPlaying();
+}
+
 bool JuceAudioFacade::play()
 {
 	if (mAudioFormatReaderSource != nullptr)
