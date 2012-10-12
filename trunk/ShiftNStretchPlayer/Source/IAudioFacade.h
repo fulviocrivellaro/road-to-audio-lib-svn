@@ -21,10 +21,11 @@ public:
 	virtual vector<const IAudioDevice* const> listAllDevices() const = 0;
 	virtual set<string> getSupportedAudioFormats() const = 0;
 
-	//
+	// Query methods
 	virtual bool setFileSource(std::string filename) = 0;
 	virtual int getSamplingFrequency() const = 0;
 	virtual long getSourceLength() const = 0;
+	virtual bool isPlaying() const = 0;
 
 	// transport methods
 	virtual bool play() = 0;
