@@ -18,12 +18,15 @@ PSTSEntryPoint::~PSTSEntryPoint(void)
 void PSTSEntryPoint::prepareForFilename(std::string filename)
 {
 	mAudioFacade->setFileSource(filename);
+	duration = mAudioFacade->getSourceLength() / mAudioFacade->getSamplingFrequency();
+	resetGui();
 }
 
 void PSTSEntryPoint::run()
 {
 	guiHandler->setTimeStretchValue(100);
-	guiHandler->setProgress(0, 0);
+	duration = 0;
+	resetGui();
 
 	// initialize Juce Facade
 	mAudioFacade = new JuceAudioFacade();
@@ -64,11 +67,16 @@ void PSTSEntryPoint::onStopPressed()
 {
 	if (mAudioFacade->stop())
 	{
-		guiHandler->doStop();
-		guiHandler->setProgress(0, duration);
-		positionInSamples = 0;
-		previousPosition = 0;
+		resetGui();
 	}
+}
+
+void PSTSEntryPoint::resetGui()
+{
+	guiHandler->doStop();
+	guiHandler->setProgress(0, duration);
+	positionInSamples = 0;
+	previousPosition = 0;
 }
 
 void PSTSEntryPoint::onFileSelected(std::string fileName)

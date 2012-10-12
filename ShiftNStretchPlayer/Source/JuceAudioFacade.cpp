@@ -99,6 +99,7 @@ set<string> JuceAudioFacade::getSupportedAudioFormats() const
 	return result;
 }
 
+
 bool JuceAudioFacade::setFileSource(std::string filename)
 {
 	bool initialized = (mAudioSourcePlayer != nullptr);

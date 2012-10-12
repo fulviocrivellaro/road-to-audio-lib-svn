@@ -43,5 +43,6 @@ private:
 	IAudioFacade *mAudioFacade;
 
 	void prepareForFilename(std::string filename);
+	void resetGui();
 };
 
