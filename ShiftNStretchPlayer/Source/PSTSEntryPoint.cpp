@@ -103,11 +103,12 @@ void PSTSEntryPoint::onProgressValueChanged(int value)
 void PSTSEntryPoint::onSeek(int samplesRead, long currentPosition)
 {
 	int fs = mAudioFacade->getSamplingFrequency();
-	int currentPositionInSeconds = currentPosition / fs;
-	if (currentPositionInSeconds != previousPosition)
+	if (currentPosition > mAudioFacade->getSourceLength())
 	{
-		previousPosition = currentPositionInSeconds;
-		duration = mAudioFacade->getSourceLength() / fs;
-		guiHandler->setProgress(currentPositionInSeconds, duration);
+		onStopPressed();
+	} else if (currentPosition - previousPosition >= fs)
+	{
+		previousPosition = currentPosition;
+		guiHandler->setProgress(currentPosition/fs, duration);
 	}
 }

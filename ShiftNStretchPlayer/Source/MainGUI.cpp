@@ -319,6 +319,7 @@ void MainGUI::doPause()
 
 void MainGUI::doStop()
 {
+	const MessageManagerLock lock;
 	btnPlay->setToggleState(false, false);
 	btnStop->setEnabled(true);
 }
