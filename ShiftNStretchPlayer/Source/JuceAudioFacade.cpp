@@ -1,9 +1,10 @@
 #include "JuceAudioFacade.h"
 #include "AudioDevice.h"
 #include "CallbackAudioFormatReader.h"
+#include "DiracAudioSource.h"
 
 JuceAudioFacade::JuceAudioFacade(void) :
-	mAudioFormatReaderSource(nullptr), mAudioSourcePlayer(nullptr), seekListener(nullptr)
+	mAudioFormatReaderSource(nullptr), mDiracAudioSource(nullptr), mAudioSourcePlayer(nullptr), seekListener(nullptr)
 {
 	int nDevices = mAudioDeviceManager.getAvailableDeviceTypes().size();
 	for (int i=0; i<nDevices; i++)
@@ -38,6 +39,8 @@ JuceAudioFacade::JuceAudioFacade(void) :
 		const IAudioDevice* dev = mAudioDevices[i];
 		DBG("DRV (" + String(dev->getDriverIndex()) + "): " + dev->getDriver().c_str() + " - NAME (" + String(dev->getDeviceIndex()) + "): " + dev->getName().c_str());
 	}
+
+	mPitchShiftingSemitones = 0;
 }
 
 
@@ -51,9 +54,11 @@ JuceAudioFacade::~JuceAudioFacade(void)
 
 	if (mAudioSourcePlayer != nullptr)
 	{
-		mAudioFormatReaderSource->releaseResources();
+		//mAudioFormatReaderSource->releaseResources();
+		mDiracAudioSource->releaseResources();
 		mAudioDeviceManager.closeAudioDevice();
 		delete mAudioSourcePlayer;
+		delete mDiracAudioSource;
 		delete mAudioFormatReaderSource;
 	}
 }
@@ -114,25 +119,27 @@ bool JuceAudioFacade::setFileSource(std::string filename)
 	
 	// need to create a new, temporary AudioFormatReaderSource, for the player
 	AudioFormatReader *audioFormatReader = mAudioFormatManager.createReaderFor(File((const char*) filename.c_str()));
-	AudioFormatReaderSource* newAudioFormatReaderSource = new CallbackAudioFormatReader(audioFormatReader, true, this);
+	CallbackAudioFormatReader* newAudioFormatReaderSource = new CallbackAudioFormatReader(audioFormatReader, true, this);
+	DiracAudioSource* newDiracAudioSource = new DiracAudioSource(newAudioFormatReaderSource, false, mPitchShiftingSemitones);
 	// AFTER setting the new AudioFormatReaderSource, the releaseResources() method is called on the source instance
-	mAudioSourcePlayer->setSource(newAudioFormatReaderSource);
-
+	mAudioSourcePlayer->setSource(newDiracAudioSource);
+	
 	// check if this is not the first run
 	if (initialized)
 	{
 		// now the old AudioFormatReaderSource is no longer needed - can delete it (AudioSourcePlayer will NOT do it)
 		delete mAudioFormatReaderSource;
+		delete mDiracAudioSource;
 	}
 	// we can update our pointer to the current AudioFormatReaderSource at last
 	mAudioFormatReaderSource = newAudioFormatReaderSource;
-	
+	mDiracAudioSource = newDiracAudioSource;
+
 	int fs = mAudioFormatReaderSource->getAudioFormatReader()->sampleRate;
 
 	int bufferSize = mAudioDeviceManager.getCurrentAudioDevice()->getDefaultBufferSize();
 	mAudioDeviceManager.getCurrentAudioDevice()->open(0, 3, fs, bufferSize);
-	mAudioFormatReaderSource->prepareToPlay(bufferSize, fs);
-
+	
 	return true;
 }
 
@@ -200,6 +207,17 @@ bool JuceAudioFacade::seek(long newPosition)
 		return true;
 	}
 	return false;
+}
+
+// FX
+
+void JuceAudioFacade::setPitchShiftingSemitones(int value)
+{
+	mPitchShiftingSemitones = value;
+	if (mDiracAudioSource != nullptr)
+	{
+		mDiracAudioSource->setPitchShiftValue(value);
+	}
 }
 
 // events

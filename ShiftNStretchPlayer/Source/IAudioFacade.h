@@ -33,6 +33,9 @@ public:
 	virtual bool pause() = 0;
 	virtual bool seek(long newPosition) = 0;
 
+	// FX methods
+	virtual void setPitchShiftingSemitones(int value)  = 0;
+
 	// callbacks
 	virtual void setAudioSeekListener(IAudioReaderSeekListener *listener) = 0;
 	

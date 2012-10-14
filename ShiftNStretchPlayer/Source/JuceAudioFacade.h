@@ -8,6 +8,8 @@
 #include <vector>
 #include <string>
 
+class DiracAudioSource;
+
 using namespace std;
 
 class JuceAudioFacade :
@@ -34,6 +36,9 @@ public:
 	bool pause();
 	bool seek(long newPosition);
 
+	// FX methods
+	void setPitchShiftingSemitones(int value);
+
 	void onSeek(int samplesRead, long currentPosition);
 
 	void setAudioSeekListener(IAudioReaderSeekListener *newSeekListener);
@@ -44,7 +49,13 @@ private:
 	vector<const IAudioDevice* const> mAudioDevices;
 	AudioSourcePlayer *mAudioSourcePlayer;
 	AudioFormatReaderSource *mAudioFormatReaderSource;
+	DiracAudioSource *mDiracAudioSource;
 	vector<string> mDrivers;
 	IAudioReaderSeekListener *seekListener;
+	
+	int fs;
+	long length;
+
+	int mPitchShiftingSemitones;
 };
 

@@ -44,7 +44,7 @@ void PSTSEntryPoint::run()
 // receive the panpot value
 void PSTSEntryPoint::onPitchShiftValueChanged(int value)
 {
-	
+	mAudioFacade->setPitchShiftingSemitones(value);
 }
 
 void PSTSEntryPoint::onTimeStretchValueChanged(int value)

@@ -8,13 +8,19 @@
             smallIcon="e40eNI" bigIcon="uxYN72">
       <CONFIGURATIONS>
         <CONFIGURATION name="Debug" winWarningLevel="4" generateManifest="1" winArchitecture="32-bit"
-                       isDebug="1" optimisation="1" targetName="ShiftNStretchPlayer"/>
+                       isDebug="1" optimisation="1" targetName="ShiftNStretchPlayer"
+                       libraryPath="../libs" headerPath="../libs"/>
         <CONFIGURATION name="Release" winWarningLevel="4" generateManifest="1" winArchitecture="32-bit"
-                       isDebug="0" optimisation="2" targetName="ShiftNStretchPlayer"/>
+                       isDebug="0" optimisation="2" targetName="ShiftNStretchPlayer"
+                       libraryPath="../libs" headerPath="../libs"/>
       </CONFIGURATIONS>
     </VS2010>
   </EXPORTFORMATS>
   <MAINGROUP id="eWdEli" name="ShiftNStretchPlayer">
+    <GROUP id="{B1404983-DCAC-90CB-311C-B7B39094923E}" name="libs">
+      <FILE id="b3lXUa" name="Dirac.h" compile="0" resource="0" file="libs/Dirac.h"/>
+      <FILE id="JY3alk" name="DiracLE.lib" compile="1" resource="0" file="libs/DiracLE.lib"/>
+    </GROUP>
     <GROUP id="{8C15B652-C6B4-6B22-3E29-6D63CA9A49FD}" name="res">
       <GROUP id="{0FAC92F3-7FE2-E47C-828F-799A72A49A6F}" name="images">
         <FILE id="uxYN72" name="icon_big.png" compile="0" resource="1" file="res/images/icon_big.png"/>
@@ -34,6 +40,10 @@
               resource="0" file="Source/CallbackAudioFormatReader.cpp"/>
         <FILE id="erNETo" name="CallbackAudioFormatReader.h" compile="0" resource="0"
               file="Source/CallbackAudioFormatReader.h"/>
+        <FILE id="BDG6BO" name="DiracAudioSource.cpp" compile="1" resource="0"
+              file="Source/DiracAudioSource.cpp"/>
+        <FILE id="vFbSqY" name="DiracAudioSource.h" compile="0" resource="0"
+              file="Source/DiracAudioSource.h"/>
       </GROUP>
       <GROUP id="{CFCEA86A-2668-D693-24CC-9A525D811FA0}" name="JuceCore">
         <FILE id="VHMj1g" name="ApplicationStartup.cpp" compile="1" resource="0"
