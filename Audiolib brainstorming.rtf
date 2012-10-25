@@ -1,0 +1,54 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1187\cocoasubrtf340
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;\red255\green39\blue18;\red217\green11\blue0;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww27500\viewh14660\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
+
+\f0\fs24 \cf0 Casi pilota:\
+- Attuale player\
+- Applicazione dei rutti\
+- Musicolor\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
+\cf2 Attuale player\cf0 \
+- Prima di ritener chiuso l'attuale player voglio implementare il decoder per TTA.\
+- Valutare di nuovo la cosa del time/buffer IO con size !=\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
+\cf3 Lista TTD top-down\cf0 \
+- Gestione formati diversi (in lettura per il player)\
+- Gestione sorgenti/destinazioni diverse\
+- Gestione resampling per SR mismatch tra source e destination\
+- Svincolare buffer (size?) input da output (vd problema time stretch)\
+- Possibilit\'e0 di applicare un processing tra IN e OUT\
+\
+Brainstorming:\
+- Nodi di controllo\
+- Time vs Frequency\
+- Nodi con numIn != da numOut\
+\
+Musicolor (desktop, tablet): \
+- Necessit\'e0 di accedere ai samples\
+- Necessit\'e0 di gestire pi\'f9 canali (sync!)\
+- Considerare come estrarre features audio da usare fuori dalla chain (pensare ad un meccanismo di accesso)\
+- Standardizzare il concetto di Events\
+- Gestione della playlist\
+- v2.0 deve avere anche l'audio in\
+- Implementazione Navier-Stokes\
+- Ragionamento/test/studio sulle feautures da usare\
+\
+Rutti (mobile sia iOS che Android e magari VST/AU)\
+- Gestione simultanea di \
+	- Audio file\
+	- HW in\
+- Estrazione di segnali di controllo mono e multidimensionali\
+- Processing di un nodo basato su segnali di controllo multidimensionali\
+- Mix Audio di due nodi pilotato da un segnale di controllo monodimensionale\
+\
+\
+Steps\
+Andrea: aggiungere TTA reader all'attuale player, Namespaces\
+Fulvio: cominciare a fare il nodo (ottica basilare, integrare I/O sull'audio player, primo approccio ai thread)\
+All: 	- brain-storming sull'audio chain e sully strategie\
+	- organizzazione delle dipendenze di terze parti\
+	- scelta dei target a breve termine (x86, x64, osX, etc\'85)}
