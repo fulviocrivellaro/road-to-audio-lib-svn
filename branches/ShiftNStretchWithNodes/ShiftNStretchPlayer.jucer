@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<JUCERPROJECT id="uKXAm9" name="ShiftNStretchPlayer" projectType="guiapp" version="1.0.0"
+              bundleIdentifier="it.bubisoft.ShiftNStretchPlayer" jucerVersion="3.0.0"
+              companyName="Bubisoft">
+  <EXPORTFORMATS>
+    <VS2010 targetFolder="Builds/VisualStudio2010" libraryType="1" juceFolder="../../../../libs/juce"
+            smallIcon="e40eNI" bigIcon="uxYN72">
+      <CONFIGURATIONS>
+        <CONFIGURATION name="Debug" winWarningLevel="4" generateManifest="1" winArchitecture="32-bit"
+                       isDebug="1" optimisation="1" targetName="ShiftNStretchPlayer"
+                       libraryPath="../libs" headerPath="../libs"/>
+        <CONFIGURATION name="Release" winWarningLevel="4" generateManifest="1" winArchitecture="32-bit"
+                       isDebug="0" optimisation="2" targetName="ShiftNStretchPlayer"
+                       libraryPath="../libs" headerPath="../libs"/>
+      </CONFIGURATIONS>
+    </VS2010>
+  </EXPORTFORMATS>
+  <MAINGROUP id="eWdEli" name="ShiftNStretchPlayer">
+    <GROUP id="{B1404983-DCAC-90CB-311C-B7B39094923E}" name="libs">
+      <FILE id="b3lXUa" name="Dirac.h" compile="0" resource="0" file="libs/Dirac.h"/>
+      <FILE id="JY3alk" name="DiracLE.lib" compile="1" resource="0" file="libs/DiracLE.lib"/>
+    </GROUP>
+    <GROUP id="{8C15B652-C6B4-6B22-3E29-6D63CA9A49FD}" name="res">
+      <GROUP id="{0FAC92F3-7FE2-E47C-828F-799A72A49A6F}" name="images">
+        <FILE id="uxYN72" name="icon_big.png" compile="0" resource="1" file="res/images/icon_big.png"/>
+        <FILE id="Zmk2Xq" name="sound_wave.jpg" compile="0" resource="1" file="res/images/sound_wave.jpg"/>
+        <FILE id="e40eNI" name="icon_small.png" compile="0" resource="1" file="res/images/icon_small.png"/>
+      </GROUP>
+    </GROUP>
+    <GROUP id="{C1A5FE88-3969-CD53-021F-DB00CCCBC993}" name="Source">
+      <GROUP id="{BF7CA652-F4C9-5AE0-5CAB-CF6041A2A904}" name="Abstraction">
+        <FILE id="s4nMOX" name="JuceAudioFacade.cpp" compile="1" resource="0"
+              file="Source/JuceAudioFacade.cpp"/>
+        <FILE id="EpMFbp" name="JuceAudioFacade.h" compile="0" resource="0"
+              file="Source/JuceAudioFacade.h"/>
+      </GROUP>
+      <GROUP id="{C39C7ED2-6535-985B-FBA3-620EF5043345}" name="JuceAudio">
+        <FILE id="SW6lCn" name="CallbackAudioFormatReader.cpp" compile="1"
+              resource="0" file="Source/CallbackAudioFormatReader.cpp"/>
+        <FILE id="erNETo" name="CallbackAudioFormatReader.h" compile="0" resource="0"
+              file="Source/CallbackAudioFormatReader.h"/>
+        <FILE id="BDG6BO" name="DiracAudioSource.cpp" compile="1" resource="0"
+              file="Source/DiracAudioSource.cpp"/>
+        <FILE id="vFbSqY" name="DiracAudioSource.h" compile="0" resource="0"
+              file="Source/DiracAudioSource.h"/>
+      </GROUP>
+      <GROUP id="{CFCEA86A-2668-D693-24CC-9A525D811FA0}" name="JuceCore">
+        <FILE id="VHMj1g" name="ApplicationStartup.cpp" compile="1" resource="0"
+              file="Source/ApplicationStartup.cpp"/>
+        <FILE id="ZFKhIb" name="MainAppWindow.cpp" compile="1" resource="0"
+              file="Source/MainAppWindow.cpp"/>
+        <FILE id="kJxGQV" name="MainAppWindow.h" compile="0" resource="0" file="Source/MainAppWindow.h"/>
+      </GROUP>
+      <GROUP id="{48EFC6B4-1586-0DE6-C919-01B0EFC9D552}" name="EventHandling">
+        <FILE id="RyCRHf" name="GUIHandler.h" compile="0" resource="0" file="Source/GUIHandler.h"/>
+        <FILE id="dmF0pI" name="GUIReceiver.h" compile="0" resource="0" file="Source/GUIReceiver.h"/>
+      </GROUP>
+      <GROUP id="{E6E1E1B4-F08B-EE9C-6256-4E6A827ACA97}" name="Core">
+        <GROUP id="{48BA1EAF-1FD6-5D09-15A1-611D59906ACC}" name="Events">
+          <FILE id="gapLtf" name="IEventHandler.h" compile="0" resource="0" file="Source/IEventHandler.h"/>
+        </GROUP>
+        <GROUP id="{56BD3DC3-8B30-723A-8973-316E4CD2B083}" name="Audio">
+          <FILE id="SqO8X5" name="IAudioReaderSeekListener.h" compile="0" resource="0"
+                file="Source/IAudioReaderSeekListener.h"/>
+          <FILE id="lTOW2Q" name="AudioDevice.cpp" compile="1" resource="0" file="Source/AudioDevice.cpp"/>
+          <FILE id="Mx5uIC" name="AudioDevice.h" compile="0" resource="0" file="Source/AudioDevice.h"/>
+          <FILE id="KKdUkf" name="IAudioDevice.h" compile="0" resource="0" file="Source/IAudioDevice.h"/>
+          <FILE id="Nu5ACU" name="IAudioFacade.h" compile="0" resource="0" file="Source/IAudioFacade.h"/>
+        </GROUP>
+        <FILE id="pnJMTy" name="PSTSEntryPoint.cpp" compile="1" resource="0"
+              file="Source/PSTSEntryPoint.cpp"/>
+        <FILE id="IvOIY3" name="PSTSEntryPoint.h" compile="0" resource="0"
+              file="Source/PSTSEntryPoint.h"/>
+      </GROUP>
+      <GROUP id="{DCFBD95E-268F-0294-62CF-E71894EDE15D}" name="JuceGUI">
+        <FILE id="kxlQQd" name="JuceGUIHandler.cpp" compile="1" resource="0"
+              file="Source/JuceGUIHandler.cpp"/>
+        <FILE id="C3qn14" name="JuceGUIHandler.h" compile="0" resource="0"
+              file="Source/JuceGUIHandler.h"/>
+        <FILE id="bOdsSU" name="MainGUI.cpp" compile="1" resource="0" file="Source/MainGUI.cpp"/>
+        <FILE id="lSvY1G" name="MainGUI.h" compile="0" resource="0" file="Source/MainGUI.h"/>
+      </GROUP>
+    </GROUP>
+  </MAINGROUP>
+  <MODULES>
+    <MODULE id="juce_core" showAllCode="1" useLocalCopy="1"/>
+    <MODULE id="juce_events" showAllCode="1" useLocalCopy="1"/>
+    <MODULE id="juce_graphics" showAllCode="1" useLocalCopy="1"/>
+    <MODULE id="juce_data_structures" showAllCode="1" useLocalCopy="1"/>
+    <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="1"/>
+    <MODULE id="juce_gui_extra" showAllCode="1" useLocalCopy="1"/>
+    <MODULE id="juce_gui_audio" showAllCode="1" useLocalCopy="1"/>
+    <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="1"/>
+    <MODULE id="juce_audio_devices" showAllCode="1" useLocalCopy="1"/>
+    <MODULE id="juce_audio_formats" showAllCode="1" useLocalCopy="1"/>
+    <MODULE id="juce_audio_processors" showAllCode="1" useLocalCopy="1"/>
+  </MODULES>
+  <JUCEOPTIONS/>
+</JUCERPROJECT>
