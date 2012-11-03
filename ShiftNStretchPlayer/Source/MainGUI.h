@@ -65,8 +65,8 @@ public:
 	void setProgress(int current, int duration);
 
 	// add/remove receivers
-	void addReceiver(GUIReceiver *newReceiver);
-	void removeReceiver(GUIReceiver *toBeRemovedReceiver);
+	void addReceiver(GlitterAudio::EventHandling::GUIReceiver *newReceiver);
+	void removeReceiver(GlitterAudio::EventHandling::GUIReceiver *toBeRemovedReceiver);
 	void registerAudioFormats(std::set<std::string> formats);
 
     //[/UserMethods]
@@ -88,7 +88,7 @@ private:
     //[UserVariables]   -- You can add your own custom variables in this section.
 
 	//GUIReceiver *receiver;
-	std::set<GUIReceiver*> receivers;
+	std::set<GlitterAudio::EventHandling::GUIReceiver*> receivers;
 	String mAvailableFormatsString;
     //[/UserVariables]
 

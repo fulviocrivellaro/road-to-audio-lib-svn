@@ -36,8 +36,15 @@
 #include <../JuceLibraryCode/JuceHeader.h>
 #include "MainGUI.h"
 
-class PSTSEntryPoint;
-class JuceGUIHandler;
+namespace GlitterAudio {
+	namespace Core {
+		class PSTSEntryPoint;
+	}
+
+	namespace JuceGUI {
+		class JuceGUIHandler;
+	}
+}
 
 #define VALIDCHARS "ABCDEFGHIJKLMNOPQRTSUVWXYZabcdefghijklmnopqrstuvwxyz_0123456789"
 #define PROJECT_NAME_IDENTIFIER (String(PROJECT_NAME).replaceCharacter (' ', '_')		\
@@ -67,7 +74,7 @@ class MainAppWindow  : public DocumentWindow
 		// whole shebang, but that's probably not necessary, and can be tricky to maintain!
 
 	private:
-		JuceGUIHandler *guiHandler;
-		PSTSEntryPoint *entryPoint;
+		GlitterAudio::JuceGUI::JuceGUIHandler *guiHandler;
+		GlitterAudio::Core::PSTSEntryPoint *entryPoint;
 	};
 #endif 

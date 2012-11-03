@@ -4,111 +4,115 @@
 #include <vector>
 #include <string>
 
-PSTSEntryPoint::PSTSEntryPoint(GUIHandler *newGUIHandler)
-	: guiHandler(newGUIHandler)
-{
-}
+namespace GlitterAudio {
+	namespace Core {
+		PSTSEntryPoint::PSTSEntryPoint(GlitterAudio::EventHandling::GUIHandler *newGUIHandler)
+			: guiHandler(newGUIHandler)
+		{
+		}
 
 
-PSTSEntryPoint::~PSTSEntryPoint(void)
-{
-	delete mAudioFacade;
-}
+		PSTSEntryPoint::~PSTSEntryPoint(void)
+		{
+			delete mAudioFacade;
+		}
 
-void PSTSEntryPoint::prepareForFilename(std::string filename)
-{
-	bool wasPlaying = mAudioFacade->isPlaying();
-	mAudioFacade->setFileSource(filename);
-	duration = mAudioFacade->getSourceLength() / mAudioFacade->getSamplingFrequency();
-	resetGui();
-	
-	if (wasPlaying)
-	{
-		onStartPressed();
-	}
-}
+		void PSTSEntryPoint::prepareForFilename(std::string filename)
+		{
+			bool wasPlaying = mAudioFacade->isPlaying();
+			mAudioFacade->setFileSource(filename);
+			duration = mAudioFacade->getSourceLength() / mAudioFacade->getSamplingFrequency();
+			resetGui();
 
-void PSTSEntryPoint::run()
-{
-	guiHandler->setTimeStretchValue(100);
-	duration = 0;
-	resetGui();
+			if (wasPlaying)
+			{
+				onStartPressed();
+			}
+		}
 
-	// initialize Juce Facade
-	mAudioFacade = new JuceAudioFacade();
-	mAudioFacade->setAudioSeekListener(this);
+		void PSTSEntryPoint::run()
+		{
+			guiHandler->setTimeStretchValue(100);
+			duration = 0;
+			resetGui();
 
-	guiHandler->registerAudioFormats(mAudioFacade->getSupportedAudioFormats());
-}
+			// initialize Juce Facade
+			mAudioFacade = new GlitterAudio::Abstraction::JuceAudioFacade();
+			mAudioFacade->setAudioSeekListener(this);
 
-// receive the panpot value
-void PSTSEntryPoint::onPitchShiftValueChanged(int value)
-{
-	mAudioFacade->setPitchShiftingSemitones(value);
-}
+			guiHandler->registerAudioFormats(mAudioFacade->getSupportedAudioFormats());
+		}
 
-void PSTSEntryPoint::onTimeStretchValueChanged(int value)
-{
+		// receive the panpot value
+		void PSTSEntryPoint::onPitchShiftValueChanged(int value)
+		{
+			mAudioFacade->setPitchShiftingSemitones(value);
+		}
 
-}
+		void PSTSEntryPoint::onTimeStretchValueChanged(int value)
+		{
 
-// receive the buttons' callbacks
-void PSTSEntryPoint::onStartPressed(void)
-{
-	if (mAudioFacade->play())
-	{
-		guiHandler->doStart();
-	}
-}
+		}
 
-void PSTSEntryPoint::onPausePressed()
-{
-	if (mAudioFacade->pause())
-	{
-		guiHandler->doPause();
-	}
-}
+		// receive the buttons' callbacks
+		void PSTSEntryPoint::onStartPressed(void)
+		{
+			if (mAudioFacade->play())
+			{
+				guiHandler->doStart();
+			}
+		}
 
-void PSTSEntryPoint::onStopPressed()
-{
-	if (mAudioFacade->stop())
-	{
-		resetGui();
-	}
-}
+		void PSTSEntryPoint::onPausePressed()
+		{
+			if (mAudioFacade->pause())
+			{
+				guiHandler->doPause();
+			}
+		}
 
-void PSTSEntryPoint::resetGui()
-{
-	guiHandler->doStop();
-	guiHandler->setProgress(0, duration);
-	positionInSamples = 0;
-	previousPosition = 0;
-}
+		void PSTSEntryPoint::onStopPressed()
+		{
+			if (mAudioFacade->stop())
+			{
+				resetGui();
+			}
+		}
 
-void PSTSEntryPoint::onFileSelected(std::string fileName)
-{
-	prepareForFilename(fileName);
-}
+		void PSTSEntryPoint::resetGui()
+		{
+			guiHandler->doStop();
+			guiHandler->setProgress(0, duration);
+			positionInSamples = 0;
+			previousPosition = 0;
+		}
 
-// receive the progress bar
-void PSTSEntryPoint::onProgressValueChanged(int value)
-{
-	positionInSamples = value * mAudioFacade->getSamplingFrequency();
-	mAudioFacade->seek(positionInSamples);
-	
-	guiHandler->setProgress(value, duration);
-}
+		void PSTSEntryPoint::onFileSelected(std::string fileName)
+		{
+			prepareForFilename(fileName);
+		}
 
-// listen to seek advance
-void PSTSEntryPoint::onSeek(int samplesRead, long currentPosition)
-{
-	int fs = mAudioFacade->getSamplingFrequency();
-	if (currentPosition > mAudioFacade->getSourceLength())
-	{
-		onStopPressed();
-	} else if (currentPosition - previousPosition >= fs)
-	{
-		previousPosition = currentPosition;
-		guiHandler->setProgress(currentPosition/fs, duration);
+		// receive the progress bar
+		void PSTSEntryPoint::onProgressValueChanged(int value)
+		{
+			positionInSamples = value * mAudioFacade->getSamplingFrequency();
+			mAudioFacade->seek(positionInSamples);
+
+			guiHandler->setProgress(value, duration);
+		}
+
+		// listen to seek advance
+		void PSTSEntryPoint::onSeek(int samplesRead, long currentPosition)
+		{
+			int fs = mAudioFacade->getSamplingFrequency();
+			if (currentPosition > mAudioFacade->getSourceLength())
+			{
+				onStopPressed();
+			} else if (currentPosition - previousPosition >= fs)
+			{
+				previousPosition = currentPosition;
+				guiHandler->setProgress(currentPosition/fs, duration);
+			}
+		}
 	}
 }

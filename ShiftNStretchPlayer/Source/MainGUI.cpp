@@ -206,7 +206,7 @@ void MainGUI::sliderValueChanged (Slider* sliderThatWasMoved)
     if (sliderThatWasMoved == sliderPitchShift)
     {
         //[UserSliderCode_sliderPitchShift] -- add your slider handling code here..
-		std::set<GUIReceiver*>::iterator it;
+		std::set<GlitterAudio::EventHandling::GUIReceiver*>::iterator it;
 		for (it=receivers.begin(); it != receivers.end(); it++)
 		{
 			(*it)->onPitchShiftValueChanged(sliderPitchShift->getValue());
@@ -216,7 +216,7 @@ void MainGUI::sliderValueChanged (Slider* sliderThatWasMoved)
     else if (sliderThatWasMoved == sliderTimeStretch)
     {
         //[UserSliderCode_sliderTimeStretch] -- add your slider handling code here..
-		std::set<GUIReceiver*>::iterator it;
+		std::set<GlitterAudio::EventHandling::GUIReceiver*>::iterator it;
         for (it=receivers.begin(); it != receivers.end(); it++)
 		{
 			(*it)->onTimeStretchValueChanged(sliderTimeStretch->getValue());
@@ -227,7 +227,7 @@ void MainGUI::sliderValueChanged (Slider* sliderThatWasMoved)
     {
         //[UserSliderCode_sliderPosition] -- add your slider handling code here..
 		int position = sliderPosition->getValue();
-		std::set<GUIReceiver*>::iterator it;
+		std::set<GlitterAudio::EventHandling::GUIReceiver*>::iterator it;
 		for (it=receivers.begin(); it != receivers.end(); it++)
 		{
 			(*it)->onProgressValueChanged(position);
@@ -247,7 +247,7 @@ void MainGUI::buttonClicked (Button* buttonThatWasClicked)
     if (buttonThatWasClicked == btnStop)
     {
         //[UserButtonCode_btnStop] -- add your button handler code here..
-		std::set<GUIReceiver*>::iterator it;
+		std::set<GlitterAudio::EventHandling::GUIReceiver*>::iterator it;
 		for (it=receivers.begin(); it != receivers.end(); it++)
 		{
 			(*it)->onStopPressed();
@@ -261,7 +261,7 @@ void MainGUI::buttonClicked (Button* buttonThatWasClicked)
 		if (chooser.browseForFileToOpen())
 		{
 			String filename = chooser.getResult().getFullPathName();
-			std::set<GUIReceiver*>::iterator it;
+			std::set<GlitterAudio::EventHandling::GUIReceiver*>::iterator it;
 			for (it=receivers.begin(); it != receivers.end(); it++)
 			{
 				(*it)->onFileSelected((const char *)filename.getCharPointer());
@@ -272,7 +272,7 @@ void MainGUI::buttonClicked (Button* buttonThatWasClicked)
     else if (buttonThatWasClicked == btnPlay)
     {
         //[UserButtonCode_btnPlay] -- add your button handler code here..
-		std::set<GUIReceiver*>::iterator it;
+		std::set<GlitterAudio::EventHandling::GUIReceiver*>::iterator it;
         for (it=receivers.begin(); it != receivers.end(); it++)
 		{
 			if (btnPlay->getToggleState())
@@ -378,12 +378,12 @@ void MainGUI::setProgress(int current, int duration)
 	labelTotalTime->setText(durationPositionString, false);
 }
 
-void MainGUI::addReceiver(GUIReceiver *newReceiver)
+void MainGUI::addReceiver(GlitterAudio::EventHandling::GUIReceiver *newReceiver)
 {
 	receivers.insert(newReceiver);
 }
 
-void MainGUI::removeReceiver(GUIReceiver *toBeRemovedReceiver)
+void MainGUI::removeReceiver(GlitterAudio::EventHandling::GUIReceiver *toBeRemovedReceiver)
 {
 	receivers.erase(toBeRemovedReceiver);
 }

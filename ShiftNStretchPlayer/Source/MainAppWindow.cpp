@@ -57,8 +57,8 @@ DocumentWindow (
 	// area of the window, and will be deleted automatically when the window is deleted.
 	setContentOwned (contentComponent, false);
 
-	guiHandler = new JuceGUIHandler(contentComponent);
-	entryPoint = new PSTSEntryPoint(guiHandler);
+	guiHandler = new GlitterAudio::JuceGUI::JuceGUIHandler(contentComponent);
+	entryPoint = new GlitterAudio::Core::PSTSEntryPoint(guiHandler);
 	contentComponent->addReceiver(entryPoint);
 	entryPoint->run();
 }

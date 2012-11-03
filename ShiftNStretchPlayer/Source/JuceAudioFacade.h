@@ -8,54 +8,64 @@
 #include <vector>
 #include <string>
 
-class DiracAudioSource;
+namespace GlitterAudio {
 
-using namespace std;
+	namespace JuceAudio {
+		class DiracAudioSource;
+	}
 
-class JuceAudioFacade :
-	public IAudioFacade, IAudioReaderSeekListener
-{
-public:
-	JuceAudioFacade(void);
-	virtual ~JuceAudioFacade(void);
+	namespace Core {
+		namespace Audio {
+			class IAudioFacade;
+			class IAudioReaderSeekListener;
+		}
+	}
 
-	// hardware queries
-	vector<string> listDrivers() const;
-	vector<string> listDevices(int driverIndex) const;
-	vector<const IAudioDevice* const> listAllDevices() const;
-	set<string> getSupportedAudioFormats() const;
+	namespace Abstraction {
+		class JuceAudioFacade : public GlitterAudio::Core::Audio::IAudioFacade, GlitterAudio::Core::Audio::IAudioReaderSeekListener
+		{
+		public:
+			JuceAudioFacade(void);
+			virtual ~JuceAudioFacade(void);
 
-	bool setFileSource(std::string filename);
-	int getSamplingFrequency() const;
-	long getSourceLength() const;
-	bool isPlaying() const;
+			// hardware queries
+			std::vector<std::string> listDrivers() const;
+			std::vector<std::string> listDevices(int driverIndex) const;
+			std::vector<const GlitterAudio::Core::Audio::IAudioDevice* const> listAllDevices() const;
+			std::set<std::string> getSupportedAudioFormats() const;
 
-	// transport methods
-	bool play();
-	bool stop();
-	bool pause();
-	bool seek(long newPosition);
+			bool setFileSource(std::string filename);
+			int getSamplingFrequency() const;
+			long getSourceLength() const;
+			bool isPlaying() const;
 
-	// FX methods
-	void setPitchShiftingSemitones(int value);
+			// transport methods
+			bool play();
+			bool stop();
+			bool pause();
+			bool seek(long newPosition);
 
-	void onSeek(int samplesRead, long currentPosition);
+			// FX methods
+			void setPitchShiftingSemitones(int value);
 
-	void setAudioSeekListener(IAudioReaderSeekListener *newSeekListener);
+			void onSeek(int samplesRead, long currentPosition);
 
-private:
-	AudioDeviceManager mAudioDeviceManager;
-	AudioFormatManager mAudioFormatManager;
-	vector<const IAudioDevice* const> mAudioDevices;
-	AudioSourcePlayer *mAudioSourcePlayer;
-	AudioFormatReaderSource *mAudioFormatReaderSource;
-	DiracAudioSource *mDiracAudioSource;
-	vector<string> mDrivers;
-	IAudioReaderSeekListener *seekListener;
-	
-	int fs;
-	long length;
+			void setAudioSeekListener(IAudioReaderSeekListener *newSeekListener);
 
-	int mPitchShiftingSemitones;
-};
+		private:
+			AudioDeviceManager mAudioDeviceManager;
+			AudioFormatManager mAudioFormatManager;
+			std::vector<const GlitterAudio::Core::Audio::IAudioDevice* const> mAudioDevices;
+			AudioSourcePlayer *mAudioSourcePlayer;
+			AudioFormatReaderSource *mAudioFormatReaderSource;
+			GlitterAudio::JuceAudio::DiracAudioSource *mDiracAudioSource;
+			std::vector<std::string> mDrivers;
+			IAudioReaderSeekListener *seekListener;
 
+			int fs;
+			long length;
+
+			int mPitchShiftingSemitones;
+		};
+	}
+}
