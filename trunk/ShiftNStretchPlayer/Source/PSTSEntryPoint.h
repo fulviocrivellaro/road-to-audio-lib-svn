@@ -8,41 +8,47 @@
 
 #include <string>
 
-class IAudioFacade;
+namespace GlitterAudio {
+	namespace Core {
+		namespace Audio {
+			class IAudioFacade;
+		}
 
-class PSTSEntryPoint : public GUIReceiver, IAudioReaderSeekListener
-{
-public:
-	PSTSEntryPoint(GUIHandler *newGUIHandler);
-	~PSTSEntryPoint(void);
-	void run(void);
+		class PSTSEntryPoint : public GlitterAudio::EventHandling::GUIReceiver, Audio::IAudioReaderSeekListener
+		{
+		public:
+			PSTSEntryPoint(GlitterAudio::EventHandling::GUIHandler *newGUIHandler);
+			~PSTSEntryPoint(void);
+			void run(void);
 
-	// receive the panpot value
-	virtual void onPitchShiftValueChanged(int value);
-	virtual void onTimeStretchValueChanged(int value);
+			// receive the panpot value
+			virtual void onPitchShiftValueChanged(int value);
+			virtual void onTimeStretchValueChanged(int value);
 
-	// receive the buttons' callbacks
-	virtual void onStartPressed();
-	virtual void onPausePressed();
-	virtual void onStopPressed();
-	
-	// receive new filename
-	virtual void onFileSelected(std::string fileName);
+			// receive the buttons' callbacks
+			virtual void onStartPressed();
+			virtual void onPausePressed();
+			virtual void onStopPressed();
 
-	// receive the progress bar
-	virtual void onProgressValueChanged(int value);
+			// receive new filename
+			virtual void onFileSelected(std::string fileName);
 
-	// listen to progress seek
-	void onSeek(int samplesRead, long currentPosition);
+			// receive the progress bar
+			virtual void onProgressValueChanged(int value);
 
-private:
-	// utils
-	int duration;
-	long positionInSamples, previousPosition;
-	GUIHandler *guiHandler;
-	IAudioFacade *mAudioFacade;
+			// listen to progress seek
+			void onSeek(int samplesRead, long currentPosition);
 
-	void prepareForFilename(std::string filename);
-	void resetGui();
-};
+		private:
+			// utils
+			int duration;
+			long positionInSamples, previousPosition;
+			GlitterAudio::EventHandling::GUIHandler *guiHandler;
+			GlitterAudio::Core::Audio::IAudioFacade *mAudioFacade;
+
+			void prepareForFilename(std::string filename);
+			void resetGui();
+		};
+	}
+}
 

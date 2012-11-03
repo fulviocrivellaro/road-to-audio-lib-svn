@@ -5,14 +5,14 @@
               companyName="Bubisoft">
   <EXPORTFORMATS>
     <VS2010 targetFolder="Builds/VisualStudio2010" libraryType="1" juceFolder="../../../../libs/juce"
-            smallIcon="e40eNI" bigIcon="uxYN72">
+            smallIcon="e40eNI" bigIcon="uxYN72" extraLinkerFlags="&quot;DiracLE.lib&quot; &quot;libtta.lib&quot;">
       <CONFIGURATIONS>
         <CONFIGURATION name="Debug" winWarningLevel="4" generateManifest="1" winArchitecture="32-bit"
                        isDebug="1" optimisation="1" targetName="ShiftNStretchPlayer"
-                       libraryPath="../libs" headerPath="../libs"/>
+                       libraryPath="$(ProjectDir)../../libs" headerPath="$(ProjectDir)../../libs"/>
         <CONFIGURATION name="Release" winWarningLevel="4" generateManifest="1" winArchitecture="32-bit"
                        isDebug="0" optimisation="2" targetName="ShiftNStretchPlayer"
-                       libraryPath="../libs" headerPath="../libs"/>
+                       libraryPath="$(ProjectDir)../../libs" headerPath="$(ProjectDir)../../libs"/>
       </CONFIGURATIONS>
     </VS2010>
   </EXPORTFORMATS>
@@ -57,6 +57,12 @@
         <FILE id="dmF0pI" name="GUIReceiver.h" compile="0" resource="0" file="Source/GUIReceiver.h"/>
       </GROUP>
       <GROUP id="{E6E1E1B4-F08B-EE9C-6256-4E6A827ACA97}" name="Core">
+        <GROUP id="{C1B2AD8E-AE54-9F19-A5D6-13D4F39E0413}" name="Codecs">
+          <FILE id="lgJptQ" name="TtaAudioFormat.cpp" compile="1" resource="0"
+                file="Source/TtaAudioFormat.cpp"/>
+          <FILE id="DfYi43" name="TtaAudioFormat.h" compile="0" resource="0"
+                file="Source/TtaAudioFormat.h"/>
+        </GROUP>
         <GROUP id="{48BA1EAF-1FD6-5D09-15A1-611D59906ACC}" name="Events">
           <FILE id="gapLtf" name="IEventHandler.h" compile="0" resource="0" file="Source/IEventHandler.h"/>
         </GROUP>

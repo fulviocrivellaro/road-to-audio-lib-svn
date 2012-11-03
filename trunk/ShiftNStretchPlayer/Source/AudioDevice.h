@@ -3,30 +3,34 @@
 #include "IAudioDevice.h"
 #include <string>
 
-using namespace std;
+namespace GlitterAudio {
+	namespace Core {
+		namespace Audio {
 
-class AudioDevice :
-	public IAudioDevice
-{
-public:
-	
-	AudioDevice(int driverIndex, int deviceIndex, string driver = "", string name = "");
-	~AudioDevice(void);
+			class AudioDevice : public IAudioDevice
+			{
+			public:
 
-	// hardware indexes
-	int getDriverIndex() const;
-	int getDeviceIndex() const;
+				AudioDevice(int driverIndex, int deviceIndex, std::string driver = "", std::string name = "");
+				~AudioDevice(void);
 
-	// utils
-	string getDriver() const;
-	string getName() const;
+				// hardware indexes
+				int getDriverIndex() const;
+				int getDeviceIndex() const;
 
-private:
+				// utils
+				std::string getDriver() const;
+				std::string getName() const;
 
-	int mDriverIndex;
-	int mDeviceIndex;
+			private:
 
-	string mDriver;
-	string mName;
-};
+				int mDriverIndex;
+				int mDeviceIndex;
+
+				std::string mDriver;
+				std::string mName;
+			};
+		}
+	}
+}
 

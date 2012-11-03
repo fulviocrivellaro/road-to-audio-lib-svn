@@ -1,22 +1,28 @@
 #pragma once
 #include "../JuceLibraryCode/JuceHeader.h"
 
-class IAudioReaderSeekListener;
+namespace GlitterAudio {
+	namespace Core {
+		namespace Audio {
+			class IAudioReaderSeekListener;
+		}
+	}
 
-class CallbackAudioFormatReader :
-	public AudioFormatReaderSource
-{
-public:
+	namespace JuceAudio {
+		class CallbackAudioFormatReader : public AudioFormatReaderSource
+		{
+		public:
 
-	IAudioReaderSeekListener *seekListener;
+			GlitterAudio::Core::Audio::IAudioReaderSeekListener *seekListener;
 
-	CallbackAudioFormatReader(AudioFormatReader *readerSource, bool deleteReaderWhenThisIsDeleted , IAudioReaderSeekListener *newListener);
-	~CallbackAudioFormatReader(void);
+			CallbackAudioFormatReader(AudioFormatReader *readerSource, bool deleteReaderWhenThisIsDeleted , GlitterAudio::Core::Audio::IAudioReaderSeekListener *newListener);
+			~CallbackAudioFormatReader(void);
 
-	void getNextAudioBlock(const AudioSourceChannelInfo &bufferToFill);
-	void setNextReadPosition(int64 newPosition);
+			void getNextAudioBlock(const AudioSourceChannelInfo &bufferToFill);
+			void setNextReadPosition(int64 newPosition);
 
-private:
-	unsigned long currentReadPosition;
-};
-
+		private:
+			unsigned long currentReadPosition;
+		};
+	}
+}
