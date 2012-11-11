@@ -12,6 +12,10 @@
 //#define __GLITTERAUDIO__SUPPORT__COREAUDIO__
 //#define __GLITTERAUDIO__SUPPORT__ALSA__
 
+// ****************** CONSTANTS ********************* //
+
+#define __GLITTERAUDIO__MAX__OUTPUT__CHANNELS__ 128
+
 // ****************** LOG LEVEL ********************* //
 
 #define __GLITTERAUDIO__LOG__ERROR__ 4

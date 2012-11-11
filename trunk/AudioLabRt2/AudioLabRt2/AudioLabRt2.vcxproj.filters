@@ -25,14 +25,14 @@
     <Filter Include="GlitterAudioHeaders\Specific">
       <UniqueIdentifier>{de30f0a9-3938-4869-b19a-b465ecca269c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Test Source">
+      <UniqueIdentifier>{2ce4a335-10d7-4c74-b08b-ee58e9f00846}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="AudioLabRt2.cpp">
-      <Filter>RtAudio Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="asiodrivers.cpp">
       <Filter>RtAudio Source Files</Filter>
     </ClCompile>
@@ -64,6 +64,12 @@
       <Filter>GlitterAudioSource</Filter>
     </ClCompile>
     <ClCompile Include="AudioFacadeFactory.cpp">
+      <Filter>GlitterAudioSource</Filter>
+    </ClCompile>
+    <ClCompile Include="AudioLabRt2.cpp">
+      <Filter>Test Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SawOscillator.cpp">
       <Filter>GlitterAudioSource</Filter>
     </ClCompile>
   </ItemGroup>
@@ -135,6 +141,9 @@
       <Filter>GlitterAudioHeaders\Specific</Filter>
     </ClInclude>
     <ClInclude Include="AudioFacadeFactory.h">
+      <Filter>GlitterAudioHeaders</Filter>
+    </ClInclude>
+    <ClInclude Include="SawOscillator.h">
       <Filter>GlitterAudioHeaders</Filter>
     </ClInclude>
   </ItemGroup>
