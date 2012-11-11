@@ -153,6 +153,7 @@
     <ClCompile Include="RtAudio.cpp" />
     <ClCompile Include="RtAudioHardwareFacade.cpp" />
     <ClCompile Include="RTAudioSink.cpp" />
+    <ClCompile Include="SawOscillator.cpp" />
     <ClCompile Include="SinOscillator.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -171,6 +172,7 @@
     <ClInclude Include="IAudioSink.h" />
     <ClInclude Include="RtAudioHardwareFacade.h" />
     <ClInclude Include="RTAudioSink.h" />
+    <ClInclude Include="SawOscillator.h" />
     <ClInclude Include="Utils.h" />
     <ClInclude Include="iasiodrv.h" />
     <ClInclude Include="iasiothiscallresolver.h" />

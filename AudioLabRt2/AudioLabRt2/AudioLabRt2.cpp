@@ -1,3 +1,7 @@
+#define _CRTDBG_MAP_ALLOC
+#include <stdlib.h>
+#include <crtdbg.h>
+
 #include "GlitterAudioDefines.h"
 //#include "RtAudio.h"
 #include <iostream>
@@ -10,6 +14,7 @@
 #include "GlitterAudio.h"
 #include "IAudioSink.h"
 #include "SinOscillator.h"
+#include "SawOscillator.h"
 
 // direct calculation
 const double pi = std::atan(1.0)*4;
@@ -268,20 +273,30 @@ int main() {
 	std::cout << "Found for ASIO: " << asioAudioDevices.size() << std::endl;
 	std::cout << "Found for DS  : " << dsAudioDevices.size() << std::endl;*/
 
-	GlitterAudio audio;
-	IAudioSink* sink = audio.getAudioSinkForDevice();
+	GlitterAudio* audio = new GlitterAudio();
+	IAudioSink* sink = audio->getAudioSinkForDevice();
 
 
 	//RtAudio ad2;
 	//RTAudioSink sink(ad2, *osc1);
 	IAudioSource* osc1 = new SinOscillator(f, (int)fs);
-	sink->setAudioSource(*osc1);
-
-	sink->open(*audio.listDevicesForDriver(AudioDriver::WIN_ASIO)[0], 2, (unsigned int)fs, chunkSize);
-
-	sink->start();
-
+	IAudioSource* osc2 = new SawOscillator(f, (int)fs);
+	sink->setAudioSource(*osc1, 0);
+	sink->setAudioSource(*osc2, 1);
+	
 	char input;
+	bool ok = sink->open(*audio->listDevicesForDriver(AudioDriver::WIN_ASIO)[0], 2, (unsigned int)fs, chunkSize);
+
+	if (ok)
+	{
+		sink->start();
+
+		std::cout << "\nPlaying ... press <enter> to quit.\n";
+		std::cin.get( input );
+
+		((SawOscillator*)osc2)->setFrequencyInHz(660);
+	}
+
 	std::cout << "\nPlaying ... press <enter> to quit.\n";
 	std::cin.get( input );
 
@@ -290,7 +305,13 @@ int main() {
 
 	std::cout << "Delete OSC" << std::endl;
 	delete osc1;
-	delete sink;
+	delete osc2;
+	//delete sink;
+
+	delete audio;
+
+	_CrtDumpMemoryLeaks();
 
 	return 0;
+
 }

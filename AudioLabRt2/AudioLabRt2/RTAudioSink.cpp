@@ -5,22 +5,19 @@
 RTAudioSink::RTAudioSink(RtAudio &rtAudio) :
 	mRtAudio(rtAudio)
 {
-	mAudioSource = 0;
-}
-
-RTAudioSink::RTAudioSink(RtAudio &rtAudio, IAudioSource &audioSource) :
-	mRtAudio(rtAudio)
-{
-	setAudioSource(audioSource);
+	for (unsigned int i=0; i<__GLITTERAUDIO__MAX__OUTPUT__CHANNELS__; i++)
+	{
+		mStreamData.sources[i] = 0;
+	}
 }
 
 RTAudioSink::~RTAudioSink(void)
 {
 }
 
-void RTAudioSink::setAudioSource(IAudioSource &audioSource)
+void RTAudioSink::setAudioSource(IAudioSource &audioSource, unsigned int channelNumber)
 {
-	mAudioSource = &audioSource;
+	mStreamData.sources[channelNumber] = &audioSource;
 }
 
 // stream commands
@@ -31,7 +28,7 @@ void test() {
 
 bool RTAudioSink::open(const AudioDevice &device, unsigned int nChannels, unsigned int fs, unsigned int chunkSize)
 {
-	if (mAudioSource != 0)
+	try
 	{
 		RtAudio::StreamParameters parameters;
 		parameters.deviceId = device.getIndex();
@@ -39,10 +36,15 @@ bool RTAudioSink::open(const AudioDevice &device, unsigned int nChannels, unsign
 		parameters.firstChannel = 0;
 		RtAudio::StreamOptions opts;
 		opts.flags |= RTAUDIO_NONINTERLEAVED;
-		mRtAudio.openStream(&parameters, NULL, RTAUDIO_FLOAT64, (int)fs, &chunkSize, &rtAudioCallback, (void *)mAudioSource, &opts);
+		//StreamData* streamData = new StreamData();
+		mStreamData.nChannels = nChannels;
+		mRtAudio.openStream(&parameters, NULL, RTAUDIO_FLOAT64, (int)fs, &chunkSize, &rtAudioCallback, (void *)&mStreamData, &opts);
+		std::cout << "Returned buffer size is: " << chunkSize << std::endl;
 		return true;
+	} catch (RtError& e) {
+		e.printMessage();
+		return false;
 	}
-	return false;
 }
 
 bool RTAudioSink::close()
@@ -68,14 +70,15 @@ int rtAudioCallback(void *outputBuffer, void *inputBuffer, unsigned int nBufferF
 		double streamTime, RtAudioStreamStatus status, void *userData)
 {
 	double *buffer = (double *) outputBuffer;
-	IAudioSource *osc = (IAudioSource*)userData;
-
-	osc->fillChunk(buffer, nBufferFrames);
-	//buffer += nBufferFrames;
-	for (unsigned int i=0; i<nBufferFrames; i++)
+	StreamData* streamData = (StreamData*)userData;
+	
+	for (unsigned int i=0; i<streamData->nChannels; i++)
 	{
-		buffer[i+nBufferFrames] = buffer[i];
+		// call the source only if meaningful
+		if (streamData->sources[i] != 0)
+		{
+			streamData->sources[i]->fillChunk(&buffer[i*nBufferFrames], nBufferFrames);
+		}
 	}
-
 	return 0;
 }
