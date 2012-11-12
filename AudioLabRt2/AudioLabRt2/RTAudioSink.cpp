@@ -22,10 +22,6 @@ void RTAudioSink::setAudioSource(IAudioSource &audioSource, unsigned int channel
 
 // stream commands
 
-void test() {
-	void* ptr = (void *)&rtAudioCallback;
-}
-
 bool RTAudioSink::open(const AudioDevice &device, unsigned int nChannels, unsigned int fs, unsigned int chunkSize)
 {
 	try
