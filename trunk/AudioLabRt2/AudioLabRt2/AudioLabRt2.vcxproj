@@ -148,6 +148,7 @@
     <ClCompile Include="AudioDevice.cpp" />
     <ClCompile Include="AudioFacadeFactory.cpp" />
     <ClCompile Include="AudioLabRt2.cpp" />
+    <ClCompile Include="CircularBuffer.cpp" />
     <ClCompile Include="GlitterAudio.cpp" />
     <ClCompile Include="iasiothiscallresolver.cpp" />
     <ClCompile Include="RtAudio.cpp" />
@@ -155,6 +156,7 @@
     <ClCompile Include="RTAudioSink.cpp" />
     <ClCompile Include="SawOscillator.cpp" />
     <ClCompile Include="SinOscillator.cpp" />
+    <ClCompile Include="Thread.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="asio.h" />
@@ -164,15 +166,18 @@
     <ClInclude Include="asiosys.h" />
     <ClInclude Include="AudioDevice.h" />
     <ClInclude Include="AudioFacadeFactory.h" />
+    <ClInclude Include="CircularBuffer.h" />
     <ClInclude Include="dsound.h" />
     <ClInclude Include="ginclude.h" />
     <ClInclude Include="GlitterAudio.h" />
     <ClInclude Include="GlitterAudioDefines.h" />
     <ClInclude Include="IAudioHardwareFacade.h" />
     <ClInclude Include="IAudioSink.h" />
+    <ClInclude Include="IRunnable.h" />
     <ClInclude Include="RtAudioHardwareFacade.h" />
     <ClInclude Include="RTAudioSink.h" />
     <ClInclude Include="SawOscillator.h" />
+    <ClInclude Include="Thread.h" />
     <ClInclude Include="Utils.h" />
     <ClInclude Include="iasiodrv.h" />
     <ClInclude Include="iasiothiscallresolver.h" />
