@@ -54,38 +54,113 @@ int audioTest() {
 	return 0;
 }
 
-void reader()
+class Writer : public IRunnable
 {
+public:
+	Writer::Writer(CircularBuffer *buffer, double* readFrom, int size) { mBuffer = buffer; mReadFrom = readFrom; mSize = size; }
+	void Writer::run()
+	{
+		int ptr = 0;
+		while (ptr < mSize)
+		{
+			int chunk = rand() % 200;
+			if (ptr + chunk >= mSize)
+			{
+				chunk = mSize - ptr;
+			}
+			std::cout << "WR  > write " << chunk << " samples" << std::endl;
+			mBuffer->bufferChunk(&mReadFrom, chunk);
+			ptr += chunk;
+			mReadFrom += chunk;
+			std::chrono::milliseconds waitfor(rand() % 100);
+			std::cout << "WR  > wait " << waitfor.count() << " ms" << std::endl;
+			std::this_thread::sleep_for(waitfor);
+		}
+	}
+private:
+	CircularBuffer *mBuffer;
+	double* mReadFrom;
+	int mSize;
+};
 
-}
+class Reader : public IRunnable
+{
+public:
+	Reader::Reader(CircularBuffer *buffer, double* writeTo, int size, int chunkSize) { mBuffer = buffer; mWriteTo = writeTo; mSize = size; mChunk = chunkSize; }
+	void Reader::run()
+	{
+		std::chrono::milliseconds waitfor(5000);
+		std::cout << "WR  > wait 5 seconds to start..." << std::endl;
+		std::this_thread::sleep_for(waitfor);
+		int ptr = 0;
+		while (ptr < mSize)
+		{
+			int chunk = mChunk;
+			if (ptr + chunk >= mSize)
+			{
+				chunk = mSize - ptr;
+			}
+			std::cout << "RD <<< read " << chunk << " samples" << std::endl;
+			mBuffer->fillChunk(&mWriteTo, chunk);
+			ptr += chunk;
+			mWriteTo += chunk;
+		}
+	}
+private:
+	int mChunk;
+	CircularBuffer *mBuffer;
+	double* mWriteTo;
+	int mSize;
+};
 
-
+/********
+	MONO buffer test:
+	- buffer il half the size of the samples to be written
+	- writer thread starts writing with random chunk size
+	- reader thread sleeps for 5000ms befor start reading
+	- writer reaches buffer maximum, and waits
+	- reader thread awakes, and starts freeing the buffer
+	- writer can resume filling
+	- reader reads all samples
+	- test is processed on all samples:
+	  - '.' (dot) means correct sample
+	  - 'x' (cross) means wrong sample
+	  - final outcome is displayed
+*/
 int threadTest()
 {
 	// circular buffer test
-	CircularBuffer b(1, 1024);
-	int size = 1024;
+	int size = 512;
+	CircularBuffer b(1, size/2);
 	double* w = (double *)malloc(size*sizeof(double));
 	double* r = (double *)malloc(size*sizeof(double));
 
 	double* wp = w;
 	double* rp = r;
 
-	std::cout << "Starting write..." << std::endl;
+	std::cout << "Starting generating samples..." << std::endl;
 	for (int i=0; i<size; i++)
 	{
 		w[i] = rand() % 100;
 	}
-	b.bufferChunk(&w, size);
-	
+
+	Writer *writer = new Writer(&b, wp, size);
+	Thread tWrite(writer);
+	tWrite.startAndDetach();
+	//b.bufferChunk(&wp, size);
+
+	Reader *reader = new Reader(&b, rp, size, size/4);
+	Thread tReader(reader);
+	tReader.startAndJoin();
+
 	std::cout << "Starting read..." << std::endl;
-	b.fillChunk(&rp, size/2);
-	rp += (size/2);
-	b.fillChunk(&rp, size/2);
+	//b.fillChunk(&rp, size);
+	bool succeed = true;
 	for (int i=0; i<size; i++)
 	{
 		if (w[i] != r[i])
 		{
+			succeed = false;
 			std::cout << "x";
 		} else {
 			std::cout << ".";
@@ -93,12 +168,11 @@ int threadTest()
 	}
 	std::cout << std::endl;
 
+	std::cout << std::endl;
+	std::cout << "Buffer test: " << (succeed?"SUCCESS!!!":"Error...") << std::endl;
+	std::cout << std::endl;
 	free(w);
 	free(r);
-
-	char input;
-	std::cout << "Press enter to exit...";
-	std::cin.get(input);
 
 	return 0;
 
@@ -151,7 +225,7 @@ void simpleThreadTest()
 }
 
 void main() {
-	simpleThreadTest();
+	threadTest();
 
 	char input;
 	std::cout << "Press to exit...";
