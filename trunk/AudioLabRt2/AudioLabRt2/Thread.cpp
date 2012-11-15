@@ -27,7 +27,6 @@ Thread::~Thread(void)
 {
 	if (mDeleteOnTerminate && mThread != 0)
 	{
-		std::cout << "Thread deleted!" << std::endl;
 		delete mThread;
 	}
 }
