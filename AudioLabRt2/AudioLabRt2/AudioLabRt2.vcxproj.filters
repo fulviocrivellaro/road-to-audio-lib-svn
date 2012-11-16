@@ -72,10 +72,10 @@
     <ClCompile Include="SawOscillator.cpp">
       <Filter>GlitterAudioSource</Filter>
     </ClCompile>
-    <ClCompile Include="CircularBuffer.cpp">
-      <Filter>RtAudio Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Thread.cpp">
+      <Filter>GlitterAudioSource</Filter>
+    </ClCompile>
+    <ClCompile Include="CircularBuffer.cpp">
       <Filter>GlitterAudioSource</Filter>
     </ClCompile>
   </ItemGroup>
@@ -152,13 +152,13 @@
     <ClInclude Include="SawOscillator.h">
       <Filter>GlitterAudioHeaders</Filter>
     </ClInclude>
-    <ClInclude Include="CircularBuffer.h">
-      <Filter>RtAudio Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="IRunnable.h">
       <Filter>GlitterAudioHeaders</Filter>
     </ClInclude>
     <ClInclude Include="Thread.h">
+      <Filter>GlitterAudioHeaders</Filter>
+    </ClInclude>
+    <ClInclude Include="CircularBuffer.h">
       <Filter>GlitterAudioHeaders</Filter>
     </ClInclude>
   </ItemGroup>
