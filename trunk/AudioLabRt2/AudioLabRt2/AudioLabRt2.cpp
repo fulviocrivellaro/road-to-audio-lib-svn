@@ -192,6 +192,7 @@ public:
 		int ptr = 0;
 		while (ptr < mSize)
 		{
+			// choose random length to buffer (checking for overflow)
 			int chunk = rand() % 200;
 			if (ptr + chunk >= mSize)
 			{
@@ -199,15 +200,18 @@ public:
 			}
 			std::cout << "WR  > write " << chunk << " samples" << std::endl;
 
+			// references double[][] as double** (CircularBuffer format)
 			double** samples = new double*[nChannels];
 			for (int c=0; c<nChannels; c++)
 			{
 				samples[c] = &mReadFrom[c][ptr];
 			}
 
+			// actually buffers the samples
 			mBuffer->bufferChunk(samples, chunk);
 			delete[] samples;
 
+			// updates current position tracker
 			ptr += chunk;
 			std::chrono::milliseconds waitfor(rand() % 100);
 			std::cout << "WR  > wait " << waitfor.count() << " ms" << std::endl;
@@ -234,6 +238,7 @@ public:
 		int ptr = 0;
 		while (ptr < mSize)
 		{
+			// checks for buffer overflow
 			int chunk = mChunk;
 			if (ptr + chunk >= mSize)
 			{
@@ -241,17 +246,19 @@ public:
 			}
 			std::cout << "RD <<< read " << chunk << " samples" << std::endl;
 
+			// references double[][] as double** (CircularBuffer format)
 			double** samples = new double*[nChannels];
 			for (int c=0; c<nChannels; c++)
 			{
 				samples[c] = &mWriteTo[c][ptr];
 			}
 			
+			// actually fill the local buffer, reading from the Circular
 			mBuffer->fillChunk(samples, chunk);
 			delete[] samples;
 
+			// updates current position tracker
 			ptr += chunk;
-			//mWriteTo += chunk;
 		}
 	}
 private:
@@ -286,6 +293,7 @@ int multiBufferTest()
 	// circular buffer test
 	CircularBuffer b(CHANS, SIZE/2);
 	
+	// write data and read data structures
 	double **w = new double*[CHANS];
 	double **r = new double*[CHANS];
 	for (int c=0; c<CHANS; c++)
@@ -294,6 +302,7 @@ int multiBufferTest()
 		r[c] = new double[SIZE];
 	}
 
+	// fills write data with random values
 	std::cout << "Starting generating samples..." << std::endl;
 	for (int i=0; i<CHANS; i++)
 	{
@@ -302,17 +311,18 @@ int multiBufferTest()
 		}
 	}
 
+	// creates a writer thread, which runs by its own
 	MultiWriter *writer = new MultiWriter(&b, w, SIZE);
 	Thread tWrite(writer);
 	tWrite.startAndDetach();
-	//b.bufferChunk(&wp, size);
-
+	
+	// creates a reader thread, and waits for execution to end
 	MultiReader *reader = new MultiReader(&b, r, SIZE, SIZE/8);
 	Thread tReader(reader);
 	tReader.startAndJoin();
 
+	// checks that the read data perfectly match the written ones
 	std::cout << "Starting read..." << std::endl;
-	//b.fillChunk(&rp, size);
 	bool succeed = true;
 	for (int i=0; i<CHANS; i++)
 	{
@@ -327,6 +337,7 @@ int multiBufferTest()
 		}
 	}
 
+	// outcome
 	std::cout << std::endl;
 	std::cout << "Buffer test: " << (succeed?"SUCCESS!!!":"Error...") << std::endl;
 	std::cout << std::endl;
@@ -339,8 +350,7 @@ int multiBufferTest()
 	free(w);
 	free(r);
 
-	return 0;
-
+	return succeed?0:-1;
 }
 
 class Tester : public IRunnable
@@ -446,7 +456,7 @@ void dummyArray() {
 void main() {
 	
 	multiBufferTest();
-	//dummyArray();
+	
 	char input;
 	std::cout << "Press to exit...";
 	std::cin.get(input);
