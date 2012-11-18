@@ -31,22 +31,41 @@ Thread::~Thread(void)
 	}
 }
 
-void Thread::startAndJoin()
+void Thread::start()
 {
-	doStart();
-	mThread->join();
-}
-
-void Thread::startAndDetach()
-{
-	doStart();
-	mThread->detach();
-}
-
-void Thread::doStart()
-{
+	// mThread must NOT exist
 	if (!mThread)
 	{
 		mThread = new std::thread(runAndDestroy, (void*)mRunnable, mDeleteOnTerminate);
 	}
+}
+
+void Thread::join()
+{
+	// mThread MUST exist
+	if (mThread)
+	{
+		mThread->join();
+	}
+}
+
+void Thread::detach()
+{
+	// mThread MUST exist
+	if (mThread)
+	{
+		mThread->detach();
+	}
+}
+
+void Thread::startAndJoin()
+{
+	this->start();
+	this->join();
+}
+
+void Thread::startAndDetach()
+{
+	this->start();
+	this->detach();
 }
