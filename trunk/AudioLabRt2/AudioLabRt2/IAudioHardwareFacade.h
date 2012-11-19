@@ -37,4 +37,5 @@ public:
 	virtual void setAudioSeekListener(IAudioReaderSeekListener *listener) = 0;*/
 
 	virtual IAudioSink* getAudioSink() = 0;
+	virtual IAudioSink* getBufferedAudioSink() = 0;
 };

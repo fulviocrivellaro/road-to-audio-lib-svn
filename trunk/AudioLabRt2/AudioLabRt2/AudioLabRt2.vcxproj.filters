@@ -78,6 +78,9 @@
     <ClCompile Include="CircularBuffer.cpp">
       <Filter>GlitterAudioSource</Filter>
     </ClCompile>
+    <ClCompile Include="RTAudioBufferedSink.cpp">
+      <Filter>GlitterAudioSource\Specific</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="asiodrvr.h">
@@ -160,6 +163,9 @@
     </ClInclude>
     <ClInclude Include="CircularBuffer.h">
       <Filter>GlitterAudioHeaders</Filter>
+    </ClInclude>
+    <ClInclude Include="RTAudioBufferedSink.h">
+      <Filter>GlitterAudioHeaders\Specific</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

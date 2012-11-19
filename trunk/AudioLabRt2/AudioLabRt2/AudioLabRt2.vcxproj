@@ -152,6 +152,7 @@
     <ClCompile Include="GlitterAudio.cpp" />
     <ClCompile Include="iasiothiscallresolver.cpp" />
     <ClCompile Include="RtAudio.cpp" />
+    <ClCompile Include="RTAudioBufferedSink.cpp" />
     <ClCompile Include="RtAudioHardwareFacade.cpp" />
     <ClCompile Include="RTAudioSink.cpp" />
     <ClCompile Include="SawOscillator.cpp" />
@@ -174,6 +175,7 @@
     <ClInclude Include="IAudioHardwareFacade.h" />
     <ClInclude Include="IAudioSink.h" />
     <ClInclude Include="IRunnable.h" />
+    <ClInclude Include="RTAudioBufferedSink.h" />
     <ClInclude Include="RtAudioHardwareFacade.h" />
     <ClInclude Include="RTAudioSink.h" />
     <ClInclude Include="SawOscillator.h" />
