@@ -26,3 +26,8 @@ IAudioSink* GlitterAudio::getAudioSinkForDevice()
 {
 	return facade->getAudioSink();
 }
+
+IAudioSink* GlitterAudio::getBufferedAudioSinkForDevice()
+{
+	return facade->getBufferedAudioSink();
+}

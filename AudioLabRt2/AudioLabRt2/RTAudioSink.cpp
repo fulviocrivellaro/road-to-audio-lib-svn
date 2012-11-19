@@ -20,6 +20,11 @@ void RTAudioSink::setAudioSource(IAudioSource &audioSource, unsigned int channel
 	mStreamData.sources[channelNumber] = &audioSource;
 }
 
+void RTAudioSink::triggerProcess()
+{
+	// do nothing... unbuffered sink will probably disappear
+}
+
 // stream commands
 
 bool RTAudioSink::open(const AudioDevice &device, unsigned int nChannels, unsigned int fs, unsigned int chunkSize)

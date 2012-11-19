@@ -16,6 +16,7 @@ public:
 	std::vector<const AudioDevice* const> listDevicesForDriver(AudioDriver driver) const;
 
 	IAudioSink* getAudioSink();
+	IAudioSink* getBufferedAudioSink();
 	
 private:
 	RtAudio* mRtAudio;
