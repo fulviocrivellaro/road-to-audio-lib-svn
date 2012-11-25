@@ -5,14 +5,11 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="GlitterAudioSource">
-      <UniqueIdentifier>{21e7697a-4533-487f-af0a-bf9086794cd1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GlitterAudioHeaders">
+    <Filter Include="Header Files">
       <UniqueIdentifier>{4ed26b8e-ec12-4ec5-a4d5-1406344dbe43}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Test Source">
-      <UniqueIdentifier>{2ce4a335-10d7-4c74-b08b-ee58e9f00846}</UniqueIdentifier>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{21e7697a-4533-487f-af0a-bf9086794cd1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -20,75 +17,72 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SinOscillator.cpp">
-      <Filter>GlitterAudioSource</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GlitterAudio.cpp">
-      <Filter>GlitterAudioSource</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="AudioDevice.cpp">
-      <Filter>GlitterAudioSource</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="AudioFacadeFactory.cpp">
-      <Filter>GlitterAudioSource</Filter>
-    </ClCompile>
-    <ClCompile Include="AudioLabRt2.cpp">
-      <Filter>Test Source</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="SawOscillator.cpp">
-      <Filter>GlitterAudioSource</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Thread.cpp">
-      <Filter>GlitterAudioSource</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="CircularBuffer.cpp">
-      <Filter>GlitterAudioSource</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="WaveAudioSource.cpp">
-      <Filter>GlitterAudioSource</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="IAudioSource.h">
-      <Filter>GlitterAudioHeaders</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SinOscillator.h">
-      <Filter>GlitterAudioHeaders</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Utils.h">
-      <Filter>GlitterAudioHeaders</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="IAudioSink.h">
-      <Filter>GlitterAudioHeaders</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="IAudioHardwareFacade.h">
-      <Filter>GlitterAudioHeaders</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="AudioDevice.h">
-      <Filter>GlitterAudioHeaders</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GlitterAudio.h">
-      <Filter>GlitterAudioHeaders</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GlitterAudioDefines.h">
-      <Filter>GlitterAudioHeaders</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="AudioFacadeFactory.h">
-      <Filter>GlitterAudioHeaders</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SawOscillator.h">
-      <Filter>GlitterAudioHeaders</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="IRunnable.h">
-      <Filter>GlitterAudioHeaders</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Thread.h">
-      <Filter>GlitterAudioHeaders</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="CircularBuffer.h">
-      <Filter>GlitterAudioHeaders</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="WaveAudioSource.h">
-      <Filter>GlitterAudioHeaders</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
