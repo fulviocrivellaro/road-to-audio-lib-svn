@@ -22,6 +22,7 @@
     <ProjectGuid>{64A0A09F-F99A-44F2-AA73-E87F993939A8}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>AudioLabRt2</RootNamespace>
+    <ProjectName>GlitterAudioCore</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -85,6 +86,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\Work\Projects\audio-lib\source-repo\road-to-audio-lib-svn\trunk\AudioLabRt2\RTAudioWrapper;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -113,6 +115,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\Work\Projects\audio-lib\source-repo\road-to-audio-lib-svn\trunk\AudioLabRt2\RTAudioWrapper;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -142,55 +145,36 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="asio.cpp" />
-    <ClCompile Include="asiodrivers.cpp" />
-    <ClCompile Include="asiolist.cpp" />
     <ClCompile Include="AudioDevice.cpp" />
     <ClCompile Include="AudioFacadeFactory.cpp" />
     <ClCompile Include="AudioLabRt2.cpp" />
     <ClCompile Include="CircularBuffer.cpp" />
     <ClCompile Include="GlitterAudio.cpp" />
-    <ClCompile Include="iasiothiscallresolver.cpp" />
-    <ClCompile Include="RtAudio.cpp" />
-    <ClCompile Include="RTAudioBufferedSink.cpp" />
-    <ClCompile Include="RtAudioHardwareFacade.cpp" />
-    <ClCompile Include="RTAudioSink.cpp" />
     <ClCompile Include="SawOscillator.cpp" />
     <ClCompile Include="SinOscillator.cpp" />
     <ClCompile Include="Thread.cpp" />
+    <ClCompile Include="WaveAudioSource.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="asio.h" />
-    <ClInclude Include="asiodrivers.h" />
-    <ClInclude Include="asiodrvr.h" />
-    <ClInclude Include="asiolist.h" />
-    <ClInclude Include="asiosys.h" />
     <ClInclude Include="AudioDevice.h" />
     <ClInclude Include="AudioFacadeFactory.h" />
     <ClInclude Include="CircularBuffer.h" />
-    <ClInclude Include="dsound.h" />
-    <ClInclude Include="ginclude.h" />
     <ClInclude Include="GlitterAudio.h" />
     <ClInclude Include="GlitterAudioDefines.h" />
     <ClInclude Include="IAudioHardwareFacade.h" />
     <ClInclude Include="IAudioSink.h" />
     <ClInclude Include="IRunnable.h" />
-    <ClInclude Include="RTAudioBufferedSink.h" />
-    <ClInclude Include="RtAudioHardwareFacade.h" />
-    <ClInclude Include="RTAudioSink.h" />
     <ClInclude Include="SawOscillator.h" />
     <ClInclude Include="Thread.h" />
     <ClInclude Include="Utils.h" />
-    <ClInclude Include="iasiodrv.h" />
-    <ClInclude Include="iasiothiscallresolver.h" />
     <ClInclude Include="IAudioSource.h" />
-    <ClInclude Include="RtAudio.h" />
-    <ClInclude Include="RtError.h" />
     <ClInclude Include="SinOscillator.h" />
-    <ClInclude Include="soundcard.h" />
+    <ClInclude Include="WaveAudioSource.h" />
   </ItemGroup>
   <ItemGroup>
-    <Library Include="dsound.lib" />
+    <ProjectReference Include="..\RTAudioWrapper\RTAudioWrapper.vcxproj">
+      <Project>{987982a5-8819-4dda-864e-561b5b2a64fe}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
