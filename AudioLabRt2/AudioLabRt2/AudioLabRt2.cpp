@@ -14,6 +14,8 @@
 #include "SawOscillator.h"
 #include "CircularBuffer.h"
 
+#include "WaveAudioSource.h"
+
 #include "Thread.h"
 #include "IRunnable.h"
 
@@ -520,11 +522,19 @@ void dummyArray() {
 
 }
 
+void wavFileTest()
+{
+	WaveAudioSource source;
+	source.setFile("D:\\Musica\\comp\\nutshellSAE\\Nutshell-Buccia.wav");
+}
+
 void main() {
 	
 	//multiBufferTest();
-	//audioTest();
-	bufferedAudioTest();
+	audioTest();
+	//bufferedAudioTest();
+
+	//wavFileTest();
 
 	char input;
 	std::cout << "Press to exit...";

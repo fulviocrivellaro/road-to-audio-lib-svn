@@ -8,22 +8,8 @@
     <Filter Include="GlitterAudioSource">
       <UniqueIdentifier>{21e7697a-4533-487f-af0a-bf9086794cd1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GlitterAudioSource\Specific">
-      <UniqueIdentifier>{cbe60c82-8a7c-4e34-886b-2c824ef39ea0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="RtAudio Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="RtAudio Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
     <Filter Include="GlitterAudioHeaders">
       <UniqueIdentifier>{4ed26b8e-ec12-4ec5-a4d5-1406344dbe43}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GlitterAudioHeaders\Specific">
-      <UniqueIdentifier>{de30f0a9-3938-4869-b19a-b465ecca269c}</UniqueIdentifier>
     </Filter>
     <Filter Include="Test Source">
       <UniqueIdentifier>{2ce4a335-10d7-4c74-b08b-ee58e9f00846}</UniqueIdentifier>
@@ -33,32 +19,11 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="asiodrivers.cpp">
-      <Filter>RtAudio Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="asiolist.cpp">
-      <Filter>RtAudio Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="iasiothiscallresolver.cpp">
-      <Filter>RtAudio Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="RtAudio.cpp">
-      <Filter>RtAudio Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="asio.cpp">
-      <Filter>RtAudio Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="SinOscillator.cpp">
       <Filter>GlitterAudioSource</Filter>
     </ClCompile>
     <ClCompile Include="GlitterAudio.cpp">
       <Filter>GlitterAudioSource</Filter>
-    </ClCompile>
-    <ClCompile Include="RtAudioHardwareFacade.cpp">
-      <Filter>GlitterAudioSource\Specific</Filter>
-    </ClCompile>
-    <ClCompile Include="RTAudioSink.cpp">
-      <Filter>GlitterAudioSource\Specific</Filter>
     </ClCompile>
     <ClCompile Include="AudioDevice.cpp">
       <Filter>GlitterAudioSource</Filter>
@@ -78,47 +43,11 @@
     <ClCompile Include="CircularBuffer.cpp">
       <Filter>GlitterAudioSource</Filter>
     </ClCompile>
-    <ClCompile Include="RTAudioBufferedSink.cpp">
-      <Filter>GlitterAudioSource\Specific</Filter>
+    <ClCompile Include="WaveAudioSource.cpp">
+      <Filter>GlitterAudioSource</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="asiodrvr.h">
-      <Filter>RtAudio Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="asiolist.h">
-      <Filter>RtAudio Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="asiosys.h">
-      <Filter>RtAudio Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ginclude.h">
-      <Filter>RtAudio Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="iasiodrv.h">
-      <Filter>RtAudio Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="iasiothiscallresolver.h">
-      <Filter>RtAudio Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="RtAudio.h">
-      <Filter>RtAudio Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="RtError.h">
-      <Filter>RtAudio Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="soundcard.h">
-      <Filter>RtAudio Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="asio.h">
-      <Filter>RtAudio Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="asiodrivers.h">
-      <Filter>RtAudio Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="dsound.h">
-      <Filter>RtAudio Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="IAudioSource.h">
       <Filter>GlitterAudioHeaders</Filter>
     </ClInclude>
@@ -143,12 +72,6 @@
     <ClInclude Include="GlitterAudioDefines.h">
       <Filter>GlitterAudioHeaders</Filter>
     </ClInclude>
-    <ClInclude Include="RtAudioHardwareFacade.h">
-      <Filter>GlitterAudioHeaders\Specific</Filter>
-    </ClInclude>
-    <ClInclude Include="RTAudioSink.h">
-      <Filter>GlitterAudioHeaders\Specific</Filter>
-    </ClInclude>
     <ClInclude Include="AudioFacadeFactory.h">
       <Filter>GlitterAudioHeaders</Filter>
     </ClInclude>
@@ -164,13 +87,8 @@
     <ClInclude Include="CircularBuffer.h">
       <Filter>GlitterAudioHeaders</Filter>
     </ClInclude>
-    <ClInclude Include="RTAudioBufferedSink.h">
-      <Filter>GlitterAudioHeaders\Specific</Filter>
+    <ClInclude Include="WaveAudioSource.h">
+      <Filter>GlitterAudioHeaders</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <Library Include="dsound.lib">
-      <Filter>Resource Files</Filter>
-    </Library>
   </ItemGroup>
 </Project>
