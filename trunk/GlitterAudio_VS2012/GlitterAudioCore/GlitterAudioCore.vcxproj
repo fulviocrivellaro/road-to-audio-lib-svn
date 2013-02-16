@@ -147,7 +147,9 @@
   <ItemGroup>
     <ClCompile Include="AudioDevice.cpp" />
     <ClCompile Include="AudioFacadeFactory.cpp" />
+    <ClCompile Include="AudioLink.cpp" />
     <ClCompile Include="CircularBuffer.cpp" />
+    <ClCompile Include="CircularMultiBuffer.cpp" />
     <ClCompile Include="GlitterAudio.cpp" />
     <ClCompile Include="SawOscillator.cpp" />
     <ClCompile Include="SinOscillator.cpp" />
@@ -157,10 +159,13 @@
   <ItemGroup>
     <ClInclude Include="AudioDevice.h" />
     <ClInclude Include="AudioFacadeFactory.h" />
+    <ClInclude Include="AudioLink.h" />
     <ClInclude Include="CircularBuffer.h" />
+    <ClInclude Include="CircularMultiBuffer.h" />
     <ClInclude Include="GlitterAudio.h" />
     <ClInclude Include="GlitterAudioDefines.h" />
     <ClInclude Include="IAudioHardwareFacade.h" />
+    <ClInclude Include="IAudioNode.h" />
     <ClInclude Include="IAudioSink.h" />
     <ClInclude Include="IRunnable.h" />
     <ClInclude Include="SawOscillator.h" />
