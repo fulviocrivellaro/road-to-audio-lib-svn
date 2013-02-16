@@ -19,6 +19,8 @@
 #include "Thread.h"
 #include "IRunnable.h"
 
+#include "CircularMultiBufferTest.h"
+
 int audioTest() {
 
 	GlitterAudio* audio = new GlitterAudio();
@@ -250,11 +252,11 @@ int monoBufferTest()
 
 // ================================= MULTI-CHANNEL TEST =====================================
 
-class MultiWriter : public IRunnable
+class CircularWriter : public IRunnable
 {
 public:
-	MultiWriter::MultiWriter(CircularBuffer *buffer, double** readFrom, int size) { mBuffer = buffer; mReadFrom = readFrom; mSize = size; }
-	void MultiWriter::run()
+	CircularWriter::CircularWriter(CircularBuffer *buffer, double** readFrom, int size) { mBuffer = buffer; mReadFrom = readFrom; mSize = size; }
+	void CircularWriter::run()
 	{
 		srand(time(NULL));
 		unsigned int nChannels = mBuffer->getNChannels();
@@ -293,11 +295,11 @@ private:
 	int mSize;
 };
 
-class MultiReader : public IRunnable
+class CircularReader : public IRunnable
 {
 public:
-	MultiReader::MultiReader(CircularBuffer *buffer, double** writeTo, int size, int chunkSize) { mBuffer = buffer; mWriteTo = writeTo; mSize = size; mChunk = chunkSize; }
-	void MultiReader::run()
+	CircularReader::CircularReader(CircularBuffer *buffer, double** writeTo, int size, int chunkSize) { mBuffer = buffer; mWriteTo = writeTo; mSize = size; mChunk = chunkSize; }
+	void CircularReader::run()
 	{
 		srand(time(NULL));
 		std::chrono::milliseconds waitfor(5000);
@@ -381,12 +383,12 @@ int multiBufferTest()
 	}
 
 	// creates a writer thread, which runs by its own
-	MultiWriter *writer = new MultiWriter(&b, w, SIZE);
+	CircularWriter *writer = new CircularWriter(&b, w, SIZE);
 	Thread tWrite(writer);
 	tWrite.startAndDetach();
 	
 	// creates a reader thread, and waits for execution to end
-	MultiReader *reader = new MultiReader(&b, r, SIZE, SIZE/8);
+	CircularReader *reader = new CircularReader(&b, r, SIZE, SIZE/8);
 	Thread tReader(reader);
 	tReader.startAndJoin();
 
@@ -525,14 +527,18 @@ void dummyArray() {
 void wavFileTest()
 {
 	WaveAudioSource source;
-	source.setFile("D:\\Musica\\comp\\nutshellSAE\\Nutshell-Buccia.wav");
+	//source.setFile("D:\\Musica\\comp\\nutshellSAE\\Nutshell-Buccia.wav");
+	source.setFile("C:\\Users\\Work\\Projects\\audio-lib\\wavSources\\gatest24-44100.wav");
 }
+
+//void circularMultiBufferTest();
 
 void main() {
 	
 	//multiBufferTest();
-	audioTest();
+	//audioTest();
 	//bufferedAudioTest();
+	circularMultiBufferTest();
 
 	//wavFileTest();
 
