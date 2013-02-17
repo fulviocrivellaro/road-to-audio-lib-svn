@@ -1,9 +1,9 @@
-#include "RTAudioBufferedSink.h"
+#include "RTAudioBufferedPlayer.h"
 #include "AudioDevice.h"
 #include "IAudioSource.h"
-#include "CircularBuffer.h"
+#include "CircularMultiBuffer.h"
 
-RTAudioBufferedSink::RTAudioBufferedSink(RtAudio &rtAudio) :
+RTAudioBufferedPlayer::RTAudioBufferedPlayer(RtAudio &rtAudio) :
 	mRtAudio(rtAudio)
 {
 	for (unsigned int i=0; i<__GLITTERAUDIO__MAX__OUTPUT__CHANNELS__; i++)
@@ -14,34 +14,35 @@ RTAudioBufferedSink::RTAudioBufferedSink(RtAudio &rtAudio) :
 	mTmpBuffer = 0;
 }
 
-RTAudioBufferedSink::~RTAudioBufferedSink(void)
+RTAudioBufferedPlayer::~RTAudioBufferedPlayer(void)
 {
 }
 
-void RTAudioBufferedSink::setAudioSource(IAudioSource &audioSource, unsigned int channelNumber)
+void RTAudioBufferedPlayer::setAudioSource(IAudioSource &audioSource, unsigned int channelNumber)
 {
 	mBufferedStreamData.sources[channelNumber] = &audioSource;
 }
 
-void RTAudioBufferedSink::triggerProcess()
+void RTAudioBufferedPlayer::takeChunk(double* buffer, unsigned int channel, unsigned int chunkSize)
 {
 	if (mBufferedStreamData.outputBuffer != 0)
 	{
-		for (unsigned int i=0; i<mBufferedStreamData.nChannels; i++)
-		{
-			// call the source only if meaningful
-			if (mBufferedStreamData.sources[i] != 0)
-			{
-				mBufferedStreamData.sources[i]->fillChunk(mTmpBuffer[i], mChunkSize);
-			}
-		}
-		mBufferedStreamData.outputBuffer->bufferChunk(mTmpBuffer, mChunkSize);
+		mBufferedStreamData.outputBuffer->bufferChunk(buffer, channel, chunkSize);
+		//for (unsigned int i=0; i<mBufferedStreamData.nChannels; i++)
+		//{
+		//	// call the source only if meaningful
+		//	if (mBufferedStreamData.sources[i] != 0)
+		//	{
+		//		mBufferedStreamData.sources[i]->fillChunk(mTmpBuffer[i], mChunkSize);
+		//	}
+		//}
+		//mBufferedStreamData.outputBuffer->bufferChunk(mTmpBuffer, mChunkSize);
 	}
 }
 
 // stream commands
 
-bool RTAudioBufferedSink::open(const AudioDevice &device, unsigned int nChannels, unsigned int fs, unsigned int chunkSize)
+bool RTAudioBufferedPlayer::open(const AudioDevice &device, unsigned int nChannels, unsigned int fs, unsigned int chunkSize)
 {
 	cleanBuffer();
 	mTmpBuffer = new double*[nChannels];
@@ -49,7 +50,7 @@ bool RTAudioBufferedSink::open(const AudioDevice &device, unsigned int nChannels
 	{
 		mTmpBuffer[c] = new double[chunkSize];
 	}
-	mBufferedStreamData.outputBuffer = new CircularBuffer(nChannels, 8*chunkSize);
+	mBufferedStreamData.outputBuffer = new CircularMultiBuffer(nChannels, 8*chunkSize);
 	try
 	{
 		RtAudio::StreamParameters parameters;
@@ -70,7 +71,7 @@ bool RTAudioBufferedSink::open(const AudioDevice &device, unsigned int nChannels
 	}
 }
 
-bool RTAudioBufferedSink::close()
+bool RTAudioBufferedPlayer::close()
 {
 	if (mBufferedStreamData.outputBuffer)
 	{
@@ -80,19 +81,19 @@ bool RTAudioBufferedSink::close()
 	return true;
 }
 
-bool RTAudioBufferedSink::start()
+bool RTAudioBufferedPlayer::start()
 {
 	mRtAudio.startStream();
 	return true;
 }
 
-bool RTAudioBufferedSink::stop()
+bool RTAudioBufferedPlayer::stop()
 {
 	mRtAudio.stopStream();
 	return true;
 }
 
-void RTAudioBufferedSink::cleanBuffer()
+void RTAudioBufferedPlayer::cleanBuffer()
 {
 	if (mTmpBuffer != 0)
 	{
@@ -112,11 +113,11 @@ int rtAudioBufferedCallback(void *outputBuffer, void *inputBuffer, unsigned int 
 	BufferedStreamData* bufferedStreamData = (BufferedStreamData*)userData;
 
 	double** internalBuffer = new double*[nBufferFrames];
-	for (unsigned int i=0; i<bufferedStreamData->nChannels; i++)
+	for (unsigned int c=0; c<bufferedStreamData->nChannels; c++)
 	{
-		internalBuffer[i] = new double[nBufferFrames];
+		internalBuffer[c] = new double[nBufferFrames];
+		bufferedStreamData->outputBuffer->fillChunk(internalBuffer[c], c, nBufferFrames);
 	}
-	bufferedStreamData->outputBuffer->fillChunk(internalBuffer, nBufferFrames);
 	
 	for (unsigned int c=0; c<bufferedStreamData->nChannels; c++)
 	{

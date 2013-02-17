@@ -1,6 +1,6 @@
 #include "RtAudioHardwareFacade.h"
-#include "RTAudioSink.h"
-#include "RTAudioBufferedSink.h"
+#include "RTAudioPlayer.h"
+#include "RTAudioBufferedPlayer.h"
 
 RtAudioHardwareFacade::RtAudioHardwareFacade(void)
 {
@@ -76,12 +76,7 @@ std::vector<const AudioDevice* const> RtAudioHardwareFacade::listDevicesForDrive
 	return result;
 }
 
-IAudioSink* RtAudioHardwareFacade::getAudioSink()
+IAudioPlayer* RtAudioHardwareFacade::getBufferedAudioPlayer()
 {
-	return new RTAudioSink(*mRtAudio);
-}
-
-IAudioSink* RtAudioHardwareFacade::getBufferedAudioSink()
-{
-	return new RTAudioBufferedSink(*mRtAudio);
+	return new RTAudioBufferedPlayer(*mRtAudio);
 }

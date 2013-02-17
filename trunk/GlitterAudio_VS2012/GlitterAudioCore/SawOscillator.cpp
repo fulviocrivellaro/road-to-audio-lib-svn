@@ -53,7 +53,7 @@ void SawOscillator::updateDiffFromConfig()
 	
 }
 
-void SawOscillator::fillChunk(double* buffer, unsigned int chunkSize)
+void SawOscillator::fillChunk(double* buffer, unsigned int channel, unsigned int chunkSize)
 {
 	for (int i=0; i<chunkSize; i++)
 	{

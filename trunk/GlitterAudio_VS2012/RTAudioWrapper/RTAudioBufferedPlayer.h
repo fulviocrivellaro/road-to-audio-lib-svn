@@ -1,29 +1,31 @@
 #pragma once
 
 #include "GlitterAudioDefines.h"
-#include "IAudioSink.h"
+#include "IAudioPlayer.h"
 #include "RtAudio.h" // necessary for RtAudioStreamStatus
 #include <vector>
 
-class CircularBuffer;
+class CircularMultiBuffer;
 
 struct BufferedStreamData
 {
 	unsigned int    nChannels;
 	IAudioSource*   sources[__GLITTERAUDIO__MAX__OUTPUT__CHANNELS__];
-	CircularBuffer* outputBuffer;
+	CircularMultiBuffer* outputBuffer;
 };
 
 // RTAudio static callback declaration
 int rtAudioBufferedCallback(void *outputBuffer, void *inputBuffer, unsigned int nBufferFrames,
 		double streamTime, RtAudioStreamStatus status, void *userData);
 
-class RTAudioBufferedSink :
-	public IAudioSink
+class RTAudioBufferedPlayer :
+	public IAudioPlayer
 {
 public:
-	RTAudioBufferedSink(RtAudio &rtAudio);
-	~RTAudioBufferedSink(void);
+	RTAudioBufferedPlayer(RtAudio &rtAudio);
+	~RTAudioBufferedPlayer(void);
+
+	void takeChunk(double* buffer, unsigned int channel, unsigned int chunkSize);
 
 	void setAudioSource(IAudioSource &audioSource, unsigned int channelNumber);
 	void triggerProcess();

@@ -18,24 +18,24 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="RTAudioBufferedSink.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="RtAudioHardwareFacade.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="RTAudioSink.h">
+    <ClInclude Include="RTAudioPlayer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RTAudioBufferedPlayer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="RTAudioBufferedSink.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="RtAudioHardwareFacade.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="RTAudioSink.cpp">
+    <ClCompile Include="RTAudioPlayer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RTAudioBufferedPlayer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -16,7 +16,7 @@ public:
 	void setSamplingFrequency(unsigned int fs);
 	unsigned int getSamplingFrequency() const;
 
-	void fillChunk(double* buffer, unsigned int chunkSize);
+	void fillChunk(double* buffer, unsigned int channel, unsigned int chunkSize);
 
 private:
 	void updateDiffFromConfig();

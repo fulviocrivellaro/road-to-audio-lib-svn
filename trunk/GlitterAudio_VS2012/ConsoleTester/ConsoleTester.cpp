@@ -9,7 +9,7 @@
 #include <time.h>
 
 #include "GlitterAudio.h"
-#include "IAudioSink.h"
+#include "IAudioPlayer.h"
 #include "SinOscillator.h"
 #include "SawOscillator.h"
 #include "CircularBuffer.h"
@@ -20,111 +20,8 @@
 #include "IRunnable.h"
 
 #include "CircularMultiBufferTest.h"
+#include "StaticChainTest.h"
 
-int audioTest() {
-
-	GlitterAudio* audio = new GlitterAudio();
-	IAudioSink* sink = audio->getAudioSinkForDevice();
-
-	int f = 440;
-	int fs = 48000;
-	int chunkSize = 256;
-
-	IAudioSource* osc1 = new SinOscillator(f, (int)fs);
-	IAudioSource* osc2 = new SawOscillator(f, (int)fs);
-	sink->setAudioSource(*osc1, 0);
-	sink->setAudioSource(*osc2, 1);
-	
-	bool ok = sink->open(*audio->listDevicesForDriver(AudioDriver::WIN_ASIO)[0], 2, (unsigned int)fs, chunkSize);
-
-	if (ok)
-	{
-		sink->start();
-	}
-	char input;
-
-	std::cout << "\nPlaying ... press <enter> to quit.\n\n\n";
-	std::cin.get( input );
-
-	sink->stop();
-	sink->close();
-
-	std::cout << "Delete OSC" << std::endl;
-	delete osc1;
-	delete osc2;
-	delete sink;
-
-	delete audio;
-
-	return 0;
-}
-
-class AudioSynch : public IRunnable
-{
-public:
-	AudioSynch::AudioSynch(IAudioSink *audioSink) { mAudioSink = audioSink; mProceed = true; }
-	void AudioSynch::stop() {
-		mProceed = false;
-	}
-	void AudioSynch::run()
-	{
-		while (mProceed)
-		{
-			mAudioSink->triggerProcess();
-		}
-		std::cout<< "Synch stopped" << std::endl;
-	}
-private:
-	IAudioSink *mAudioSink;
-	bool mProceed;
-};
-
-int bufferedAudioTest() {
-
-	GlitterAudio* audio = new GlitterAudio();
-	IAudioSink* sink = audio->getBufferedAudioSinkForDevice();
-
-	int f = 440;
-	int fs = 48000;
-	int chunkSize = 256;
-
-	IAudioSource* osc1 = new SinOscillator(f, (int)fs);
-	IAudioSource* osc2 = new SawOscillator(f, (int)fs);
-	sink->setAudioSource(*osc1, 0);
-	sink->setAudioSource(*osc2, 1);
-	
-	bool ok = sink->open(*audio->listDevicesForDriver(AudioDriver::WIN_ASIO)[0], 2, (unsigned int)fs, chunkSize);
-
-	AudioSynch *synch = new AudioSynch(sink);
-	Thread t(synch, false);
-	t.start();
-
-	if (ok)
-	{
-		sink->start();
-	}
-	char input;
-
-	std::cout << "\nPlaying ... press <enter> to quit.\n\n\n";
-	std::cin.get( input );
-
-	synch->stop();
-	t.join();
-
-	sink->stop();
-	sink->close();
-
-	delete synch;
-
-	std::cout << "Delete OSC" << std::endl;
-	delete osc1;
-	delete osc2;
-	delete sink;
-
-	delete audio;
-
-	return 0;
-}
 
 class Writer : public IRunnable
 {
@@ -538,9 +435,11 @@ void main() {
 	//multiBufferTest();
 	//audioTest();
 	//bufferedAudioTest();
-	circularMultiBufferTest();
+	//circularMultiBufferTest();
 
 	//wavFileTest();
+
+	staticChainAudioTest();
 
 	char input;
 	std::cout << "Press to exit...";

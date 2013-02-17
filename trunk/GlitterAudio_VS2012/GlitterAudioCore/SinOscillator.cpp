@@ -1,4 +1,5 @@
 #include "SinOscillator.h"
+#include "CircularMultiBuffer.h"
 #include "Utils.h"
 #include <math.h>
 
@@ -12,10 +13,13 @@ SinOscillator::SinOscillator(double f, unsigned int fs)
 	mFrequency = f;
 	mSamplingFrequency = fs;
 	updateTapsFromConfig();
+
+	mBuffer = new CircularMultiBuffer(1, 8192);
 }
 
 SinOscillator::~SinOscillator(void)
 {
+	delete mBuffer;
 }
 
 void SinOscillator::setFrequencyInHz(double f)
@@ -70,14 +74,23 @@ void SinOscillator::updateTapsFromConfig()
 	
 }
 
-void SinOscillator::fillChunk(double* buffer, unsigned int chunkSize)
+void SinOscillator::fillChunk(double* buffer, unsigned int channel, unsigned int chunkSize)
 {
+	mBuffer->fillChunk(buffer, channel, chunkSize);
+}
+
+void SinOscillator::createChunk(unsigned int chunkSize)
+{
+	double* chunk = new double[chunkSize];
 	for (int i=0; i<chunkSize; i++)
 	{
 		double sample = mC1*mLastValues[0] + mC2*mLastValues[1];
 		mLastValues[0] = mLastValues[1];
 		mLastValues[1] = sample;
 		
-		*buffer++ = sample;
+		chunk[i] = sample;
 	}
+	mBuffer->bufferChunk(chunk, 0, chunkSize);
+
+	delete[] chunk;
 }

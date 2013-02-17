@@ -12,7 +12,7 @@ public:
 	WaveAudioSource(void);
 	~WaveAudioSource(void);
 
-	void fillChunk(double* buffer, unsigned int chunkSize);
+	void fillChunk(double* buffer, unsigned int channel, unsigned int chunkSize);
 
 	void setFile(std::string path);
 

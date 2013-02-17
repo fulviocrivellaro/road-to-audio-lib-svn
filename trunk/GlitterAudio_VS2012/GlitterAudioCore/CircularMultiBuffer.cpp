@@ -80,7 +80,8 @@ void CircularMultiBuffer::bufferChunk(double* chunk, unsigned int channel, unsig
 
 	for (unsigned int i=0; i<chunkSize; i++)
 	{
-		mBuffer[channel][(i+mWritePtr[channel])%mBufferSize] = chunk[i];
+		double val = chunk[i];
+		mBuffer[channel][(i+mWritePtr[channel])%mBufferSize] = val;
 	}
 	
 	// update write pointer

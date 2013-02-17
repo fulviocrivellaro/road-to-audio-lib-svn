@@ -5,7 +5,8 @@
 #include "GlitterAudioDefines.h"
 #include "IAudioHardwareFacade.h"
 
-class IAudioSink;
+class IAudioPlayer;
+class IAudioChain;
 
 class GlitterAudio
 {
@@ -16,9 +17,15 @@ public:
 	std::vector<const AudioDevice* const> listAllDevices() const;
 	std::vector<const AudioDevice* const> listDevicesForDriver(AudioDriver driver) const;
 
-	IAudioSink* getAudioSinkForDevice();
-	IAudioSink* getBufferedAudioSinkForDevice();
+	IAudioPlayer* getBufferedAudioPlayerForDevice();
+
+	void setAudioChain(IAudioChain* audioChain);
+
+	// transport
+	void start();
+	void stop();
 
 private:
 	IAudioHardwareFacade* facade;
+	IAudioChain* mAudioChain;
 };
