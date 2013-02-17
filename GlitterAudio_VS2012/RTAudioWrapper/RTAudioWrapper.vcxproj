@@ -76,14 +76,12 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="RTAudioBufferedPlayer.h" />
-    <ClInclude Include="RtAudioHardwareFacade.h" />
     <ClInclude Include="RTAudioPlayer.h" />
+    <ClInclude Include="RtAudioHardwareFacade.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="RTAudioBufferedPlayer.cpp" />
-    <ClCompile Include="RtAudioHardwareFacade.cpp" />
     <ClCompile Include="RTAudioPlayer.cpp" />
+    <ClCompile Include="RtAudioHardwareFacade.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RTAudio\RTAudio.vcxproj">

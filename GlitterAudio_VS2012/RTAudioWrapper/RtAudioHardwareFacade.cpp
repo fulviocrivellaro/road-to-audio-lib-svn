@@ -1,6 +1,6 @@
 #include "RtAudioHardwareFacade.h"
 #include "RTAudioPlayer.h"
-#include "RTAudioBufferedPlayer.h"
+#include "RTAudioPlayer.h"
 
 RtAudioHardwareFacade::RtAudioHardwareFacade(void)
 {
@@ -78,5 +78,5 @@ std::vector<const AudioDevice* const> RtAudioHardwareFacade::listDevicesForDrive
 
 IAudioPlayer* RtAudioHardwareFacade::getBufferedAudioPlayer()
 {
-	return new RTAudioBufferedPlayer(*mRtAudio);
+	return new RTAudioPlayer(*mRtAudio);
 }
