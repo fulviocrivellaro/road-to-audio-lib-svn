@@ -46,9 +46,6 @@
     <ClCompile Include="CircularMultiBuffer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="BaseAudioSource.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="BaseAudioChain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -109,9 +106,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="CircularMultiBuffer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="BaseAudioSource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="IAudioPlayer.h">

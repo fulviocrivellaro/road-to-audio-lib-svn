@@ -149,7 +149,6 @@
     <ClCompile Include="AudioFacadeFactory.cpp" />
     <ClCompile Include="AudioLink.cpp" />
     <ClCompile Include="BaseAudioChain.cpp" />
-    <ClCompile Include="BaseAudioSource.cpp" />
     <ClCompile Include="CircularBuffer.cpp" />
     <ClCompile Include="CircularMultiBuffer.cpp" />
     <ClCompile Include="GlitterAudio.cpp" />
@@ -165,7 +164,6 @@
     <ClInclude Include="AudioFacadeFactory.h" />
     <ClInclude Include="AudioLink.h" />
     <ClInclude Include="BaseAudioChain.h" />
-    <ClInclude Include="BaseAudioSource.h" />
     <ClInclude Include="CircularBuffer.h" />
     <ClInclude Include="CircularMultiBuffer.h" />
     <ClInclude Include="GlitterAudio.h" />
