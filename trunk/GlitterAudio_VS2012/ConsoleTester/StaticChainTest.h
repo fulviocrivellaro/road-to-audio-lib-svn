@@ -11,7 +11,7 @@
 #include "GlitterAudio.h"
 #include "StaticChain.h"
 #include "MonoSplitter.h"
-#include "NoiseGenerator.h"
+#include "NoiseAdder.h"
 
 #include "SinOscillator.h"
 
@@ -55,11 +55,11 @@ int staticChainAudioTest() {
 	// nodes
 	IAudioGenerator* osc1 = new SinOscillator(f, (int)fs);
 	IAudioNode* splitter = new MonoSplitter();
-	IAudioNode* noiseGenerator = new NoiseGenerator(0.001);
+	IAudioNode* noiseAdder = new NoiseAdder(0.001);
 	IAudioPlayer* player = audio->getBufferedAudioPlayerForDevice();
 
 	// chain
-	StaticChain chain(1024, osc1, splitter, noiseGenerator, player);
+	StaticChain chain(1024, osc1, splitter, noiseAdder, player);
 
 	bool ok = player->open(*audio->listDevicesForDriver(AudioDriver::WIN_ASIO)[0], 2, (unsigned int)fs, CHUNK_SIZE);
 
@@ -80,7 +80,7 @@ int staticChainAudioTest() {
 	std::cout << "Delete OSC" << std::endl;
 	delete osc1;
 	delete splitter;
-	delete noiseGenerator;
+	delete noiseAdder;
 	delete player;
 
 	delete audio;

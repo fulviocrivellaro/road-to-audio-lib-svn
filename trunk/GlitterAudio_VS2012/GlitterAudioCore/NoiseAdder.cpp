@@ -1,8 +1,8 @@
-#include "NoiseGenerator.h"
+#include "NoiseAdder.h"
 
 #include "CircularMultiBuffer.h"
 
-NoiseGenerator::NoiseGenerator(double noiseGain)
+NoiseAdder::NoiseAdder(double noiseGain)
 {
 	mNoiseGain = noiseGain;
 
@@ -10,23 +10,23 @@ NoiseGenerator::NoiseGenerator(double noiseGain)
 	mOutputBuffer = new CircularMultiBuffer(1, 8192);
 }
 
-NoiseGenerator::~NoiseGenerator(void)
+NoiseAdder::~NoiseAdder(void)
 {
 	delete mInputBuffer;
 	delete mOutputBuffer;
 }
 
-void NoiseGenerator::takeChunk(double* buffer, unsigned int channel, unsigned int chunkSize)
+void NoiseAdder::takeChunk(double* buffer, unsigned int channel, unsigned int chunkSize)
 {
 	mInputBuffer->bufferChunk(buffer, channel, chunkSize);
 }
 
-void NoiseGenerator::fillChunk(double* buffer, unsigned int channel, unsigned int chunkSize)
+void NoiseAdder::fillChunk(double* buffer, unsigned int channel, unsigned int chunkSize)
 {
 	mOutputBuffer->fillChunk(buffer, channel, chunkSize);
 }
 
-void NoiseGenerator::processChunk(unsigned int chunkSize)
+void NoiseAdder::processChunk(unsigned int chunkSize)
 {
 	double* chunk = new double[chunkSize];
 
