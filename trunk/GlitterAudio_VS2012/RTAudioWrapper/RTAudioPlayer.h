@@ -5,14 +5,17 @@
 #include "RtAudio.h" // necessary for RtAudioStreamStatus
 #include <vector>
 
-struct StreamData
+class CircularMultiBuffer;
+
+struct BufferedStreamData
 {
-	unsigned int   nChannels;
-	IAudioSource*  sources[__GLITTERAUDIO__MAX__OUTPUT__CHANNELS__];
+	unsigned int    nChannels;
+	IAudioSource*   sources[__GLITTERAUDIO__MAX__OUTPUT__CHANNELS__];
+	CircularMultiBuffer* outputBuffer;
 };
 
 // RTAudio static callback declaration
-int rtAudioCallback(void *outputBuffer, void *inputBuffer, unsigned int nBufferFrames,
+int rtAudioBufferedCallback(void *outputBuffer, void *inputBuffer, unsigned int nBufferFrames,
 		double streamTime, RtAudioStreamStatus status, void *userData);
 
 class RTAudioPlayer :
@@ -21,6 +24,8 @@ class RTAudioPlayer :
 public:
 	RTAudioPlayer(RtAudio &rtAudio);
 	~RTAudioPlayer(void);
+
+	void takeChunk(double* buffer, unsigned int channel, unsigned int chunkSize);
 
 	void setAudioSource(IAudioSource &audioSource, unsigned int channelNumber);
 	void triggerProcess();
@@ -32,9 +37,14 @@ public:
 	bool stop();
 
 private:
+	void cleanBuffer();
 
 	RtAudio &mRtAudio;
-	StreamData mStreamData;
+	BufferedStreamData mBufferedStreamData;
+
+	//CircularBuffer *mOutputBuffer;
+	unsigned int mChunkSize;
+	double** mTmpBuffer;
 
 	double mSamplingFrequency;
 };
