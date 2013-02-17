@@ -4,12 +4,12 @@
 
 class CircularMultiBuffer;
 
-class NoiseGenerator :
+class NoiseAdder :
 	public IAudioNode
 {
 public:
-	NoiseGenerator(double noiseGain);
-	~NoiseGenerator(void);
+	NoiseAdder(double noiseGain);
+	~NoiseAdder(void);
 
 	void takeChunk(double* buffer, unsigned int channel, unsigned int chunkSize);
 	void fillChunk(double* buffer, unsigned int channel, unsigned int chunkSize);

@@ -3,19 +3,19 @@
 #include "IAudioGenerator.h"
 #include "IAudioNode.h"
 
-StaticChain::StaticChain(unsigned int chunkSize, IAudioGenerator* oscillator, IAudioNode* splitter, IAudioNode* noiseGenerator, IAudioPlayer* player)
+StaticChain::StaticChain(unsigned int chunkSize, IAudioGenerator* oscillator, IAudioNode* splitter, IAudioNode* NoiseAdder, IAudioPlayer* player)
 	: BaseAudioChain()
 {
 	mChunkSize = chunkSize;
 
 	mOscillator = oscillator;
 	mSplitter = splitter;
-	mNoiseGenerator = noiseGenerator;
+	mNoiseAdder = NoiseAdder;
 	mPlayer = player;
 
 	link(mOscillator, 0, mSplitter, 0);
-	link(mSplitter, 0, mNoiseGenerator, 0);
-	link(mNoiseGenerator, 0, mPlayer, 1);
+	link(mSplitter, 0, mNoiseAdder, 0);
+	link(mNoiseAdder, 0, mPlayer, 1);
 	link(mSplitter, 1, mPlayer, 0);
 }
 
@@ -39,7 +39,7 @@ void StaticChain::processChunk()
 	mLinks[1]->moveData(mChunkSize);
 
 	// add noise
-	mNoiseGenerator->processChunk(mChunkSize);
+	mNoiseAdder->processChunk(mChunkSize);
 
 	// pass to player
 	mLinks[2]->moveData(mChunkSize);

@@ -9,7 +9,7 @@ class StaticChain :
 	public BaseAudioChain
 {
 public:
-	StaticChain(unsigned int chunkSize, IAudioGenerator* oscillator, IAudioNode* splitter, IAudioNode* noiseGenerator, IAudioPlayer* player);
+	StaticChain(unsigned int chunkSize, IAudioGenerator* oscillator, IAudioNode* splitter, IAudioNode* NoiseAdder, IAudioPlayer* player);
 	~StaticChain(void);
 
 	void processChunk();
@@ -19,7 +19,7 @@ private:
 
 	IAudioGenerator* mOscillator;
 	IAudioNode* mSplitter;
-	IAudioNode* mNoiseGenerator;
+	IAudioNode* mNoiseAdder;
 	IAudioPlayer* mPlayer;
 };
 

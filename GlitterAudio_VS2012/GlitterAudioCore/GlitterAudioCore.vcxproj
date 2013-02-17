@@ -153,7 +153,7 @@
     <ClCompile Include="CircularMultiBuffer.cpp" />
     <ClCompile Include="GlitterAudio.cpp" />
     <ClCompile Include="MonoSplitter.cpp" />
-    <ClCompile Include="NoiseGenerator.cpp" />
+    <ClCompile Include="NoiseAdder.cpp" />
     <ClCompile Include="SawOscillator.cpp" />
     <ClCompile Include="SinOscillator.cpp" />
     <ClCompile Include="Thread.cpp" />
@@ -176,7 +176,7 @@
     <ClInclude Include="IAudioSink.h" />
     <ClInclude Include="IRunnable.h" />
     <ClInclude Include="MonoSplitter.h" />
-    <ClInclude Include="NoiseGenerator.h" />
+    <ClInclude Include="NoiseAdder.h" />
     <ClInclude Include="SawOscillator.h" />
     <ClInclude Include="Thread.h" />
     <ClInclude Include="Utils.h" />

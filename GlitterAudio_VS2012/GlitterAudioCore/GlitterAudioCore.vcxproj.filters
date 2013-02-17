@@ -52,7 +52,7 @@
     <ClCompile Include="MonoSplitter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="NoiseGenerator.cpp">
+    <ClCompile Include="NoiseAdder.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -123,7 +123,7 @@
     <ClInclude Include="MonoSplitter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="NoiseGenerator.h">
+    <ClInclude Include="NoiseAdder.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
