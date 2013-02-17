@@ -1,7 +1,7 @@
 #pragma once
 
 #include "GlitterAudioDefines.h"
-#include "IAudioSink.h"
+#include "IAudioPlayer.h"
 #include "RtAudio.h" // necessary for RtAudioStreamStatus
 #include <vector>
 
@@ -15,12 +15,12 @@ struct StreamData
 int rtAudioCallback(void *outputBuffer, void *inputBuffer, unsigned int nBufferFrames,
 		double streamTime, RtAudioStreamStatus status, void *userData);
 
-class RTAudioSink :
-	public IAudioSink
+class RTAudioPlayer :
+	public IAudioPlayer
 {
 public:
-	RTAudioSink(RtAudio &rtAudio);
-	~RTAudioSink(void);
+	RTAudioPlayer(RtAudio &rtAudio);
+	~RTAudioPlayer(void);
 
 	void setAudioSource(IAudioSource &audioSource, unsigned int channelNumber);
 	void triggerProcess();

@@ -3,7 +3,7 @@
 #include "IAudioHardwareFacade.h"
 
 class RtAudio;
-class IAudioSink;
+class IAudioPlayer;
 
 class RtAudioHardwareFacade :
 	public IAudioHardwareFacade
@@ -15,8 +15,7 @@ public:
 	std::vector<const AudioDevice* const> listAllDevices() const;
 	std::vector<const AudioDevice* const> listDevicesForDriver(AudioDriver driver) const;
 
-	IAudioSink* getAudioSink();
-	IAudioSink* getBufferedAudioSink();
+	IAudioPlayer* getBufferedAudioPlayer();
 	
 private:
 	RtAudio* mRtAudio;

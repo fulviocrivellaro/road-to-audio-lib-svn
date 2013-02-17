@@ -24,9 +24,18 @@
     <ClInclude Include="CircularMultiBufferTest.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="StaticChainTest.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="StaticChain.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ConsoleTester.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="StaticChain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -10,7 +10,7 @@ WaveAudioSource::~WaveAudioSource(void)
 {
 }
 
-void WaveAudioSource::fillChunk(double* buffer, unsigned int chunkSize)
+void WaveAudioSource::fillChunk(double* buffer, unsigned int channel, unsigned int chunkSize)
 {
 
 }

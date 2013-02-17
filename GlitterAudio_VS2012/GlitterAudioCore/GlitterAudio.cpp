@@ -1,10 +1,12 @@
 #include "GlitterAudio.h"
 #include "AudioFacadeFactory.h"
-#include "IAudioSink.h"
+#include "IAudioPlayer.h"
+#include "IAudioChain.h"
 
 GlitterAudio::GlitterAudio(void)
 {
 	facade = AudioFacadeFactory::createAudioFacade();
+	mAudioChain = NULL;
 }
 
 GlitterAudio::~GlitterAudio(void)
@@ -22,12 +24,28 @@ std::vector<const AudioDevice* const> GlitterAudio::listDevicesForDriver(AudioDr
 	return facade->listDevicesForDriver(driver);
 }
 
-IAudioSink* GlitterAudio::getAudioSinkForDevice()
+IAudioPlayer* GlitterAudio::getBufferedAudioPlayerForDevice()
 {
-	return facade->getAudioSink();
+	return facade->getBufferedAudioPlayer();
 }
 
-IAudioSink* GlitterAudio::getBufferedAudioSinkForDevice()
+void GlitterAudio::setAudioChain(IAudioChain* audioChain)
 {
-	return facade->getBufferedAudioSink();
+	mAudioChain = audioChain;
+}
+
+void GlitterAudio::start()
+{
+	if (mAudioChain != NULL)
+	{
+		mAudioChain->start();
+	}
+}
+
+void GlitterAudio::stop()
+{
+	if (mAudioChain != NULL)
+	{
+		mAudioChain->stop();
+	}
 }

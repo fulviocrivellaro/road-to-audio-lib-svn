@@ -1,8 +1,8 @@
-#include "RTAudioSink.h"
+#include "RTAudioPlayer.h"
 #include "AudioDevice.h"
 #include "IAudioSource.h"
 
-RTAudioSink::RTAudioSink(RtAudio &rtAudio) :
+RTAudioPlayer::RTAudioPlayer(RtAudio &rtAudio) :
 	mRtAudio(rtAudio)
 {
 	for (unsigned int i=0; i<__GLITTERAUDIO__MAX__OUTPUT__CHANNELS__; i++)
@@ -11,23 +11,23 @@ RTAudioSink::RTAudioSink(RtAudio &rtAudio) :
 	}
 }
 
-RTAudioSink::~RTAudioSink(void)
+RTAudioPlayer::~RTAudioPlayer(void)
 {
 }
 
-void RTAudioSink::setAudioSource(IAudioSource &audioSource, unsigned int channelNumber)
+void RTAudioPlayer::setAudioSource(IAudioSource &audioSource, unsigned int channelNumber)
 {
 	mStreamData.sources[channelNumber] = &audioSource;
 }
 
-void RTAudioSink::triggerProcess()
+void RTAudioPlayer::triggerProcess()
 {
 	// do nothing... unbuffered sink will probably disappear
 }
 
 // stream commands
 
-bool RTAudioSink::open(const AudioDevice &device, unsigned int nChannels, unsigned int fs, unsigned int chunkSize)
+bool RTAudioPlayer::open(const AudioDevice &device, unsigned int nChannels, unsigned int fs, unsigned int chunkSize)
 {
 	try
 	{
@@ -48,19 +48,19 @@ bool RTAudioSink::open(const AudioDevice &device, unsigned int nChannels, unsign
 	}
 }
 
-bool RTAudioSink::close()
+bool RTAudioPlayer::close()
 {
 	mRtAudio.closeStream();
 	return true;
 }
 
-bool RTAudioSink::start()
+bool RTAudioPlayer::start()
 {
 	mRtAudio.startStream();
 	return true;
 }
 
-bool RTAudioSink::stop()
+bool RTAudioPlayer::stop()
 {
 	mRtAudio.stopStream();
 	return true;
@@ -78,7 +78,7 @@ int rtAudioCallback(void *outputBuffer, void *inputBuffer, unsigned int nBufferF
 		// call the source only if meaningful
 		if (streamData->sources[i] != 0)
 		{
-			streamData->sources[i]->fillChunk(&buffer[i*nBufferFrames], nBufferFrames);
+			streamData->sources[i]->fillChunk(&buffer[i*nBufferFrames], i, nBufferFrames);
 		}
 	}
 	return 0;

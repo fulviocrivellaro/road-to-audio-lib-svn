@@ -76,14 +76,14 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="RTAudioBufferedSink.h" />
+    <ClInclude Include="RTAudioBufferedPlayer.h" />
     <ClInclude Include="RtAudioHardwareFacade.h" />
-    <ClInclude Include="RTAudioSink.h" />
+    <ClInclude Include="RTAudioPlayer.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="RTAudioBufferedSink.cpp" />
+    <ClCompile Include="RTAudioBufferedPlayer.cpp" />
     <ClCompile Include="RtAudioHardwareFacade.cpp" />
-    <ClCompile Include="RTAudioSink.cpp" />
+    <ClCompile Include="RTAudioPlayer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RTAudio\RTAudio.vcxproj">

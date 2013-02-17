@@ -6,7 +6,7 @@
 #include "AudioDevice.h"
 #include "Utils.h"
 
-class IAudioSink;
+class IAudioPlayer;
 
 class IAudioHardwareFacade
 {
@@ -36,6 +36,5 @@ public:
 	// callbacks
 	virtual void setAudioSeekListener(IAudioReaderSeekListener *listener) = 0;*/
 
-	virtual IAudioSink* getAudioSink() = 0;
-	virtual IAudioSink* getBufferedAudioSink() = 0;
+	virtual IAudioPlayer* getBufferedAudioPlayer() = 0;
 };
