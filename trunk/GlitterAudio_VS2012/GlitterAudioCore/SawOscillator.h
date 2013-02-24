@@ -1,12 +1,11 @@
 #pragma once
 
-#include "IAudioSource.h"
+#include "BaseAudioGenerator.h"
 
 class SawOscillator :
-	public IAudioSource
+	public BaseAudioGenerator
 {
 public:
-	SawOscillator(void);
 	SawOscillator(double f, unsigned int fs);
 	~SawOscillator(void);
 
@@ -15,8 +14,6 @@ public:
 
 	void setSamplingFrequency(unsigned int fs);
 	unsigned int getSamplingFrequency() const;
-
-	void fillChunk(double* buffer, unsigned int channel, unsigned int chunkSize);
 
 private:
 	void updateDiffFromConfig();

@@ -6,5 +6,6 @@ class AudioDevice;
 class IAudioSink
 {
 public:
-	virtual void takeChunk(double* buffer, unsigned int channel, unsigned int chunkSize) = 0;
+	virtual unsigned int takeChunk(double** buffer, unsigned int channel, unsigned int chunkSize) = 0;
+	virtual void convalidateChunk(unsigned int channel, unsigned int chunkSize) = 0;
 };

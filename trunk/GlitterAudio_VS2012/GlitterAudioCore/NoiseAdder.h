@@ -1,25 +1,19 @@
 #pragma once
 
-#include "IAudioNode.h"
+#include "BaseAudioNode.h"
 
-class CircularMultiBuffer;
+class AudioMultiBuffer;
 
 class NoiseAdder :
-	public IAudioNode
+	public BaseAudioNode
 {
 public:
 	NoiseAdder(double noiseGain);
 	~NoiseAdder(void);
-
-	void takeChunk(double* buffer, unsigned int channel, unsigned int chunkSize);
-	void fillChunk(double* buffer, unsigned int channel, unsigned int chunkSize);
-
-	void processChunk(unsigned int chunkSize);
+	
+	unsigned int processChunk(unsigned int chunkSize);
 
 private:
 	double mNoiseGain;
-
-	CircularMultiBuffer* mInputBuffer;
-	CircularMultiBuffer* mOutputBuffer;
 };
 

@@ -7,5 +7,5 @@ class IAudioNode
 	: public IAudioSource, public IAudioSink
 {
 public:
-	virtual void processChunk(unsigned int chunkSize) = 0;
+	virtual unsigned int processChunk(unsigned int chunkSize) = 0;
 };
