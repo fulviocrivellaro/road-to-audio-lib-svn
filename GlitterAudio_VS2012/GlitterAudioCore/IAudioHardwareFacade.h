@@ -36,5 +36,5 @@ public:
 	// callbacks
 	virtual void setAudioSeekListener(IAudioReaderSeekListener *listener) = 0;*/
 
-	virtual IAudioPlayer* getBufferedAudioPlayer() = 0;
+	virtual IAudioPlayer* getAudioPlayer() = 0;
 };

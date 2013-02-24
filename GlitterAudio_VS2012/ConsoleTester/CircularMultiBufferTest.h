@@ -26,17 +26,11 @@ public:
 			}
 			std::cout << "WR  > write " << chunk << " samples" << std::endl;
 
-			// references double[][] as double** (CircularBuffer format)
-			//double* samples = new double[nChannels];
 			for (int c=0; c<nChannels; c++)
 			{
 				mBuffer->bufferChunk(&mReadFrom[c][ptr], c, chunk);
 				//samples[c] = &mReadFrom[c][ptr];
 			}
-
-			// actually buffers the samples
-			//mBuffer->bufferChunk(samples, chunk);
-			//delete[] samples;
 
 			// updates current position tracker
 			ptr += chunk;
@@ -73,18 +67,11 @@ public:
 			}
 			std::cout << "RD <<< read " << chunk << " samples" << std::endl;
 
-			// references double[][] as double** (CircularBuffer format)
-			//double** samples = new double*[nChannels];
 			for (int c=0; c<nChannels; c++)
 			{
 				mBuffer->fillChunk(&mWriteTo[c][ptr], c, chunk);
-				//samples[c] = &mWriteTo[c][ptr];
 			}
 			
-			// actually fill the local buffer, reading from the Circular
-			//mBuffer->fillChunk(samples, chunk);
-			//delete[] samples;
-
 			// updates current position tracker
 			ptr += chunk;
 		}

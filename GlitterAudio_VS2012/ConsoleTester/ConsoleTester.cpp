@@ -19,7 +19,7 @@
 #include "Thread.h"
 #include "IRunnable.h"
 
-#include "CircularMultiBufferTest.h"
+#include "AudioBufferTest.h"
 #include "StaticChainTest.h"
 
 
@@ -421,21 +421,15 @@ void dummyArray() {
 
 }
 
-void wavFileTest()
-{
-	WaveAudioSource source;
-	//source.setFile("D:\\Musica\\comp\\nutshellSAE\\Nutshell-Buccia.wav");
-	source.setFile("C:\\Users\\Work\\Projects\\audio-lib\\wavSources\\gatest24-44100.wav");
-}
-
-//void circularMultiBufferTest();
+//void AudioMultiBufferTest();
 
 void main() {
 	
 	//multiBufferTest();
 	//audioTest();
 	//bufferedAudioTest();
-	//circularMultiBufferTest();
+	//AudioMultiBufferTest();
+	//AudioBufferSimpleTest();
 
 	//wavFileTest();
 

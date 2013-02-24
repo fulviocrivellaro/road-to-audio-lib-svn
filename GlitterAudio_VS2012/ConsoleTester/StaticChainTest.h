@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <iostream>
 
-#include "CircularMultiBuffer.h"
+#include "AudioMultiBuffer.h"
 #include "Thread.h"
 #include "IRunnable.h"
 
@@ -10,7 +10,7 @@
 #include "IAudioSink.h"
 #include "GlitterAudio.h"
 #include "StaticChain.h"
-#include "MonoSplitter.h"
+//#include "MonoSplitter.h"
 #include "NoiseAdder.h"
 
 #include "SinOscillator.h"
@@ -29,8 +29,8 @@ public:
 	void AudioSynch::run()
 	{
 		// prepare 8 chunks
+		mGenerator->createChunk(8*CHUNK_SIZE);
 		mChain->start();
-		mGenerator->createChunk(6*CHUNK_SIZE);
 		while (mProceed)
 		{
 			//mGenerator->createChunk(CHUNK_SIZE);
@@ -54,12 +54,12 @@ int staticChainAudioTest() {
 
 	// nodes
 	IAudioGenerator* osc1 = new SinOscillator(f, (int)fs);
-	IAudioNode* splitter = new MonoSplitter();
-	IAudioNode* noiseAdder = new NoiseAdder(0.001);
-	IAudioPlayer* player = audio->getBufferedAudioPlayerForDevice();
+	IAudioGenerator* osc2 = new SinOscillator(2*f, (int)fs);
+	IAudioNode* noiseAdder = new NoiseAdder(0.00001);
+	IAudioPlayer* player = audio->getAudioPlayerForDevice();
 
 	// chain
-	StaticChain chain(1024, osc1, splitter, noiseAdder, player);
+	StaticChain chain(1024, osc1, osc2, noiseAdder, player);
 
 	bool ok = player->open(*audio->listDevicesForDriver(AudioDriver::WIN_ASIO)[0], 2, (unsigned int)fs, CHUNK_SIZE);
 
@@ -79,7 +79,8 @@ int staticChainAudioTest() {
 
 	std::cout << "Delete OSC" << std::endl;
 	delete osc1;
-	delete splitter;
+	delete osc2;
+	//delete splitter;
 	delete noiseAdder;
 	delete player;
 

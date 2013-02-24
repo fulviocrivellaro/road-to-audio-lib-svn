@@ -11,14 +11,20 @@
     <Filter Include="Source Files">
       <UniqueIdentifier>{21e7697a-4533-487f-af0a-bf9086794cd1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Nodes">
+      <UniqueIdentifier>{b57a278d-50bf-49e6-8dcc-4c4e66288c67}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Buffer">
+      <UniqueIdentifier>{d1de82c4-96fb-4407-947a-0229602918b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utils">
+      <UniqueIdentifier>{93bdfaca-ed9a-4b73-a9b9-da83b3948059}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="SinOscillator.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="GlitterAudio.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -28,42 +34,54 @@
     <ClCompile Include="AudioFacadeFactory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="SawOscillator.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Thread.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="CircularBuffer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="WaveAudioSource.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="AudioLink.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CircularMultiBuffer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="BaseAudioChain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MonoSplitter.cpp">
+    <ClCompile Include="NoiseAdder.cpp">
+      <Filter>Nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="SawOscillator.cpp">
+      <Filter>Nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="SinOscillator.cpp">
+      <Filter>Nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="CircularBuffer.cpp">
+      <Filter>Buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="AudioMultiBuffer.cpp">
+      <Filter>Buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="CircularMultiBuffer.cpp">
+      <Filter>Buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="Thread.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseAudioSink.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="NoiseAdder.cpp">
+    <ClCompile Include="BaseAudioPlayer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseAudioGenerator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseAudioNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseAudioSource.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="IAudioSource.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SinOscillator.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Utils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="IAudioSink.h">
@@ -84,18 +102,6 @@
     <ClInclude Include="AudioFacadeFactory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="SawOscillator.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="IRunnable.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Thread.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CircularBuffer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="WaveAudioSource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -103,9 +109,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="AudioLink.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CircularMultiBuffer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="IAudioPlayer.h">
@@ -120,10 +123,46 @@
     <ClInclude Include="BaseAudioChain.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MonoSplitter.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="SinOscillator.h">
+      <Filter>Nodes</Filter>
     </ClInclude>
     <ClInclude Include="NoiseAdder.h">
+      <Filter>Nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="SawOscillator.h">
+      <Filter>Nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="CircularBuffer.h">
+      <Filter>Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="AudioMultiBuffer.h">
+      <Filter>Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="CircularMultiBuffer.h">
+      <Filter>Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="Thread.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="IRunnable.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseAudioSink.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseAudioPlayer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseAudioGenerator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseAudioNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseAudioSource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

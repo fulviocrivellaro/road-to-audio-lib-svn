@@ -83,6 +83,7 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AudioBufferTest.h" />
     <ClInclude Include="CircularMultiBufferTest.h" />
     <ClInclude Include="StaticChain.h" />
     <ClInclude Include="StaticChainTest.h" />

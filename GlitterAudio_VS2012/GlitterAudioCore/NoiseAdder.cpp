@@ -1,44 +1,35 @@
 #include "NoiseAdder.h"
 
-#include "CircularMultiBuffer.h"
+#include "AudioMultiBuffer.h"
+
+#include <iostream>
 
 NoiseAdder::NoiseAdder(double noiseGain)
+	: BaseAudioNode()
 {
 	mNoiseGain = noiseGain;
-
-	mInputBuffer = new CircularMultiBuffer(1, 8192);
-	mOutputBuffer = new CircularMultiBuffer(1, 8192);
 }
 
-NoiseAdder::~NoiseAdder(void)
-{
-	delete mInputBuffer;
-	delete mOutputBuffer;
-}
+NoiseAdder::~NoiseAdder(void) {}
 
-void NoiseAdder::takeChunk(double* buffer, unsigned int channel, unsigned int chunkSize)
+unsigned int NoiseAdder::processChunk(unsigned int chunkSize)
 {
-	mInputBuffer->bufferChunk(buffer, channel, chunkSize);
-}
+	double* input;
+	unsigned int inputCount = mInputBuffer->getChunk(&input, 0, chunkSize);
+	
+	double* output;
+	unsigned int outputCount = mOutputBuffer->takeChunk(&output, 0, chunkSize);
 
-void NoiseAdder::fillChunk(double* buffer, unsigned int channel, unsigned int chunkSize)
-{
-	mOutputBuffer->fillChunk(buffer, channel, chunkSize);
-}
-
-void NoiseAdder::processChunk(unsigned int chunkSize)
-{
-	double* chunk = new double[chunkSize];
-
-	mInputBuffer->fillChunk(chunk, 0, chunkSize);
+	unsigned int count = std::min(inputCount, outputCount);
 	
 	// add noise
-	for (int i=0; i<chunkSize; i++)
+	for (int i=0; i<count; i++)
 	{
-		chunk[i] += mNoiseGain * ((double)rand() / 2 + 1);
+		output[i] = .8*input[i] + mNoiseGain * ((double)rand() / 2 + 1);
 	}
 
-	mOutputBuffer->bufferChunk(chunk, 0, chunkSize);
-	
-	delete[] chunk;
+	mInputBuffer->consumeChunk(0, count);
+	mOutputBuffer->convalidateChunk(0, count);
+
+	return count;
 }

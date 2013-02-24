@@ -76,7 +76,7 @@ std::vector<const AudioDevice* const> RtAudioHardwareFacade::listDevicesForDrive
 	return result;
 }
 
-IAudioPlayer* RtAudioHardwareFacade::getBufferedAudioPlayer()
+IAudioPlayer* RtAudioHardwareFacade::getAudioPlayer()
 {
 	return new RTAudioPlayer(*mRtAudio);
 }

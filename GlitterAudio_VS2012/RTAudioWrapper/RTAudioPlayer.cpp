@@ -1,7 +1,7 @@
 #include "RTAudioPlayer.h"
 #include "AudioDevice.h"
 #include "IAudioSource.h"
-#include "CircularMultiBuffer.h"
+#include "AudioMultiBuffer.h"
 
 RTAudioPlayer::RTAudioPlayer(RtAudio &rtAudio) :
 	mRtAudio(rtAudio)
@@ -23,21 +23,19 @@ void RTAudioPlayer::setAudioSource(IAudioSource &audioSource, unsigned int chann
 	mBufferedStreamData.sources[channelNumber] = &audioSource;
 }
 
-void RTAudioPlayer::takeChunk(double* buffer, unsigned int channel, unsigned int chunkSize)
+unsigned int RTAudioPlayer::takeChunk(double** buffer, unsigned int channel, unsigned int chunkSize)
 {
 	if (mBufferedStreamData.outputBuffer != 0)
 	{
-		mBufferedStreamData.outputBuffer->bufferChunk(buffer, channel, chunkSize);
-		//for (unsigned int i=0; i<mBufferedStreamData.nChannels; i++)
-		//{
-		//	// call the source only if meaningful
-		//	if (mBufferedStreamData.sources[i] != 0)
-		//	{
-		//		mBufferedStreamData.sources[i]->fillChunk(mTmpBuffer[i], mChunkSize);
-		//	}
-		//}
-		//mBufferedStreamData.outputBuffer->bufferChunk(mTmpBuffer, mChunkSize);
+		return mBufferedStreamData.outputBuffer->takeChunk(buffer, channel, chunkSize);
+	} else {
+		return 0;
 	}
+}
+
+void RTAudioPlayer::convalidateChunk(unsigned int channel, unsigned int chunkSize)
+{
+	mBufferedStreamData.outputBuffer->convalidateChunk(channel, chunkSize);
 }
 
 // stream commands
@@ -50,7 +48,7 @@ bool RTAudioPlayer::open(const AudioDevice &device, unsigned int nChannels, unsi
 	{
 		mTmpBuffer[c] = new double[chunkSize];
 	}
-	mBufferedStreamData.outputBuffer = new CircularMultiBuffer(nChannels, 8*chunkSize);
+	mBufferedStreamData.outputBuffer = new AudioMultiBuffer(nChannels, 8*chunkSize);
 	try
 	{
 		RtAudio::StreamParameters parameters;
@@ -59,7 +57,6 @@ bool RTAudioPlayer::open(const AudioDevice &device, unsigned int nChannels, unsi
 		parameters.firstChannel = 0;
 		RtAudio::StreamOptions opts;
 		opts.flags |= RTAUDIO_NONINTERLEAVED;
-		//StreamData* streamData = new StreamData();
 		mBufferedStreamData.nChannels = nChannels;
 		mRtAudio.openStream(&parameters, NULL, RTAUDIO_FLOAT64, (int)fs, &chunkSize, &rtAudioBufferedCallback, (void *)&mBufferedStreamData, &opts);
 		std::cout << "Returned buffer size is: " << chunkSize << std::endl;
@@ -111,27 +108,21 @@ int rtAudioBufferedCallback(void *outputBuffer, void *inputBuffer, unsigned int 
 {
 	double *buffer = (double *) outputBuffer;
 	BufferedStreamData* bufferedStreamData = (BufferedStreamData*)userData;
-
-	double** internalBuffer = new double*[nBufferFrames];
-	for (unsigned int c=0; c<bufferedStreamData->nChannels; c++)
-	{
-		internalBuffer[c] = new double[nBufferFrames];
-		bufferedStreamData->outputBuffer->fillChunk(internalBuffer[c], c, nBufferFrames);
-	}
 	
 	for (unsigned int c=0; c<bufferedStreamData->nChannels; c++)
 	{
+		double* samplePointer;
+
+		// wait for enough samples (TODO: switch to synchronous method)
+		while (bufferedStreamData->outputBuffer->getChunk(&samplePointer, c, nBufferFrames) < nBufferFrames);
+		
 		for (unsigned int i=0; i<nBufferFrames; i++)
 		{
-			*buffer++ = internalBuffer[c][i];
+			*buffer++ = samplePointer[i];
 		}
+		// TODO: create synchronous buffer call
+		bufferedStreamData->outputBuffer->consumeChunk(c, nBufferFrames);
 	}
-
-	for (unsigned int i=0; i<bufferedStreamData->nChannels; i++)
-	{
-		delete[] internalBuffer[i];
-	}
-	delete[] internalBuffer;
 
 	return 0;
 }

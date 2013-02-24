@@ -3,6 +3,8 @@
 #include "IAudioSource.h"
 #include "IAudioSink.h"
 
+#include <iostream>
+
 AudioLink::AudioLink(IAudioSource* inputNode, unsigned int inputChannel, IAudioSink* outputNode, unsigned int outputChannel)
 {
 	mInputNode = inputNode;
@@ -15,13 +17,22 @@ AudioLink::~AudioLink(void)
 {
 }
 
-void AudioLink::moveData(unsigned int chunkSize)
+unsigned int AudioLink::moveData(unsigned int chunkSize)
 {
-	double *chunk = new double[chunkSize];
+	double *input;
+	unsigned int inputCount = mInputNode->getChunk(&input, mInputChannel, chunkSize);
 
-	// move data
-	mInputNode->fillChunk(chunk, mInputChannel, chunkSize);
-	mOutputNode->takeChunk(chunk, mOutputChannel, chunkSize);
+	double *output;
+	unsigned int outputCount = mOutputNode->takeChunk(&output, mOutputChannel, chunkSize);
 
-	delete[] chunk;
+	unsigned int count = std::min(inputCount, outputCount);
+	for (int i=0; i<count; i++)
+	{
+		output[i] = input[i];
+	}
+
+	mInputNode->consumeChunk(mInputChannel, count);
+	mOutputNode->convalidateChunk(mOutputChannel, count);
+
+	return count;
 }

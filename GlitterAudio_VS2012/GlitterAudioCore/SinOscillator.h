@@ -1,14 +1,13 @@
 #pragma once
 
-#include "IAudioGenerator.h"
+#include "BaseAudioGenerator.h"
 
-class CircularMultiBuffer;
+class AudioMultiBuffer;
 
 class SinOscillator :
-	public IAudioGenerator
+	public BaseAudioGenerator
 {
 public:
-	SinOscillator(void);
 	SinOscillator(double f, unsigned int fs);
 	~SinOscillator(void);
 
@@ -17,8 +16,6 @@ public:
 
 	void setSamplingFrequency(unsigned int fs);
 	unsigned int getSamplingFrequency() const;
-
-	void fillChunk(double* buffer, unsigned int channel, unsigned int chunkSize);
 
 	void createChunk(unsigned int chunkSize);
 
@@ -31,7 +28,5 @@ private:
 	// filter taps and output buffer
 	double mC1, mC2;
 	double mLastValues[2];
-
-	CircularMultiBuffer* mBuffer;
 };
 

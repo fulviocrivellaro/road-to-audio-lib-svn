@@ -24,9 +24,9 @@ std::vector<const AudioDevice* const> GlitterAudio::listDevicesForDriver(AudioDr
 	return facade->listDevicesForDriver(driver);
 }
 
-IAudioPlayer* GlitterAudio::getBufferedAudioPlayerForDevice()
+IAudioPlayer* GlitterAudio::getAudioPlayerForDevice()
 {
-	return facade->getBufferedAudioPlayer();
+	return facade->getAudioPlayer();
 }
 
 void GlitterAudio::setAudioChain(IAudioChain* audioChain)

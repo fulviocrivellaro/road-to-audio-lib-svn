@@ -9,7 +9,7 @@ public:
 	AudioLink(IAudioSource* inputNode, unsigned int inputChannel, IAudioSink* outputNode, unsigned int outputChannel);
 	~AudioLink(void);
 
-	void moveData(unsigned int chunkSize);
+	unsigned int moveData(unsigned int chunkSize);
 
 private:
 	// input parameters

@@ -17,7 +17,7 @@ public:
 	std::vector<const AudioDevice* const> listAllDevices() const;
 	std::vector<const AudioDevice* const> listDevicesForDriver(AudioDriver driver) const;
 
-	IAudioPlayer* getBufferedAudioPlayerForDevice();
+	IAudioPlayer* getAudioPlayerForDevice();
 
 	void setAudioChain(IAudioChain* audioChain);
 

@@ -3,20 +3,19 @@
 #include "IAudioGenerator.h"
 #include "IAudioNode.h"
 
-StaticChain::StaticChain(unsigned int chunkSize, IAudioGenerator* oscillator, IAudioNode* splitter, IAudioNode* NoiseAdder, IAudioPlayer* player)
+StaticChain::StaticChain(unsigned int chunkSize, IAudioGenerator* oscillator1, IAudioGenerator* oscillator2, IAudioNode* noiseAdder, IAudioPlayer* player)
 	: BaseAudioChain()
 {
 	mChunkSize = chunkSize;
 
-	mOscillator = oscillator;
-	mSplitter = splitter;
-	mNoiseAdder = NoiseAdder;
+	mOscillator2 = oscillator1;
+	mOscillator1 = oscillator2;
+	mNoiseAdder = noiseAdder;
 	mPlayer = player;
 
-	link(mOscillator, 0, mSplitter, 0);
-	link(mSplitter, 0, mNoiseAdder, 0);
-	link(mNoiseAdder, 0, mPlayer, 1);
-	link(mSplitter, 1, mPlayer, 0);
+	link(mOscillator1, 0, mNoiseAdder, 0);
+	link(mNoiseAdder, 0, mPlayer, 0);
+	link(mOscillator2, 0, mPlayer, 1);
 }
 
 
@@ -27,21 +26,16 @@ StaticChain::~StaticChain(void)
 void StaticChain::processChunk()
 {
 	// generate sound
-	mOscillator->createChunk(mChunkSize);
+	mOscillator1->createChunk(mChunkSize);
+	mOscillator2->createChunk(mChunkSize);
 
 	// pass to splitter
 	mLinks[0]->moveData(mChunkSize);
 
-	// let splitter processes data
-	mSplitter->processChunk(mChunkSize);
-
-	// pass to noise generator
-	mLinks[1]->moveData(mChunkSize);
-
 	// add noise
 	mNoiseAdder->processChunk(mChunkSize);
 
-	// pass to player
+	// pass to noise generator
+	mLinks[1]->moveData(mChunkSize);
 	mLinks[2]->moveData(mChunkSize);
-	mLinks[3]->moveData(mChunkSize);
 }

@@ -1,12 +1,8 @@
 #include "SawOscillator.h"
 
 
-SawOscillator::SawOscillator(void)
-{
-	SawOscillator(0, 0);
-}
-
 SawOscillator::SawOscillator(double f, unsigned int fs)
+	: BaseAudioGenerator()
 {
 	mFrequency = f;
 	mSamplingFrequency = fs;
@@ -14,9 +10,7 @@ SawOscillator::SawOscillator(double f, unsigned int fs)
 	mLastValue = 0;
 }
 
-SawOscillator::~SawOscillator(void)
-{
-}
+SawOscillator::~SawOscillator(void) {}
 
 void SawOscillator::setFrequencyInHz(double f)
 {
@@ -53,15 +47,15 @@ void SawOscillator::updateDiffFromConfig()
 	
 }
 
-void SawOscillator::fillChunk(double* buffer, unsigned int channel, unsigned int chunkSize)
-{
-	for (int i=0; i<chunkSize; i++)
-	{
-		mLastValue += mDiff;
-		if (mLastValue > 1)
-		{
-			mLastValue -= 2;
-		}
-		*buffer++ = mLastValue;
-	}
-}
+//void SawOscillator::fillChunk(double* buffer, unsigned int channel, unsigned int chunkSize)
+//{
+//	for (int i=0; i<chunkSize; i++)
+//	{
+//		mLastValue += mDiff;
+//		if (mLastValue > 1)
+//		{
+//			mLastValue -= 2;
+//		}
+//		*buffer++ = mLastValue;
+//	}
+//}
