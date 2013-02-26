@@ -54,12 +54,11 @@ int staticChainAudioTest() {
 
 	// nodes
 	IAudioGenerator* osc1 = new SinOscillator(f, (int)fs);
-	IAudioGenerator* osc2 = new SinOscillator(2*f, (int)fs);
 	IAudioNode* noiseAdder = new NoiseAdder(0.00001);
 	IAudioPlayer* player = audio->getAudioPlayerForDevice();
 
 	// chain
-	StaticChain chain(1024, osc1, osc2, noiseAdder, player);
+	StaticChain chain(1024, osc1, noiseAdder, player);
 
 	bool ok = player->open(*audio->listDevicesForDriver(AudioDriver::WIN_ASIO)[0], 2, (unsigned int)fs, CHUNK_SIZE);
 
@@ -79,8 +78,6 @@ int staticChainAudioTest() {
 
 	std::cout << "Delete OSC" << std::endl;
 	delete osc1;
-	delete osc2;
-	//delete splitter;
 	delete noiseAdder;
 	delete player;
 

@@ -15,6 +15,7 @@ public:
 
 	void link(IAudioSource* source, unsigned int sourceChannel, IAudioSink* sink, unsigned int destChannel);
 	void link(IAudioSource* source, unsigned int sourceChannel, IAudioPlayer* sink, unsigned int destChannel);
+	void link(IAudioSource* source, unsigned int sourceChannel, IAudioSink* outputNodes[], unsigned int outputChannels[], unsigned int outputNodesCount);
 	virtual void processChunk() = 0;
 	void processChunks(unsigned int count);
 
