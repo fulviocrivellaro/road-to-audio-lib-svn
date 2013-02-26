@@ -27,6 +27,11 @@ void BaseAudioChain::link(IAudioSource* source, unsigned int sourceChannel, IAud
 	this->link(source, sourceChannel, (IAudioSink*)player, destChannel);
 }
 
+void BaseAudioChain::link(IAudioSource* source, unsigned int sourceChannel, IAudioSink* outputNodes[], unsigned int outputChannels[], unsigned int outputNodesCount)
+{
+	mLinks.push_back(new AudioLink(source, sourceChannel, outputNodes, outputChannels, outputNodesCount));
+}
+
 void BaseAudioChain::processChunks(unsigned int count)
 {
 	for (int i=0; i<count; i++)
