@@ -52,5 +52,6 @@ unsigned int AudioLink::moveData(unsigned int chunkSize)
 	}
 	mInputNode->consumeChunk(mInputChannel, count);
 
+	delete[] output;
 	return count;
 }
