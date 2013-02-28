@@ -1,5 +1,6 @@
 #include "SawOscillator.h"
 
+#include "AudioMultiBuffer.h"
 
 SawOscillator::SawOscillator(double f, unsigned int fs)
 	: BaseAudioSource()
@@ -47,15 +48,21 @@ void SawOscillator::updateDiffFromConfig()
 	
 }
 
-//void SawOscillator::fillChunk(double* buffer, unsigned int channel, unsigned int chunkSize)
-//{
-//	for (int i=0; i<chunkSize; i++)
-//	{
-//		mLastValue += mDiff;
-//		if (mLastValue > 1)
-//		{
-//			mLastValue -= 2;
-//		}
-//		*buffer++ = mLastValue;
-//	}
-//}
+unsigned int SawOscillator::processChunk(unsigned int chunkSize)
+{
+	double* chunk;
+	unsigned int count = mSourceBuffer->takeChunk(&chunk, 0, chunkSize);
+	for (int i=0; i<count; i++)
+	{
+		mLastValue += mDiff;
+		if (mLastValue > 1)
+		{
+			mLastValue -= 2;
+		}
+		chunk[i] = .25*mLastValue;
+	}
+	
+	mSourceBuffer->convalidateChunk(0, count);
+
+	return chunkSize;
+}

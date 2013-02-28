@@ -15,6 +15,8 @@ public:
 	void setSamplingFrequency(unsigned int fs);
 	unsigned int getSamplingFrequency() const;
 
+	unsigned int processChunk(unsigned int chunkSize);
+
 private:
 	void updateDiffFromConfig();
 
