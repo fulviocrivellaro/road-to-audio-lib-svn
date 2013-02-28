@@ -43,7 +43,6 @@ private:
 	RtAudio &mRtAudio;
 	BufferedStreamData mBufferedStreamData;
 
-	//CircularBuffer *mInputBuffer;
 	unsigned int mChunkSize;
 	double** mTmpBuffer;
 

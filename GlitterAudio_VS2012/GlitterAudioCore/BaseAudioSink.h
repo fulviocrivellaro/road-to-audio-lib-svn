@@ -15,6 +15,6 @@ public:
 	virtual void convalidateChunk(unsigned int channel, unsigned int chunkSize);
 
 protected:
-	AudioMultiBuffer* mInputBuffer;
+	AudioMultiBuffer* mSinkBuffer;
 };
 

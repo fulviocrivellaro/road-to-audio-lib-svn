@@ -23,12 +23,10 @@ public:
 
 private:
 	// input parameters
-	IAudioSource* mInputNode;
-	unsigned int mInputChannel;
+	IAudioSource* mSource;
+	unsigned int mSourceChannel;
 
 	// output parameters
-	//IAudioSink* mOutputNode;
-	//unsigned int mOutputChannel;
 	std::vector<OutputSink> mSinks;
 };
 

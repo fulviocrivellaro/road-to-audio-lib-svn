@@ -4,7 +4,7 @@
 #include <math.h>
 
 SinOscillator::SinOscillator(double f, unsigned int fs)
-	: BaseAudioGenerator()
+	: BaseAudioSource()
 {
 	mFrequency = f;
 	mSamplingFrequency = fs;
@@ -64,10 +64,10 @@ void SinOscillator::updateTapsFromConfig()
 	}
 }
 
-void SinOscillator::createChunk(unsigned int chunkSize)
+unsigned int SinOscillator::processChunk(unsigned int chunkSize)
 {
 	double* chunk;
-	unsigned int count = mOutputBuffer->takeChunk(&chunk, 0, chunkSize);
+	unsigned int count = mSourceBuffer->takeChunk(&chunk, 0, chunkSize);
 	for (int i=0; i<count; i++)
 	{
 		double sample = mC1*mLastValues[0] + mC2*mLastValues[1];
@@ -77,5 +77,7 @@ void SinOscillator::createChunk(unsigned int chunkSize)
 		chunk[i] = sample;
 	}
 	
-	mOutputBuffer->convalidateChunk(0, count);
+	mSourceBuffer->convalidateChunk(0, count);
+
+	return chunkSize;
 }

@@ -2,14 +2,14 @@
 
 #include "BaseAudioChain.h"
 
-class IAudioGenerator;
-class IAudioNode;
+class IAudioSource;
+class BaseAudioNode;
 
 class StaticChain :
 	public BaseAudioChain
 {
 public:
-	StaticChain(unsigned int chunkSize, IAudioGenerator* oscillator1, IAudioNode* noiseAdder, IAudioPlayer* player);
+	StaticChain(unsigned int chunkSize, IAudioSource* oscillator1, BaseAudioNode* noiseAdder, IAudioPlayer* player);
 	~StaticChain(void);
 
 	void processChunk();
@@ -17,8 +17,8 @@ public:
 private:
 	unsigned int mChunkSize;
 
-	IAudioGenerator* mOscillator1;
-	IAudioNode* mNoiseAdder;
+	IAudioSource* mOscillator1;
+	BaseAudioNode* mNoiseAdder;
 	IAudioPlayer* mPlayer;
 };
 

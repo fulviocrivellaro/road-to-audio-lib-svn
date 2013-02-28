@@ -3,20 +3,33 @@
 
 BaseAudioSource::BaseAudioSource(void)
 {
-	mOutputBuffer = new AudioMultiBuffer(1, 8192);
+	mSourceBuffer = new AudioMultiBuffer(1, 8192);
 }
 
 BaseAudioSource::~BaseAudioSource(void)
 {
-	delete mOutputBuffer;
+	delete mSourceBuffer;
 }
 
 unsigned int BaseAudioSource::getChunk(double** buffer, unsigned int channel, unsigned int chunkSize)
 {
-	return mOutputBuffer->getChunk(buffer, channel, chunkSize);
+	/* HP: manage 3..n modes
+	 *     1 - lazy:           only asks for specific data on specific channels
+	 *     2 - block oriented: keeps channels size aligned
+	 *     3 - hard working:   preloads buffer with more samples than asked
+	 */
+
+	unsigned int count = mSourceBuffer->getChunk(buffer, channel, chunkSize);
+	if (count < chunkSize)
+	{
+		// if lazy > createChunk(chunkSize - count, channel);
+		// if hard working > createChunk(n * (chunkSize - count));
+		count += this->processChunk(chunkSize - count);
+	}
+	return count;
 }
 
 void BaseAudioSource::consumeChunk(unsigned int channel, unsigned int chunkSize)
 {
-	mOutputBuffer->consumeChunk(channel, chunkSize);
+	mSourceBuffer->consumeChunk(channel, chunkSize);
 }

@@ -67,12 +67,6 @@
     <ClCompile Include="BaseAudioSink.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="BaseAudioPlayer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="BaseAudioGenerator.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="BaseAudioNode.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -105,9 +99,6 @@
     <ClInclude Include="WaveAudioSource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="IAudioNode.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="AudioLink.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -115,9 +106,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="IAudioChain.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="IAudioGenerator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="BaseAudioChain.h">
@@ -151,12 +139,6 @@
       <Filter>Utils</Filter>
     </ClInclude>
     <ClInclude Include="BaseAudioSink.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="BaseAudioPlayer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="BaseAudioGenerator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="BaseAudioNode.h">

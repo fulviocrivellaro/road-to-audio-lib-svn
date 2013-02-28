@@ -168,10 +168,30 @@ unsigned int AudioMultiBuffer::getBufferSize() const
 	return mBufferSize;
 }
 
+//unsigned int AudioMultiBuffer::countAvailableSamples() const
+//{
+//	unsigned int count = mAvailable[0];
+//	for (unsigned int i=1; i<mNChannels; i++)
+//	{
+//		count = std::min(count, mAvailable[i]);
+//	}
+//	return count;
+//}
+
 unsigned int AudioMultiBuffer::countAvailableSamples(unsigned int channel) const
 {
 	return mAvailable[channel];
 }
+
+//unsigned int AudioMultiBuffer::countFreeSamples() const
+//{
+//	unsigned int count = mBufferSize - mAvailable[0];
+//	for (unsigned int i=1; i<mNChannels; i++)
+//	{
+//		count = std::min(count, mBufferSize - mAvailable[i]);
+//	}
+//	return count;
+//}
 
 unsigned int AudioMultiBuffer::countFreeSamples(unsigned int channel) const
 {

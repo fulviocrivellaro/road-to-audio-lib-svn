@@ -149,9 +149,7 @@
     <ClCompile Include="AudioFacadeFactory.cpp" />
     <ClCompile Include="AudioLink.cpp" />
     <ClCompile Include="BaseAudioChain.cpp" />
-    <ClCompile Include="BaseAudioPlayer.cpp" />
     <ClCompile Include="BaseAudioSink.cpp" />
-    <ClCompile Include="BaseAudioGenerator.cpp" />
     <ClCompile Include="BaseAudioNode.cpp" />
     <ClCompile Include="BaseAudioSource.cpp" />
     <ClCompile Include="CircularBuffer.cpp" />
@@ -169,9 +167,7 @@
     <ClInclude Include="AudioFacadeFactory.h" />
     <ClInclude Include="AudioLink.h" />
     <ClInclude Include="BaseAudioChain.h" />
-    <ClInclude Include="BaseAudioPlayer.h" />
     <ClInclude Include="BaseAudioSink.h" />
-    <ClInclude Include="BaseAudioGenerator.h" />
     <ClInclude Include="BaseAudioNode.h" />
     <ClInclude Include="BaseAudioSource.h" />
     <ClInclude Include="CircularBuffer.h" />
@@ -180,9 +176,7 @@
     <ClInclude Include="GlitterAudio.h" />
     <ClInclude Include="GlitterAudioDefines.h" />
     <ClInclude Include="IAudioChain.h" />
-    <ClInclude Include="IAudioGenerator.h" />
     <ClInclude Include="IAudioHardwareFacade.h" />
-    <ClInclude Include="IAudioNode.h" />
     <ClInclude Include="IAudioPlayer.h" />
     <ClInclude Include="IAudioSink.h" />
     <ClInclude Include="IRunnable.h" />

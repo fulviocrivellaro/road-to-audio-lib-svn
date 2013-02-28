@@ -1,9 +1,9 @@
 #pragma once
 
-#include "BaseAudioGenerator.h"
+#include "BaseAudioSource.h"
 
 class SawOscillator :
-	public BaseAudioGenerator
+	public BaseAudioSource
 {
 public:
 	SawOscillator(double f, unsigned int fs);

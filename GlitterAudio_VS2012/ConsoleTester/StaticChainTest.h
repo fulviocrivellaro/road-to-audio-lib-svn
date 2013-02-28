@@ -6,7 +6,6 @@
 #include "IRunnable.h"
 
 #include "IAudioSource.h"
-#include "IAudioNode.h"
 #include "IAudioSink.h"
 #include "GlitterAudio.h"
 #include "StaticChain.h"
@@ -22,14 +21,14 @@
 class AudioSynch : public IRunnable
 {
 public:
-	AudioSynch::AudioSynch(IAudioGenerator* generator, IAudioChain* chain) { mGenerator = generator; mChain = chain; mProceed = true; }
+	AudioSynch::AudioSynch(IAudioSource* generator, IAudioChain* chain) { mGenerator = generator; mChain = chain; mProceed = true; }
 	void AudioSynch::stop() {
 		mProceed = false;
 	}
 	void AudioSynch::run()
 	{
 		// prepare 8 chunks
-		mGenerator->createChunk(8*CHUNK_SIZE);
+		//((BaseAudioSource*)mGenerator)->processChunk(8*CHUNK_SIZE);
 		mChain->start();
 		while (mProceed)
 		{
@@ -41,7 +40,7 @@ public:
 	}
 private:
 	IAudioChain* mChain;
-	IAudioGenerator* mGenerator;
+	IAudioSource* mGenerator;
 	bool mProceed;
 };
 
@@ -53,8 +52,8 @@ int staticChainAudioTest() {
 	int fs = 48000;
 
 	// nodes
-	IAudioGenerator* osc1 = new SinOscillator(f, (int)fs);
-	IAudioNode* noiseAdder = new NoiseAdder(0.00001);
+	IAudioSource* osc1 = new SinOscillator(f, (int)fs);
+	BaseAudioNode* noiseAdder = new NoiseAdder(0.00001);
 	IAudioPlayer* player = audio->getAudioPlayerForDevice();
 
 	// chain
