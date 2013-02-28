@@ -27,7 +27,7 @@ public:
 			std::cout << "WR  > write " << chunk << " samples" << std::endl;
 
 			int count;
-			for (int c=0; c<nChannels; c++)
+			for (unsigned int c=0; c<nChannels; c++)
 			{
 				double* samples;
 				count = mBuffer->takeChunk(&samples, c, chunk);
@@ -86,7 +86,7 @@ public:
 			std::cout << "RD <<< read " << chunk << " samples" << std::endl;
 
 			int count;
-			for (int c=0; c<nChannels; c++)
+			for (unsigned int c=0; c<nChannels; c++)
 			{
 				double* samples;
 				count = mBuffer->getChunk(&samples, c, chunk);
@@ -229,7 +229,7 @@ void AudioBufferSimpleTest()
 
 		std::cout << "Available samples for WRITE: " << wCount << std::endl;
 		std::cout << "Writing " << wCount << " samples...";
-		for (int i=0; i<wCount; i++)
+		for (unsigned int i=0; i<wCount; i++)
 		{
 			wSample[i] = 10*(c+1) + (double)i;
 		}
@@ -245,7 +245,7 @@ void AudioBufferSimpleTest()
 
 		std::cout << "Available samples for READ:  " << rCount << std::endl;
 		std::cout << "Reading " << rCount << " samples..." << std::endl;
-		for (int i=0; i<rCount; i++)
+		for (unsigned int i=0; i<rCount; i++)
 		{
 			if (10*(c+1)+i != rSample[i]) std::cout << "ERROR >>> ";
 			std::cout << "Sample at " << i << ": " << rSample[i] << std::endl;
@@ -262,7 +262,7 @@ void AudioBufferSimpleTest()
 
 		std::cout << "Available samples for WRITE: " << wCount << std::endl;
 		std::cout << "Writing " << wCount << " samples...";
-		for (int i=0; i<wCount; i++)
+		for (unsigned int i=0; i<wCount; i++)
 		{
 			wSample[i] = 10*(c+1) + 4 +(double)i;
 		}
@@ -278,7 +278,7 @@ void AudioBufferSimpleTest()
 
 		std::cout << "Available samples for READ:  " << rCount << std::endl;
 		std::cout << "Reading " << rCount << " samples..." << std::endl;
-		for (int i=0; i<rCount; i++)
+		for (unsigned int i=0; i<rCount; i++)
 		{
 			if (10*(c+1)+i != rSample[i]) std::cout << "ERROR >>> ";
 			std::cout << "Sample at " << i << ": " << rSample[i] << std::endl;
