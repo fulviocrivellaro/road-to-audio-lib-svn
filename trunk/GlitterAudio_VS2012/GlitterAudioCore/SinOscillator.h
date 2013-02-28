@@ -2,8 +2,6 @@
 
 #include "BaseAudioSource.h"
 
-class AudioMultiBuffer;
-
 class SinOscillator :
 	public BaseAudioSource
 {
