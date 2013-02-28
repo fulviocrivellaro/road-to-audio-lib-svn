@@ -1,9 +1,9 @@
 #include "BaseAudioSink.h"
 #include "AudioMultiBuffer.h"
 
-BaseAudioSink::BaseAudioSink(void)
+BaseAudioSink::BaseAudioSink(unsigned int nChannels, unsigned int bufferSize)
 {
-	mSinkBuffer = new AudioMultiBuffer(1, 8192);
+	mSinkBuffer = new AudioMultiBuffer(nChannels, bufferSize);
 }
 
 BaseAudioSink::~BaseAudioSink(void)

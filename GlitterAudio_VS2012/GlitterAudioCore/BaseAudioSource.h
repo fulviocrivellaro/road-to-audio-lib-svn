@@ -7,7 +7,7 @@ class BaseAudioSource :
 	public IAudioSource
 {
 public:
-	BaseAudioSource(void);
+	BaseAudioSource(unsigned int nChannels, unsigned int bufferSize);
 	virtual ~BaseAudioSource(void);
 
 	unsigned int getChunk(double** buffer, unsigned int channel, unsigned int chunkSize);

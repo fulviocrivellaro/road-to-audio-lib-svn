@@ -8,7 +8,7 @@ class BaseAudioSink :
 	public IAudioSink
 {
 public:
-	BaseAudioSink(void);
+	BaseAudioSink(unsigned int nChannels, unsigned int bufferSize);
 	~BaseAudioSink(void);
 
 	virtual unsigned int takeChunk(double** buffer, unsigned int channel, unsigned int chunkSize);

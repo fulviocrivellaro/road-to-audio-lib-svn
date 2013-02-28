@@ -6,7 +6,7 @@ class SinOscillator :
 	public BaseAudioSource
 {
 public:
-	SinOscillator(double f, unsigned int fs);
+	SinOscillator(double f, unsigned int fs, unsigned int bufferSize);
 	~SinOscillator(void);
 
 	void setFrequencyInHz(double f);

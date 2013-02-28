@@ -4,8 +4,8 @@
 
 #include <iostream>
 
-NoiseAdder::NoiseAdder(double noiseGain)
-	: BaseAudioNode()
+NoiseAdder::NoiseAdder(double noiseGain, unsigned int bufferSize)
+	: BaseAudioNode(1, 1, bufferSize)
 {
 	mNoiseGain = noiseGain;
 }

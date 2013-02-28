@@ -2,8 +2,8 @@
 
 #include "AudioMultiBuffer.h"
 
-SawOscillator::SawOscillator(double f, unsigned int fs)
-	: BaseAudioSource()
+SawOscillator::SawOscillator(double f, unsigned int fs, unsigned int bufferSize)
+	: BaseAudioSource(1, bufferSize)
 {
 	mFrequency = f;
 	mSamplingFrequency = fs;

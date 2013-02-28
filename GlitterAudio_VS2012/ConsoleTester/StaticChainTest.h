@@ -9,7 +9,6 @@
 #include "IAudioSink.h"
 #include "GlitterAudio.h"
 #include "StaticChain.h"
-//#include "MonoSplitter.h"
 #include "NoiseAdder.h"
 
 #include "SinOscillator.h"
@@ -51,9 +50,11 @@ int staticChainAudioTest() {
 	int f = 220;
 	int fs = 48000;
 
+	unsigned int bufferSize = 2048;
+
 	// nodes
-	IAudioSource* osc1 = new SinOscillator(f, (int)fs);
-	BaseAudioNode* noiseAdder = new NoiseAdder(0.00001);
+	IAudioSource* osc1 = new SinOscillator(f, fs, bufferSize);
+	BaseAudioNode* noiseAdder = new NoiseAdder(0.00001, bufferSize);
 	IAudioPlayer* player = audio->getAudioPlayerForDevice();
 
 	// chain

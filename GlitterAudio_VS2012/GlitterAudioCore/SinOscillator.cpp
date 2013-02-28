@@ -3,8 +3,8 @@
 #include "Utils.h"
 #include <math.h>
 
-SinOscillator::SinOscillator(double f, unsigned int fs)
-	: BaseAudioSource()
+SinOscillator::SinOscillator(double f, unsigned int fs, unsigned int bufferSize)
+	: BaseAudioSource(1, bufferSize)
 {
 	mFrequency = f;
 	mSamplingFrequency = fs;

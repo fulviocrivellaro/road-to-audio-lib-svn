@@ -1,9 +1,9 @@
 #include "BaseAudioSource.h"
 #include "AudioMultiBuffer.h"
 
-BaseAudioSource::BaseAudioSource(void)
+BaseAudioSource::BaseAudioSource(unsigned int nChannels, unsigned int bufferSize)
 {
-	mSourceBuffer = new AudioMultiBuffer(1, 8192);
+	mSourceBuffer = new AudioMultiBuffer(nChannels, bufferSize);
 }
 
 BaseAudioSource::~BaseAudioSource(void)

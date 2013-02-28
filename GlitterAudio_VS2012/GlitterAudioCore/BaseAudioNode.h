@@ -7,7 +7,7 @@ class BaseAudioNode :
 	public BaseAudioSource, public BaseAudioSink
 {
 public:
-	BaseAudioNode::BaseAudioNode();
+	BaseAudioNode::BaseAudioNode(unsigned int nInputChannels, unsigned int nOutputChannels, unsigned int bufferSize);
 	virtual ~BaseAudioNode(void) {}
 
 	// node method(s)
