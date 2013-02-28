@@ -11,7 +11,7 @@ public:
 	NoiseAdder(double noiseGain);
 	~NoiseAdder(void);
 	
-	unsigned int processChunk(unsigned int chunkSize);
+	void doProcessChunk(double** input, double** output, unsigned int nInputChannels, unsigned int nOutputChannels, unsigned int chunkSize);
 
 private:
 	double mNoiseGain;

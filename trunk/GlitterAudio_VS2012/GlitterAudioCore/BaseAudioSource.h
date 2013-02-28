@@ -13,7 +13,9 @@ public:
 	unsigned int getChunk(double** buffer, unsigned int channel, unsigned int chunkSize);
 	void consumeChunk(unsigned int channel, unsigned int chunkSize);
 
+	virtual unsigned int processChunk(unsigned int chunkSize) = 0;
+
 protected:
-	AudioMultiBuffer* mOutputBuffer;
+	AudioMultiBuffer* mSourceBuffer;
 };
 

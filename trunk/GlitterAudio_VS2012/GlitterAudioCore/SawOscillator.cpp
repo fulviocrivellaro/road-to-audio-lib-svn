@@ -2,7 +2,7 @@
 
 
 SawOscillator::SawOscillator(double f, unsigned int fs)
-	: BaseAudioGenerator()
+	: BaseAudioSource()
 {
 	mFrequency = f;
 	mSamplingFrequency = fs;

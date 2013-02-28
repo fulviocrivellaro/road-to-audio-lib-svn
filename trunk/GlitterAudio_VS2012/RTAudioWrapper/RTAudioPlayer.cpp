@@ -113,14 +113,20 @@ int rtAudioBufferedCallback(void *outputBuffer, void *inputBuffer, unsigned int 
 	{
 		double* samplePointer;
 
-		// wait for enough samples (TODO: switch to synchronous method)
-		while (bufferedStreamData->outputBuffer->getChunk(&samplePointer, c, nBufferFrames) < nBufferFrames);
-		
-		for (unsigned int i=0; i<nBufferFrames; i++)
+		int count = bufferedStreamData->outputBuffer->getChunk(&samplePointer, c, nBufferFrames);
+		unsigned int i;
+		// copy as much samples as available
+		for (i=0; i<count; i++)
 		{
 			*buffer++ = samplePointer[i];
 		}
-		// TODO: create synchronous buffer call
+		// fill with zeros if unavailable (would cause ***glitters***)
+		while (i<nBufferFrames)
+		{
+			*buffer++ = 0;
+			i++;
+		}
+		// TODO: create synchronous buffer call?
 		bufferedStreamData->outputBuffer->consumeChunk(c, nBufferFrames);
 	}
 

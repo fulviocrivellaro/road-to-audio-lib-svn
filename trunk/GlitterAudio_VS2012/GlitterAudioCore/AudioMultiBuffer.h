@@ -25,7 +25,14 @@ public:
 	unsigned int getNChannels() const;
 	unsigned int getBufferSize() const;
 
+	// minimum samples count across channels
+	//unsigned int countAvailableSamples() const;
+	// minimum samples count on specific channel
 	unsigned int countAvailableSamples(unsigned int channel) const;
+	
+	// minimum free samples count across channels
+	//unsigned int countFreeSamples() const;
+	// minimum free samples on specific channel
 	unsigned int countFreeSamples(unsigned int channel) const;
 
 private:

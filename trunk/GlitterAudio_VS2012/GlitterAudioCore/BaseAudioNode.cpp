@@ -1,21 +1,45 @@
 #include "BaseAudioNode.h"
+#include "AudioMultiBuffer.h"
 
-unsigned int BaseAudioNode::getChunk(double** buffer, unsigned int channel, unsigned int chunkSize)
+#include <iostream>
+
+BaseAudioNode::BaseAudioNode()
+	: BaseAudioSource(), BaseAudioSink()
 {
-	return this->BaseAudioSource::getChunk(buffer, channel, chunkSize);
 }
 
-void BaseAudioNode::consumeChunk(unsigned int channel, unsigned int chunkSize)
+unsigned int BaseAudioNode::processChunk(unsigned int chunkSize)
 {
-	this->BaseAudioSource::consumeChunk(channel, chunkSize);
-}
+	unsigned int count = chunkSize;
+	unsigned int nSinkChannels = mSinkBuffer->getNChannels();
+	unsigned int nSourceChannels = mSourceBuffer->getNChannels();
 
-unsigned int BaseAudioNode::takeChunk(double** buffer, unsigned int channel, unsigned int chunkSize)
-{
-	return this->BaseAudioSink::takeChunk(buffer, channel, chunkSize);
-}
+	double** input = new double*[nSinkChannels];
+	double** output = new double*[nSourceChannels];
 
-void BaseAudioNode::convalidateChunk(unsigned int channel, unsigned int chunkSize)
-{
-	return this->BaseAudioSink::convalidateChunk(channel, chunkSize);
+	for (unsigned int c=0; c<nSourceChannels; c++)
+	{
+		count = mSinkBuffer->getChunk(&input[c], c, count);
+	}
+	for (unsigned int c=0; c<nSinkChannels; c++)
+	{
+		count = mSourceBuffer->takeChunk(&output[c], c, count);
+	}
+
+	// ask for data processing
+	this->doProcessChunk(input, output, nSourceChannels, nSinkChannels, count);
+
+	for (unsigned int c=0; c<nSinkChannels; c++)
+	{
+		mSinkBuffer->consumeChunk(c, count);
+	}
+	for (unsigned int c=0; c<nSourceChannels; c++)
+	{
+		mSourceBuffer->convalidateChunk(c, count);
+	}
+
+	delete [] input;
+	delete [] output;
+
+	return count;
 }

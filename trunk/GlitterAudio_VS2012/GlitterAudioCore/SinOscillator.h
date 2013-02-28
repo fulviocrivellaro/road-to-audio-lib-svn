@@ -1,11 +1,11 @@
 #pragma once
 
-#include "BaseAudioGenerator.h"
+#include "BaseAudioSource.h"
 
 class AudioMultiBuffer;
 
 class SinOscillator :
-	public BaseAudioGenerator
+	public BaseAudioSource
 {
 public:
 	SinOscillator(double f, unsigned int fs);
@@ -17,7 +17,7 @@ public:
 	void setSamplingFrequency(unsigned int fs);
 	unsigned int getSamplingFrequency() const;
 
-	void createChunk(unsigned int chunkSize);
+	unsigned int processChunk(unsigned int chunkSize);
 
 private:
 	void updateTapsFromConfig();
