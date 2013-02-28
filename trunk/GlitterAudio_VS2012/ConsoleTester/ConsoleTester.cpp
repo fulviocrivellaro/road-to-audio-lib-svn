@@ -170,7 +170,7 @@ public:
 
 			// references double[][] as double** (CircularBuffer format)
 			double** samples = new double*[nChannels];
-			for (int c=0; c<nChannels; c++)
+			for (unsigned int c=0; c<nChannels; c++)
 			{
 				samples[c] = &mReadFrom[c][ptr];
 			}
@@ -216,7 +216,7 @@ public:
 
 			// references double[][] as double** (CircularBuffer format)
 			double** samples = new double*[nChannels];
-			for (int c=0; c<nChannels; c++)
+			for (unsigned int c=0; c<nChannels; c++)
 			{
 				samples[c] = &mWriteTo[c][ptr];
 			}
