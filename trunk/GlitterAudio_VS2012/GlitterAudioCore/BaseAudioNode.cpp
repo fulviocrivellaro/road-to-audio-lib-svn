@@ -3,8 +3,8 @@
 
 #include <iostream>
 
-BaseAudioNode::BaseAudioNode()
-	: BaseAudioSource(), BaseAudioSink()
+BaseAudioNode::BaseAudioNode(unsigned int nInputChannels, unsigned int nOutputChannels, unsigned int bufferSize)
+	: BaseAudioSource(nOutputChannels, bufferSize), BaseAudioSink(nInputChannels, bufferSize)
 {
 }
 

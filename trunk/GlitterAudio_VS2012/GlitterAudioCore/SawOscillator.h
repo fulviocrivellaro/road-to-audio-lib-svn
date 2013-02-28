@@ -6,7 +6,7 @@ class SawOscillator :
 	public BaseAudioSource
 {
 public:
-	SawOscillator(double f, unsigned int fs);
+	SawOscillator(double f, unsigned int fs, unsigned int bufferSize);
 	~SawOscillator(void);
 
 	void setFrequencyInHz(double f);

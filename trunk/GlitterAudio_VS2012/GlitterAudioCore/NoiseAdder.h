@@ -8,7 +8,7 @@ class NoiseAdder :
 	public BaseAudioNode
 {
 public:
-	NoiseAdder(double noiseGain);
+	NoiseAdder(double noiseGain, unsigned int bufferSize);
 	~NoiseAdder(void);
 	
 	void doProcessChunk(double** input, double** output, unsigned int nInputChannels, unsigned int nOutputChannels, unsigned int chunkSize);
