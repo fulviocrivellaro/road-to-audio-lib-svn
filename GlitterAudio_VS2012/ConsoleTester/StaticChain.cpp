@@ -12,11 +12,14 @@ StaticChain::StaticChain(unsigned int chunkSize, IAudioSource* oscillator1, Base
 	mNoiseAdder = noiseAdder;
 	mPlayer = player;
 
+	link(mOscillator1, 0, mPlayer, 0);
+	link(mOscillator1, 1, mPlayer, 1);
+
 	//IAudioSink* sink1[] = {mPlayer, mPlayer};
-	IAudioSink* sink1[] = {mNoiseAdder, mPlayer};
-	unsigned int channels[] = {0, 1};
-	link(mOscillator1, 0, sink1, channels, 2);
-	link(mNoiseAdder, 0, mPlayer, 0);
+	//IAudioSink* sink1[] = {mNoiseAdder, mPlayer};
+	//unsigned int channels[] = {0, 1};
+	//link(mOscillator1, 0, sink1, channels, 2);
+	//link(mNoiseAdder, 0, mPlayer, 0);
 }
 
 
@@ -26,15 +29,8 @@ StaticChain::~StaticChain(void)
 
 void StaticChain::processChunk()
 {
-	// generate sound
-	//mOscillator1->createChunk(mChunkSize);
-
-	// pass to player AND to noise generator
-	mLinks[0]->moveData(mChunkSize);
-
-	// add noise
-	//mNoiseAdder->processChunk(mChunkSize);
-
-	// pass noisy channel to player
-	mLinks[1]->moveData(mChunkSize);
+	for (unsigned int i=0; i<mLinks.size(); i++)
+	{
+		mLinks[i]->moveData(mChunkSize);
+	}
 }

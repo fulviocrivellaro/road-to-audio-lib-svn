@@ -34,9 +34,6 @@
     <ClCompile Include="AudioFacadeFactory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="WaveAudioSource.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="AudioLink.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -73,6 +70,9 @@
     <ClCompile Include="BaseAudioSource.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="WavReader.cpp">
+      <Filter>Nodes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="IAudioSource.h">
@@ -94,9 +94,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="AudioFacadeFactory.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="WaveAudioSource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="AudioLink.h">
@@ -146,6 +143,9 @@
     </ClInclude>
     <ClInclude Include="BaseAudioSource.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="WavReader.h">
+      <Filter>Nodes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -14,8 +14,6 @@
 #include "SawOscillator.h"
 #include "CircularBuffer.h"
 
-#include "WaveAudioSource.h"
-
 #include "Thread.h"
 #include "IRunnable.h"
 
