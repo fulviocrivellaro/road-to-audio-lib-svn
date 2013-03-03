@@ -10,6 +10,7 @@
 #include "GlitterAudio.h"
 #include "StaticChain.h"
 #include "NoiseAdder.h"
+#include "WavReader.h"
 
 #include "SinOscillator.h"
 
@@ -48,9 +49,12 @@ int staticChainAudioTest() {
 	GlitterAudio* audio = new GlitterAudio();
 	
 	int f = 220;
-	int fs = 48000;
+	int fs = 44100;
 
 	unsigned int bufferSize = 2048;
+
+	std::string path("C:\\Users\\Work\\Projects\\audio-lib\\wavSources\\ns.wav");
+	WavReader reader(path);
 
 	// nodes
 	IAudioSource* osc1 = new SinOscillator(f, fs, bufferSize);
@@ -58,7 +62,7 @@ int staticChainAudioTest() {
 	IAudioPlayer* player = audio->getAudioPlayerForDevice();
 
 	// chain
-	StaticChain chain(1024, osc1, noiseAdder, player);
+	StaticChain chain(1024, &reader, noiseAdder, player);
 
 	bool ok = player->open(*audio->listDevicesForDriver(AudioDriver::WIN_ASIO)[0], 2, (unsigned int)fs, CHUNK_SIZE);
 
