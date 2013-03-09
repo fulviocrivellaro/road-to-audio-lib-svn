@@ -6,6 +6,8 @@
 #include <vector>
 
 class AudioMultiBuffer;
+class IAudioSource;
+class AudioDevice;
 
 struct BufferedStreamData
 {

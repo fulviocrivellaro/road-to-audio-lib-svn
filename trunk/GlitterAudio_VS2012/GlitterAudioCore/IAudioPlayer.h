@@ -2,6 +2,8 @@
 
 #include "IAudioSink.h"
 
+class AudioDevice;
+
 class IAudioPlayer : public IAudioSink
 {
 public:
