@@ -1,8 +1,5 @@
 #pragma once
 
-class IAudioSource;
-class AudioDevice;
-
 class IAudioSink
 {
 public:
