@@ -1,0 +1,1 @@
+SVN cloning of GIT support project
